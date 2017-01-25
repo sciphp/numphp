@@ -1,0 +1,11 @@
+# coding: utf8
+import numpy as np
+
+for i in range(1, 10):
+  v = np.full(i, 42)
+
+  for j in range(1, 10):
+    v = np.full((i, j), 42)
+
+    for k in range(1, 10):
+      v = np.full((i, j, k), 42)

@@ -1,0 +1,24 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+php:
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - 7.1
+  - hhvm
+
+install:
+  - composer install
+
+script: phpunit -c test/Unit/phpunit.xml.dist
+
+after_script:
+  ## Code climate
+  - ./vendor/bin/test-reporter

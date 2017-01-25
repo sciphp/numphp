@@ -1,0 +1,21 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 1; $i < 5; $i++)
+{
+  for ($j = 10; $j < 100; $j++)
+  {   
+    // default step = 1
+    $v = np::arange($i, $j);
+
+    // specific step
+    for ($k = 1; $k < 5; $k++)
+    {
+      $step = $k / $i;
+      np::arange($i, $j, $step);
+    }
+  }
+}

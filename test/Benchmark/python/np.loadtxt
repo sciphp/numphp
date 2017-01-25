@@ -1,0 +1,7 @@
+# coding: utf8
+import numpy as np
+import os
+
+path = os.path.dirname(os.path.realpath(__file__)) + '/../../Resources/files/winequality-white.csv'
+
+r = np.loadtxt(path, skiprows = 1, delimiter = ';')

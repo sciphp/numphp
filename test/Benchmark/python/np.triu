@@ -1,0 +1,8 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(1, 225, 225).reshape(15, 15);
+
+for i in range(0, 15):
+  for j in range(-15, 16):
+    m = np.triu(m, j)

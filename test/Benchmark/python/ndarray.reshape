@@ -1,0 +1,11 @@
+# coding: utf8
+import numpy as np
+
+for i in range(1, 5):
+
+  for j in range(1, 10):
+    v = np.ones((i, j)).reshape(j, i)
+    
+    for k in range(1, 10):
+      v = np.ones((i, j, k)).reshape(k, i, j)
+

@@ -1,0 +1,16 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = np::linspace(1, 225, 225)->reshape(15, 15);
+
+
+for ($i = 0; $i < 15; $i++)
+{
+  for ($j = -15; $j < 16; $j++)
+  {
+    $m1 = np::tril($m, $j);
+  }
+}

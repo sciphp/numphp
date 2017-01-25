@@ -1,0 +1,12 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = np::linspace(1, 500, 500)->reshape(10, 50);
+
+for ($i = 0; $i < 100; $i++)
+{
+  $m = np::transpose($m);
+}

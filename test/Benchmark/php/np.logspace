@@ -1,0 +1,25 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 1; $i < 5; $i++)
+{
+  for ($j = 10; $j < 20; $j++)
+  {
+    $start = $j / $i;
+
+    // default number of elements (50)
+    np::logspace($start, $j);
+
+    // specified number of elements
+    for ($k = 1; $k < 6; $k++)
+    {
+      np::logspace($start, $j, $k);
+      np::logspace($start, $j, $k, false);    // no endpoint
+      np::logspace($start, $j, $k, true, 2);  // base 2 + endpoint
+      np::logspace($start, $j, $k, false, 5); // base 5 - endpoint
+    }
+  }
+}

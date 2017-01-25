@@ -1,0 +1,14 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = np::linspace(0, 25, 25)->reshape(5, 5);
+
+for ($i = 0; $i < 50; $i++)
+{
+  $r = $m->trace();
+  $r = $m->trace(-1);
+  $r = $m->trace(1);
+}

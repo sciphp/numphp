@@ -1,0 +1,13 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = np::linspace(-25, 25);
+$n = np::linspace(25, -25);
+
+for ($i = 0; $i < 50; $i++)
+{
+  $r = $m->copysign($n);
+}

@@ -1,0 +1,16 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 1; $i < 10; $i += 2)
+{
+  $m = np::linspace(1, 10, $i);
+
+  for ($j = 1; $j < 20; $j++)
+  {
+    $m1 = $m->vander();
+    $m1 = $m->vander($j);
+  }
+}

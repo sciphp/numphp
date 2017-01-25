@@ -1,0 +1,21 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 1; $i < 10; $i++)
+{
+  $v = np::ones($i);
+
+  for ($j = 1; $j < 10; $j++)
+  {
+    $v = np::ones($i, $j);
+
+    for ($k = 1; $k < 10; $k++)
+    {
+      $v = np::ones($i, $j, $k);
+    }
+  }
+}
+

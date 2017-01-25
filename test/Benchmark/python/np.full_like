@@ -1,0 +1,11 @@
+# coding: utf8
+import numpy as np
+
+m10  = np.linspace(0, 10, 10)   .reshape(1, 10)
+m100 = np.linspace(0, 10, 100)  .reshape(10, 10)
+m1000= np.linspace(0, 10, 1000) .reshape(100, 10)
+
+for i in range(0, 100):
+  v = np.full_like(m10, 42)
+  v = np.full_like(m100, 42)
+  v = np.full_like(m1000, 42)

@@ -1,0 +1,7 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(1, 50).reshape(10, 5)
+
+for i in range(0, 100):
+  d = m.ndim

@@ -1,0 +1,9 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$path = __DIR__ . '/../../Resources/files/winequality-white.csv';
+
+$r = np::loadtxt($path, ['headers' => true]);

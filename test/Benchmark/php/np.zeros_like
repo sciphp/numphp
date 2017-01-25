@@ -1,0 +1,16 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m10  = np::linspace(0, 10, 10)   ->reshape(1, 10);
+$m100 = np::linspace(0, 10, 100)  ->reshape(10, 10);
+$m1000= np::linspace(0, 10, 1000) ->reshape(100, 10);
+
+for ($i = 0; $i < 100; $i++)
+{
+  $v = np::zeros_like($m10);
+  $v = np::zeros_like($m100);
+  $v = np::zeros_like($m1000);
+}

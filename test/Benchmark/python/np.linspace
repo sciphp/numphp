@@ -1,0 +1,17 @@
+# coding: utf8
+import numpy as np
+
+for i in np.arange(1., 5.):
+  for j in np.arange(10., 100.):
+    start = j / i
+
+    # default number of elements (50)
+    v = np.linspace(start, j)
+
+    # specified number of elements
+    for k in range(1, 6):
+      np.linspace(start, j, k)
+      np.linspace(start, j, k, False)      # no endpoint
+      np.linspace(start, j, k, True, True) # step return + endpoint
+      np.linspace(start, j, k, False, True)# step return - endpoint
+

@@ -1,0 +1,17 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = np::linspace(1, 50)->reshape(10, 5);
+
+for ($i = 0; $i < 100; $i++)
+{
+  $d = $m->shape;
+  
+  $m->shape = [
+    ($m->shape[0] == 10 ? 5 : 10),
+    ($m->shape[1] == 10 ? 5 : 10)
+  ];
+}

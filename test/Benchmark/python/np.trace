@@ -1,0 +1,9 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(0, 25, 25).reshape(5, 5)
+
+for i in range(0, 50):
+  r = np.trace(m)
+  r = np.trace(m, -1)
+  r = np.trace(m, 1)

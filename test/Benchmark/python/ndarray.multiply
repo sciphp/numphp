@@ -1,0 +1,7 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(1, 500, 500).reshape(10, 50)
+
+for i in range(1, 50):
+  m = m * i

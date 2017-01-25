@@ -1,0 +1,8 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(1, 50).reshape(10, 5)
+
+for i in range(0, 50):
+  d = m[2:9, 2:4]
+  m[2:9, 2:4] = i

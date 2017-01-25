@@ -1,0 +1,9 @@
+# coding: utf8
+import numpy as np
+
+for i in range(0, 10):
+  for j in range(0, 10):
+    for k in range(0, 3):
+      v1 = np.diag((i, j, k))
+      v2 = np.diag((i, j, k), 1)
+      v3 = np.diag((i, j, k), -1)

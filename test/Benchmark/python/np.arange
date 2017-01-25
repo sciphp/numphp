@@ -1,0 +1,13 @@
+# coding: utf8
+import numpy as np
+
+for i in np.arange(1., 5.):
+  for j in range(10, 100):
+
+    # default step = 1
+    v = np.arange(i, j)
+
+    # specific step
+    for k in range(1, 5):
+      step = k / i
+      np.arange(i, j, step)

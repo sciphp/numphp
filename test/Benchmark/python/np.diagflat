@@ -1,0 +1,17 @@
+# coding: utf8
+import numpy as np
+
+for i in range(0, 10):
+  for j in range(1, 11):
+    for k in range(0, 3):
+      v1 = np.diagflat(
+        np.linspace(k, i, j)
+      )
+      v2 = np.diagflat(
+        np.linspace(k, i, j),
+        1
+      )
+      v3 = np.diagflat(
+        np.linspace(k, i, j), 
+        -1
+      )

@@ -1,0 +1,7 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(-25, 25)
+
+for i in range(0, 100):
+  r = np.trapz(m)

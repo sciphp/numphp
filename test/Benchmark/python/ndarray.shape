@@ -1,0 +1,11 @@
+# coding: utf8
+import numpy as np
+
+m = np.linspace(1, 50).reshape(10, 5)
+
+for i in range(0, 100):
+  d = m.shape
+  m.shape = (
+    (5 if m.shape[0] == 10 else 10),
+    (5 if m.shape[1] == 10 else 10)
+  )

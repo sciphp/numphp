@@ -1,0 +1,26 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 0; $i < 10; $i++)
+{
+  for ($j = 1; $j < 11; $j++)
+  {
+    for ($k = 0; $k < 3; $k++)
+    {
+      $v1 = np::diagflat(
+        np::linspace($k, $i, $j)
+      );
+      $v2 = np::diagflat(
+        np::linspace($k, $i, $j),
+        1
+      );
+      $v3 = np::diagflat(
+        np::linspace($k, $i, $j),
+        -1
+      );
+    }
+  }
+}
