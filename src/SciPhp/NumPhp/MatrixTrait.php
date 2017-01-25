@@ -78,6 +78,4 @@ trait MatrixTrait
       )
     );
   }
-
-  public abstract static function ar(array $array);
 }
