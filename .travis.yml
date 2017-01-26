@@ -18,7 +18,3 @@ install:
   - phpunit --self-update
 
 script: phpunit -c test/Unit/phpunit.xml.dist
-
-after_script:
-  ## Code climate
-  - ./vendor/bin/test-reporter
