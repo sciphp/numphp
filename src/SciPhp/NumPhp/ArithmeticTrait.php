@@ -13,12 +13,9 @@ trait ArithmeticTrait
    * Return the reciprocal of the argument, element-wise.
    * 
    * @param \SciPhp\NdArray|array|float|int $m
-   * 
    * @return \SciPhp\NdArray
-   *
    * @link http://sciphp.org/numphp.reciprocal
    *  Documentation for reciprocal() method
-   * 
    * @api
    */
   final public static function reciprocal($m)
@@ -44,19 +41,15 @@ trait ArithmeticTrait
    * Subtract a matrix from matrix
    * 
    * @param \SciPhp\NdArray|array|float|int $m
-   * 
    * @param \SciPhp\NdArray|array|float|int $n
-   * 
    * @return \SciPhp\NdArray
-   *
    * @link http://sciphp.org/numphp.subtract
    *  Documentation for subtract() method
-   * 
    * @api
    */
   final public static function subtract($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
+    if (static::allNumeric($m, $n))
     {
       return $m - $n;
     }
@@ -87,20 +80,16 @@ trait ArithmeticTrait
   /**
    * Add two array_like
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
-   * @param \SciPhp\NdArray|array|int|float $n
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
+   * @param  \SciPhp\NdArray|array|int|float $n
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.add
    *  Documentation for add() method
-   * 
    * @api
    */
   final public static function add($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
+    if (static::allNumeric($m, $n))
     {
       return $m + $n;
     }
@@ -131,22 +120,17 @@ trait ArithmeticTrait
   /**
    * Divide two arrays, element-wise
    * 
-   * @param \SciPhp\NdArray|array|float|int $m A 2-dim array.
-   * 
-   * @param \SciPhp\NdArray|array|float|int $n A 2-dim array.
-   * 
+   * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
+   * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
    * @return \SciPhp\NdArray|float|int
-   *
    * @throws \InvalidArgumentException
-   * 
    * @link http://sciphp.org/numphp.divide
    *  Documentation for divide()
-   * 
    * @api
    */
   final public static function divide($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
+    if (static::allNumeric($m, $n))
     {
       Assert::notEq(0, $n);
 
@@ -224,22 +208,17 @@ trait ArithmeticTrait
   /**
    * Multiply two arrays, element-wise
    * 
-   * @param \SciPhp\NdArray|array|float|int $m A 2-dim array.
-   * 
-   * @param \SciPhp\NdArray|array|float|int $n A 2-dim array.
-   * 
+   * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
+   * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
    * @return \SciPhp\NdArray|float|int
-   *
    * @throws \InvalidArgumentException
-   * 
    * @link http://sciphp.org/numphp.multiply
    *  Documentation for multiply()
-   * 
    * @api
    */
   final public static function multiply($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
+    if (static::allNumeric($m, $n))
     {
       return $m * $n;
     }
@@ -314,22 +293,17 @@ trait ArithmeticTrait
   /**
    * Dot product of two arrays
    * 
-   * @param \SciPhp\NdArray|array|float|int $m A 2-dim array.
-   * 
-   * @param \SciPhp\NdArray|array|float|int $n A 2-dim array.
-   * 
+   * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
+   * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
    * @return \SciPhp\NdArray|float|int
-   *
    * @throws \InvalidArgumentException
-   * 
    * @link http://sciphp.org/numphp.dot
    *  Documentation for dot()
-   * 
    * @api
    */
   final public static function dot($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
+    if (static::allNumeric($m, $n))
     {
       return $m * $n;
     }
@@ -423,10 +397,8 @@ trait ArithmeticTrait
   /**
    * Browse p rows
    * 
-   * @param \SciPhp\NdArray $m
-   * 
-   * @param \SciPhp\NdArray $n
-   * 
+   * @param  \SciPhp\NdArray $m
+   * @param  \SciPhp\NdArray $n
    * @return \Closure
    */
   final protected static function rowDot(NdArray $m, NdArray $n)
@@ -439,10 +411,8 @@ trait ArithmeticTrait
   /**
    * Browse p cols and sum products
    * 
-   * @param \SciPhp\NdArray $m
-   * 
-   * @param \SciPhp\NdArray $n
-   * 
+   * @param  \SciPhp\NdArray $m
+   * @param  \SciPhp\NdArray $n
    * @return \Closure
    */
   final protected static function colDot($row_m, NdArray $m, NdArray $n)

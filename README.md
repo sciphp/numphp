@@ -8,4 +8,3 @@ NumPhp is a port of the famous NumPy (Python) package in PHP language.
 - [Documentation](http://sciphp.org)
 - [Code coverage](http://sciphp.org/coverage/)
 - [API](http://sciphp.org/api/)
-

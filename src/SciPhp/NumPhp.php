@@ -13,14 +13,11 @@ final class NumPhp extends Decorator
   /**
    * Construct a n-dimensional array
    * 
+   * @param array $data
+   * @return \SciPhp\NdArray
+   * @api
    * @link http://sciphp.org/numphp.ar
    *  Documentation of NumPhp::ar().
-   * 
-   * @api
-   * 
-   * @param array $data
-   * 
-   * @return \SciPhp\NdArray
    */
   final public static function ar(array $data)
   {
@@ -30,14 +27,13 @@ final class NumPhp extends Decorator
   /**
    * Parse args as a tuple or an array
    * 
-   * @param array|array[] $args
-   * 
+   * @param  array|array[] $args
    * @return array
+   * @api
    */
   final public static function parseArgs(array $args)
   {
-    if (isset($args[0]) && is_array($args[0]))
-    {
+    if (isset($args[0]) && is_array($args[0])) {
       Assert::oneOf(
         self::ar($args[0])->ndim,
         [0, 1],
@@ -53,4 +49,25 @@ final class NumPhp extends Decorator
 
     return $args;
   }
+
+
+  /**
+   * Check that all values are numeric
+   * 
+   * @param  array $args
+   * @return bool
+   * @api
+   */
+  final public static function allNumeric()
+  {
+    return !count(
+      array_filter(
+        func_get_args(),
+        function ($value) {
+        return !is_numeric($value);
+      })
+    );
+  }
+
+
 }
