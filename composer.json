@@ -10,6 +10,9 @@
         "php": ">=5.6.0 || ^7.0",
         "webmozart/assert": "^1.2"
     },
+    "require-dev": {
+        "codeclimate/php-test-reporter": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "SciPhp\\": "src/SciPhp/",
