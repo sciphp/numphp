@@ -13,6 +13,11 @@ php:
   - 7.1
   - hhvm
 
+matrix:
+  include:
+    - python: 2.7
+      env: NUMPY=1.8 SCIPY=0.13
+
 install:
   - composer install --prefer-source --no-interaction
   # PHPUnit
