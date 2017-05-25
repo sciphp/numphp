@@ -66,8 +66,7 @@ trait DiagonalTrait
     Assert::greaterThan($rows, 0);
     Assert::greaterThanEq($cols, 0);
 
-    if (0 === $cols)
-    {
+    if (0 === $cols) {
       $cols = $rows;
     }
 
@@ -102,8 +101,7 @@ trait DiagonalTrait
     Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
 
-    if ($m->ndim == 1)
-    {
+    if ($m->ndim == 1) {
       return self::fromDiagonal($m->data, $k);
     }
 
@@ -199,20 +197,13 @@ trait DiagonalTrait
    */
   final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1)
   {
-    return function($item) use (&$line, &$col, $diagonal, $k)
-    {
-      if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) 
-      {
-        $item[$col] = $diagonal[$col - $k];
-    
+    return function($item) use (&$line, &$col, $diagonal, $k) {
+      if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {
+        $item[$col] = $diagonal[$col - $k];    
         $col++;
-      }
-      elseif ($k < 0) 
-      {
-        if ($line++ > -$k && isset($item[$col], $diagonal[$col])) 
-        {
+      } elseif ($k < 0) {
+        if ($line++ > -$k && isset($item[$col], $diagonal[$col])) {
           $item[$col] = $diagonal[$col];
-    
           $col++;
         }
       }

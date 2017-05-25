@@ -16,8 +16,7 @@ trait MatrixTrait
    */
   final public static function negative($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return -$m;
     }
 
@@ -48,8 +47,7 @@ trait MatrixTrait
       __METHOD__ . '() does not support dimension greater than 2'
     );
 
-    if (in_array($m->ndim, [0, 1]))
-    {
+    if (in_array($m->ndim, [0, 1])) {
       return $m;
     }
 

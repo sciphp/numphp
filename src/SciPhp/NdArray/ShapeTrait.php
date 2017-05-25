@@ -60,8 +60,7 @@ trait ShapeTrait
    * @return \SciPhp\NdArray
    * @throws \InvalidArgumentException 
    *  if shape parameter has a different size
-   * @link http://sciphp.org/ndarray.reshape
-   *  Documentation for reshape() method
+   * @link http://sciphp.org/ndarray.reshape Documentation
    * @api
    */
   final public function reshape()

@@ -23,8 +23,7 @@ trait FloatTrait
    */
   final public static function signbit($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return $m < 0;
     }
 
@@ -55,14 +54,12 @@ trait FloatTrait
     static::transform($n);
 
     // array / lamba
-    if (is_numeric($n) && $m instanceof NdArray)
-    {
+    if (is_numeric($n) && $m instanceof NdArray) {
       return $m->copy()->copysign($n);
     }
 
     // lamba / array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return static::full_like($n, $m)->copysign($n);
     }
 
@@ -71,28 +68,24 @@ trait FloatTrait
     Assert::isInstanceof($n, 'SciPhp\NdArray');
 
     // n & m are vectors: 
-    if (count($m->shape) == 1 && $m->ndim == $n->ndim)
-    {
+    if (count($m->shape) == 1 && $m->ndim == $n->ndim) {
       Assert::eq($m->shape, $n->shape, 'Matrices are not aligned.');
     }
 
     // n is a vector
-    elseif (!isset($n->shape[1]))
-    {
+    elseif (!isset($n->shape[1])) {
       Assert::eq($m->shape[1], $n->shape[0], 'Matrices are not aligned.');
     }
 
     // m is a vector
-    elseif (!isset($m->shape[1]))
-    {
+    elseif (!isset($m->shape[1])) {
       Assert::eq($m->shape[0], $n->shape[1], 'Matrices are not aligned.');
 
       $m = $m->resize($n->shape);
     }
 
     // array / array
-    elseif ($m->ndim === $n->ndim)
-    {
+    elseif ($m->ndim === $n->ndim) {
       Assert::eq($m->shape, $n->shape, 'Matrices are not aligned.');
     }
 
@@ -102,8 +95,7 @@ trait FloatTrait
     );
 
     $func = function(&$item) use (&$iterator, $n) {
-      if (np::signbit($item) !== np::signbit($n->iterate($iterator)))
-      {
+      if (np::signbit($item) !== np::signbit($n->iterate($iterator))) {
         $item = -$item;
       }
     };

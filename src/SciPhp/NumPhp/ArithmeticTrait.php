@@ -20,8 +20,7 @@ trait ArithmeticTrait
    */
   final public static function reciprocal($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       Assert::notEq(0, $m);
 
       return 1 / $m;
@@ -40,14 +39,12 @@ trait ArithmeticTrait
    * @param \SciPhp\NdArray|array|float|int $m
    * @param \SciPhp\NdArray|array|float|int $n
    * @return \SciPhp\NdArray
-   * @link http://sciphp.org/numphp.subtract
-   *  Documentation for subtract() method
+   * @link http://sciphp.org/numphp.subtract Documentation
    * @api
    */
   final public static function subtract($m, $n)
   {
-    if (static::allNumeric($m, $n))
-    {
+    if (static::allNumeric($m, $n)) {
       return $m - $n;
     }
 
@@ -55,8 +52,7 @@ trait ArithmeticTrait
     static::transform($n);
 
     // lambda - array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return static::full_like($n, $m)->subtract($n);
     }
 
@@ -73,14 +69,12 @@ trait ArithmeticTrait
    * @param  \SciPhp\NdArray|array|int|float $m
    * @param  \SciPhp\NdArray|array|int|float $n
    * @return \SciPhp\NdArray|int|float
-   * @link http://sciphp.org/numphp.add
-   *  Documentation for add() method
+   * @link http://sciphp.org/numphp.add Documentation
    * @api
    */
   final public static function add($m, $n)
   {
-    if (static::allNumeric($m, $n))
-    {
+    if (static::allNumeric($m, $n)) {
       return $m + $n;
     }
 
@@ -88,8 +82,7 @@ trait ArithmeticTrait
     static::transform($n);
 
     // lambda + array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return $n->copy()->add($m);
     }
 
@@ -113,8 +106,7 @@ trait ArithmeticTrait
    */
   final public static function divide($m, $n)
   {
-    if (static::allNumeric($m, $n))
-    {
+    if (static::allNumeric($m, $n)) {
       Assert::notEq(0, $n);
 
       return $m / $n;
@@ -124,14 +116,12 @@ trait ArithmeticTrait
     static::transform($n);
 
     // array / lamba
-    if (is_numeric($n) && $m instanceof NdArray)
-    {
+    if (is_numeric($n) && $m instanceof NdArray) {
       return $m->copy()->divide($n);
     }
     
     // lamba / array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return static::full_like($n, $m)->divide($n);
     }
 
@@ -143,28 +133,24 @@ trait ArithmeticTrait
     $shape_n = $n->shape;
 
     // n & m are vectors: 
-    if (count($shape_m) == 1 && $m->ndim == $n->ndim)
-    {
+    if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
       Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
     }
 
     // n is a vector
-    elseif (!isset($shape_n[1]))
-    {
+    elseif (!isset($shape_n[1])) {
       Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
     }
 
     // m is a vector
-    elseif (!isset($shape_m[1]))
-    {
+    elseif (!isset($shape_m[1])) {
       Assert::eq($shape_m[0], $shape_n[1], 'Matrices are not aligned.');
 
       $m = $m->resize($shape_n);
     }
 
     // array / array
-    elseif ($m->ndim === $n->ndim)
-    {
+    elseif ($m->ndim === $n->ndim) {
       Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
     }
 
@@ -188,14 +174,12 @@ trait ArithmeticTrait
    * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
    * @return \SciPhp\NdArray|float|int
    * @throws \InvalidArgumentException
-   * @link http://sciphp.org/numphp.multiply
-   *  Documentation for multiply()
+   * @link http://sciphp.org/numphp.multiply Documentation
    * @api
    */
   final public static function multiply($m, $n)
   {
-    if (static::allNumeric($m, $n))
-    {
+    if (static::allNumeric($m, $n)) {
       return $m * $n;
     }
 
@@ -203,14 +187,12 @@ trait ArithmeticTrait
     static::transform($n);
 
     // array * lamba
-    if (is_numeric($n) && $m instanceof NdArray)
-    {
+    if (is_numeric($n) && $m instanceof NdArray) {
       return $m->copy()->dot($n);
     }
 
     // lamba * array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return $n->copy()->dot($m);
     }
 
@@ -222,28 +204,24 @@ trait ArithmeticTrait
     $shape_n = $n->shape;
 
     // n & m are vectors: 
-    if (count($shape_m) == 1 && $m->ndim == $n->ndim)
-    {
+    if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
       Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
     }
 
     // n is a vector
-    elseif (!isset($shape_n[1]))
-    {
+    elseif (!isset($shape_n[1])) {
       Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
     }
 
     // m is a vector
-    elseif (!isset($shape_m[1]))
-    {
+    elseif (!isset($shape_m[1])) {
       Assert::eq($shape_m[0], $shape_n[1], 'Matrices are not aligned.');
 
       $m = $m->resize($shape_n);
     }
 
     // array * array
-    elseif ($m->ndim === $n->ndim)
-    {
+    elseif ($m->ndim === $n->ndim) {
       Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
     }
 
@@ -266,14 +244,12 @@ trait ArithmeticTrait
    * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
    * @return \SciPhp\NdArray|float|int
    * @throws \InvalidArgumentException
-   * @link http://sciphp.org/numphp.dot
-   *  Documentation for dot()
+   * @link http://sciphp.org/numphp.dot Documentation
    * @api
    */
   final public static function dot($m, $n)
   {
-    if (static::allNumeric($m, $n))
-    {
+    if (static::allNumeric($m, $n)) {
       return $m * $n;
     }
 
@@ -281,14 +257,12 @@ trait ArithmeticTrait
     static::transform($n);
 
     // array.lamba
-    if (is_numeric($n) && $m instanceof NdArray)
-    {
+    if (is_numeric($n) && $m instanceof NdArray) {
       return $m->copy()->dot($n);
     }
     
     // lamba.array
-    if (is_numeric($m) && $n instanceof NdArray)
-    {
+    if (is_numeric($m) && $n instanceof NdArray) {
       return $n->copy()->dot($m);
     }
 
@@ -300,8 +274,7 @@ trait ArithmeticTrait
     $shape_n = $n->shape;
 
     // n & m are vectors: 
-    if (count($shape_m) == 1 && $m->ndim == $n->ndim)
-    {
+    if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
       Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
 
       return array_sum(
@@ -316,8 +289,7 @@ trait ArithmeticTrait
     }
 
     // n is a vector
-    if (!isset($shape_n[1]))
-    {
+    if (!isset($shape_n[1])) {
       Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
 
       return static::zeros($shape_m[0], 1)
@@ -330,8 +302,7 @@ trait ArithmeticTrait
     }
 
     // m is a vector
-    if (!isset($shape_m[1]))
-    {
+    if (!isset($shape_m[1])) {
       Assert::eq($shape_m[0], $shape_n[0], 'Matrices are not aligned.');
 
       $callback = function(&$item, $k_m) use ($m, $n) {

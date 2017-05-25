@@ -24,8 +24,7 @@ trait TriangleTrait
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
-    if (!isset($m->data[0]))
-    {
+    if (!isset($m->data[0])) {
       return static::ar([[]]);
     }
 
@@ -51,15 +50,12 @@ trait TriangleTrait
    */
   final protected static function itemTriu($col, $k, $count, $line = 1)
   {
-    return function($item) use (&$col, &$line, $k, $count)
-    {
-      if ($k >= 0 || ($k < 0 && $line++ > -$k))
-      {
+    return function($item) use (&$col, &$line, $k, $count) {
+      if ($k >= 0 || ($k < 0 && $line++ > -$k)) {
         $num = $col++;
       }
 
-      if (isset($num))
-      {
+      if (isset($num)) {
         return array_replace(
           $item,
           array_fill(0, min($num, $count), 0)
@@ -87,8 +83,7 @@ trait TriangleTrait
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
-    if (!isset($m->data[0]))
-    {
+    if (!isset($m->data[0])) {
       return static::ar([[]]);
     }
 
@@ -114,21 +109,16 @@ trait TriangleTrait
    */
   final protected static function itemTril($col, $k, $count, $line = 1)
   {
-    return function($item) use (&$col, &$line, $k, $count)
-    {
-      if ($k >= 0)
-      {
+    return function($item) use (&$col, &$line, $k, $count) {
+      if ($k >= 0) {
         $num = $count - ++$col;
-      }
-      else
-      {
+      } else {
         $num = $line++ > -$k
           ? $count - ++$col
           : $count;
       }
 
-      if ($num > 0)
-      {
+      if ($num > 0) {
         return array_replace(
           $item,
           array_fill($col, $num, 0)
@@ -155,8 +145,7 @@ trait TriangleTrait
     Assert::integer($rows);
     Assert::greaterThan($rows, 0);
 
-    if (null === $cols)
-    {
+    if (null === $cols) {
       $cols = $rows;
     }
 

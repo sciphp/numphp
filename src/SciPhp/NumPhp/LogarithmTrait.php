@@ -17,8 +17,7 @@ trait LogarithmTrait
    */
   final public static function log($m, $base = M_E)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       Assert::greaterThan($base, 0);
       Assert::greaterThan($m, 0);
 

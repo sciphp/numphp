@@ -19,8 +19,7 @@ trait ExponentTrait
    */
   final public static function exp($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return exp($m);
     }
 
@@ -41,8 +40,7 @@ trait ExponentTrait
    */
   final public static function expm1($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return expm1($m);
     }
 
@@ -63,8 +61,7 @@ trait ExponentTrait
    */
   final public static function exp2($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return 2 ** $m;
     }
 
