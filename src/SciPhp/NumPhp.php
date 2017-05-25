@@ -13,11 +13,10 @@ final class NumPhp extends Decorator
   /**
    * Construct a n-dimensional array
    * 
-   * @param array $data
+   * @param  array $data
    * @return \SciPhp\NdArray
+   * @link http://sciphp.org/numphp.ar Documentation
    * @api
-   * @link http://sciphp.org/numphp.ar
-   *  Documentation of NumPhp::ar().
    */
   final public static function ar(array $data)
   {
@@ -64,10 +63,9 @@ final class NumPhp extends Decorator
       array_filter(
         func_get_args(),
         function ($value) {
-        return !is_numeric($value);
-      })
+          return !is_numeric($value);
+        }
+      )
     );
   }
-
-
 }
