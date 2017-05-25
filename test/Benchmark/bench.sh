@@ -20,15 +20,21 @@ set -o nounset
 cd "$(dirname "$0")"
 echo "" > "output.txt"
 
+if [[ -z "${1+x}" ]]; then
+  NP_FILTER=""
+else
+  NP_FILTER="$1"
+fi
+
 # PHP
-for SCRIPT in php/*$1*
+for SCRIPT in php/*${NP_FILTER}*
 do
   if [ -f "$SCRIPT" ]
   then
     d0=$(date +%s%6N)
     php "$SCRIPT" > "/dev/null"
     d1=$(date +%s%6N)
-    printf "%s %'d ns\n" "$SCRIPT" "$((($d1-$d0)))" >> "output.txt"
+    printf "%s %'d ns\n" "$SCRIPT" "$(((d1-d0)))" >> "output.txt"
     printf "."
   fi
 done
@@ -36,14 +42,14 @@ done
 printf "\n"
 
 # Python
-for SCRIPT in python/*$1*
+for SCRIPT in python/*${NP_FILTER}*
 do
   if [ -f "$SCRIPT" ]
   then
     d0=$(date +%s%6N)
     python "$SCRIPT" > "/dev/null"
     d1=$(date +%s%6N)
-    printf "%s %'d ns\n" "$SCRIPT" "$((($d1-$d0)))" >> "output.txt"
+    printf "%s %'d ns\n" "$SCRIPT" "$(((d1-d0)))" >> "output.txt"
     printf "."
   fi
 done
