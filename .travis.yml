@@ -19,7 +19,7 @@ install:
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "5.6" ]]; then composer require phpunit/phpunit 5.7.*; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then composer require phpunit/phpunit 5.7.*; fi
   - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer require phpunit/phpunit 6.1.*; fi
-  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "hhvm" ]]; then composer require phpunit/phpunit; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:4} == "hhvm" ]]; then composer require phpunit/phpunit; fi
   - ./vendor/bin/phpunit --version
 
 script:
