@@ -6,11 +6,12 @@ use Exception;
 
 class InvalidAttributeException extends Exception
 {
-  public function __construct($class, $attribute, $name = null)
+  public function __construct($class, $attribute)
   {
-    $message = sprintf('Attribute "%s" is not defined. Type="%s"'
-      , $attribute
-      , $class
+    $message = sprintf(
+      'Attribute "%s" is not defined. Type="%s"',
+      $attribute,
+      $class
     );
 
     parent::__construct($message, 0, null);

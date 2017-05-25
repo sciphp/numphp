@@ -16,8 +16,7 @@ trait OperationTrait
    */
   final public static function sum($m)
   {
-    if (is_numeric($m))
-    {
+    if (is_numeric($m)) {
       return $m;
     }
 
@@ -32,13 +31,12 @@ trait OperationTrait
    * Integrate along the given axis using the composite trapezoidal rule.
    * 
    * @param  \SciPhp\NdArray|array $m
-   * @param  array $options
    * @return int|float|array
    * @link http://sciphp.org/numphp.trapz Documentation
    * @todo implement dx, x options parameters
    * @api
    */
-  final public static function trapz($m, array $options = [])
+  final public static function trapz($m)
   {
     static::transform($m);
 
@@ -47,10 +45,9 @@ trait OperationTrait
 
     // dx = 1
     $func = function($value, $key) use (& $prev) {
-      if ($key === 0)
-      {
+      if ($key === 0) {
         $prev = $value;
-        
+
         return 0;
       }
       

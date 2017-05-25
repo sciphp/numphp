@@ -17,10 +17,7 @@ trait ShapeTrait
    * Flattens data array
    *
    * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/ndarray.ravel
-   *  Documentation for ravel() method
-   * 
+   * @link http://sciphp.org/ndarray.ravel Documentation
    * @api
    */
   final public function ravel()
@@ -39,10 +36,7 @@ trait ShapeTrait
    * Resize array
    *
    * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/ndarray.resize
-   *  Documentation for resize() method
-   * 
+   * @link http://sciphp.org/ndarray.resize Documentation
    * @api
    */
   final public function resize()
@@ -63,19 +57,14 @@ trait ShapeTrait
   /**
    * Reshapes data
    * 
-   * @param mixed $params
-   * 
    * @return \SciPhp\NdArray
-   * 
    * @throws \InvalidArgumentException 
    *  if shape parameter has a different size
-   * 
    * @link http://sciphp.org/ndarray.reshape
    *  Documentation for reshape() method
-   * 
    * @api
    */
-  final public function reshape($params)
+  final public function reshape()
   {
     $args = np::parseArgs(func_get_args());
 
@@ -83,8 +72,7 @@ trait ShapeTrait
 
     $data = $this->ravel()->data;
 
-    while (($num = array_pop($args)) && count($args))
-    {
+    while (($num = array_pop($args)) && count($args)) {
       $data = array_chunk($data, $num);
     }
 
@@ -93,17 +81,14 @@ trait ShapeTrait
 
   /**
    * Gets the dimensions of the array
-   * 
-   * @param int|float|array $data Axis
-   * 
-   * @param array $shape
-   * 
+   *
+   * @param  int|float|array $data Axis
+   * @param  array $shape
    * @return array
    */
   final protected function getShape($data, $shape)
   {
-    if (!is_array($data) || !count($data))
-    {
+    if (!is_array($data) || !count($data)) {
       return $shape;
     }
 

@@ -39,7 +39,7 @@ trait MatrixTrait
    * @link http://sciphp.org/numphp.transpose Documentation
    * @api
    */
-  final public static function transpose($m, array $axis = null)
+  final public static function transpose($m)
   {
     static::transform($m);
 

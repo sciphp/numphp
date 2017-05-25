@@ -10,23 +10,16 @@ trait VanderTrait
   /**
    * Generate a Vandermonde matrix.
    * 
-   * @param \SciPhp\NdArray|array $matrix A 1-dim array.
-   * 
-   * @param int $num Number of columns for the output.
-   * 
+   * @param  \SciPhp\NdArray|array $matrix A 1-dim array.
+   * @param  int $num Number of columns for the output.
    * @return \SciPhp\NdArray A Vandermonde matrix
-   * 
    * @throws \InvalidArgumentException
-   *
-   * @link http://sciphp.org/numphp.vander
-   *  Documentation for np::vander()
-   * 
+   * @link http://sciphp.org/numphp.vander Documentation
    * @api
    */
   final public static function vander($matrix, $num = null)
   {
-    if (is_array($matrix))
-    {
+    if (is_array($matrix)) {
       $matrix = static::ar($matrix);
     }
 
@@ -50,20 +43,16 @@ trait VanderTrait
   /**
    * Apply decreasing power on each row values
    * 
-   * @param int $num Number of wanted columns
-   * 
+   * @param  int $num Number of wanted columns
    * @return array
    */
   final protected static function itemVander($num)
   {
-    return function($row, $value) use ($num)
-    {
+    return function($row, $value) use ($num) {
       return array_map(
-        function($val, $key) use ($value, $num)
-        {
+        function($key) use ($value, $num) {
           return pow($value, $num - $key - 1);
         },
-        $row,
         array_keys($row)
       );
     };

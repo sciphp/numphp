@@ -19,7 +19,6 @@ trait AttributeTrait
    * Attribute setter
    * 
    * @param string $name
-   * 
    * @param mixed $value
    */
   final public function __set($name, $value)
@@ -38,10 +37,8 @@ trait AttributeTrait
   /**
    * Generic getter
    * 
-   * @param string $name
-   * 
+   * @param  string $name
    * @return mixed
-   * 
    * @throws \SciPhp\Exception\InvalidAttributeException
    */
   final public function __get($name)
@@ -66,14 +63,12 @@ trait AttributeTrait
   /**
    * Gets NdArray rank
    * 
-   * @param array $data
-   * 
+   * @param  array $data
    * @return int
    */
   final protected function getNdim(array $data)
   {
-    if (isset($data[0]))
-    {
+    if (isset($data[0])) {
       return is_array($data[0])
         ? 1 + $this->getNdim($data[0])
         : 1;
@@ -83,15 +78,14 @@ trait AttributeTrait
   /**
    * Gets the total number of elements of the array
    * 
-   * @param int $count current count
-   * 
+   * @param  int $count current count
    * @return int
    */
   final protected function getSize($count = 0)
   {
     array_walk_recursive(
       $this->data,
-      function ($item) use (&$count) {
+      function () use (&$count) {
         $count++;
       }
     );
