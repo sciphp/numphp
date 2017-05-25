@@ -20,9 +20,7 @@ trait OperationTrait
       return $m;
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->sum();
   }
@@ -38,9 +36,8 @@ trait OperationTrait
    */
   final public static function trapz($m)
   {
-    static::transform($m);
+    static::transform($m, true);
 
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::eq(1, $m->ndim);
 
     // dx = 1

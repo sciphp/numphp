@@ -26,9 +26,7 @@ trait ArithmeticTrait
       return 1 / $m;
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return static::ones($m->shape)->divide($m);
   }
@@ -48,7 +46,6 @@ trait ArithmeticTrait
       return $m - $n;
     }
 
-    static::transform($m);
     static::transform($n);
 
     // lambda - array
@@ -57,7 +54,7 @@ trait ArithmeticTrait
     }
 
     // array - array
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     // array - array OR array - lambda
     return $m->subtract($n);
@@ -78,7 +75,6 @@ trait ArithmeticTrait
       return $m + $n;
     }
 
-    static::transform($m);
     static::transform($n);
 
     // lambda + array
@@ -87,7 +83,7 @@ trait ArithmeticTrait
     }
 
     // array + array
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     // array + array OR array + lambda
     return $m->copy()->add($n);

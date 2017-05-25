@@ -23,9 +23,7 @@ trait DiagonalTrait
    */
   final public static function trace($m, $k = 0)
   {
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return array_sum( static::diagonal($m, $k)->data );
   }
@@ -96,9 +94,8 @@ trait DiagonalTrait
    */
   final public static function diag($m, $k = 0)
   {
-    static::transform($m);
+    static::transform($m, true);
 
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
 
     if ($m->ndim == 1) {
@@ -121,9 +118,8 @@ trait DiagonalTrait
   {
     Assert::integer($k, 'Offset must be an integer. Given %s.');
 
-    static::transform($m);
+    static::transform($m, true);
 
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [1, 2]);
 
     $col  = $k > 0 ?  $k : 0;
@@ -157,9 +153,7 @@ trait DiagonalTrait
   {
     Assert::integer($k);
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return self::fromDiagonal($m->copy()->ravel()->data, $k);
   }

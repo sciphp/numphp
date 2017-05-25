@@ -53,11 +53,16 @@ final class NumPhp extends Decorator
    * Transform a PHP array in a NdArray
    * 
    * @param mixed $m
+   * @param bool  $required
    */
-  final public static function transform(&$m)
+  final public static function transform(&$m, $required = false)
   {
     if (is_array($m)) {
       $m = static::ar($m);
+    }
+
+    if ($required) {
+      Assert::isInstanceof($m, 'SciPhp\NdArray');
     }
   }
 

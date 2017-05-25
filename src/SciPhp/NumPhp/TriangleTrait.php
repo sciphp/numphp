@@ -20,9 +20,7 @@ trait TriangleTrait
   {
     Assert::integer($k);
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     if (!isset($m->data[0])) {
       return static::ar([[]]);
@@ -79,9 +77,7 @@ trait TriangleTrait
   {
     Assert::integer($k);
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     if (!isset($m->data[0])) {
       return static::ar([[]]);

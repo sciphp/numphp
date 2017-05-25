@@ -24,9 +24,7 @@ trait LogarithmTrait
       return log($m, $base);
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->log($base);
   }

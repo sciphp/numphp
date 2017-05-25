@@ -19,11 +19,7 @@ trait VanderTrait
    */
   final public static function vander($matrix, $num = null)
   {
-    if (is_array($matrix)) {
-      $matrix = static::ar($matrix);
-    }
-
-    Assert::isInstanceof($matrix, 'SciPhp\NdArray');
+    static::transform($matrix, true);
 
     $num = null === $num ? count($matrix->data) : $num;
 

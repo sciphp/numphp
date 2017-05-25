@@ -23,9 +23,7 @@ trait ExponentTrait
       return exp($m);
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->exp();
   }
@@ -44,9 +42,7 @@ trait ExponentTrait
       return expm1($m);
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->expm1();
   }
@@ -65,9 +61,7 @@ trait ExponentTrait
       return 2 ** $m;
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->exp2();
   }

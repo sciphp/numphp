@@ -20,9 +20,7 @@ trait MatrixTrait
       return -$m;
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->negative();
   }
@@ -40,9 +38,8 @@ trait MatrixTrait
    */
   final public static function transpose($m)
   {
-    static::transform($m);
+    static::transform($m, true);
 
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [0, 1, 2],
       __METHOD__ . '() does not support dimension greater than 2'
     );

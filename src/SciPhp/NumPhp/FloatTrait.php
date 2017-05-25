@@ -27,9 +27,7 @@ trait FloatTrait
       return $m < 0;
     }
 
-    static::transform($m);
-
-    Assert::isInstanceof($m, 'SciPhp\NdArray');
+    static::transform($m, true);
 
     return $m->signbit();
   }
