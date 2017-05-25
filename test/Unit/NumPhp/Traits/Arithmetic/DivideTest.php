@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp\Traits\Divide;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class DivideTest extends PHPUnit_Framework_TestCase
+class DivideTest extends TestCase
 {
   /**
    * divide(), lambda / lambda

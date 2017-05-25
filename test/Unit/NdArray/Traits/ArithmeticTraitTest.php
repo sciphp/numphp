@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 
-class ArithmeticTraitTest extends PHPUnit_Framework_TestCase
+class ArithmeticTraitTest extends TestCase
 {
   /**
    * add() $input is not an array_like

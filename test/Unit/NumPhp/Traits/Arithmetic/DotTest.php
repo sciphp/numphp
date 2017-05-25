@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp\Traits\Arithmetic;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class DotTest extends PHPUnit_Framework_TestCase
+class DotTest extends TestCase
 {
 
   /**

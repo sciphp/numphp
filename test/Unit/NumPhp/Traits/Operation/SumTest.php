@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp\Traits\Operation;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class SumTest extends PHPUnit_Framework_TestCase
+class SumTest extends TestCase
 {
   /**
    * sum(), lambda

@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 
-class AttributeTest extends PHPUnit_Framework_TestCase
+class AttributeTest extends TestCase
 {
   /**
    * An undefined attribute must throw an exception

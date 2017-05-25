@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp\Traits\Arithmetic;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class SubtractTest extends PHPUnit_Framework_TestCase
+class SubtractTest extends TestCase
 {
   /**
    * subtract(), lambda - lambda

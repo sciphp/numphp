@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class NumPhpTest extends PHPUnit_Framework_TestCase
+class NumPhpTest extends TestCase
 {
   /**
    * A basic call must return a NdArray

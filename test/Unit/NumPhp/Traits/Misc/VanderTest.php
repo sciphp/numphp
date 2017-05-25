@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NumPhp\Traits\Misc;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class VanderTest extends PHPUnit_Framework_TestCase
+class VanderTest extends TestCase
 {
   /**
    * vander(), square array, default number of columns

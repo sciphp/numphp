@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray\Traits\Arithmetic;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class TrilTest extends PHPUnit_Framework_TestCase
+class TrilTest extends TestCase
 {
   /**
    * tril(), square array, offset=0

@@ -3,10 +3,10 @@
 namespace SciPhpTest\NdArray\Traits\Attribute;
 
 use SciPhp\Exception\InvalidAttributeException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 
-class WritingInvalidAttributeTest extends PHPUnit_Framework_TestCase
+class WritingInvalidAttributeTest extends TestCase
 {
   /**
    * Invalid attributes

@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray\Traits\Attribute;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 
-class ShapeTest extends PHPUnit_Framework_TestCase
+class ShapeTest extends TestCase
 {
   /**
    * Reshaping tests

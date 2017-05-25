@@ -2,13 +2,13 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
 /**
  * Any operation must have no impact on storage data
  */
-class AlterTest extends PHPUnit_Framework_TestCase
+class AlterTest extends TestCase
 {
   public function getScenarios()
   {

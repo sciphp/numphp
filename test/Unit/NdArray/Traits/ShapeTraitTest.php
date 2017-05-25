@@ -2,11 +2,11 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 
-class ShapeTraitTest extends PHPUnit_Framework_TestCase
+class ShapeTraitTest extends TestCase
 {
   /**
    * resize() should not modify array

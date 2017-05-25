@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray\Traits\Arithmetic;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class TriuTest extends PHPUnit_Framework_TestCase
+class TriuTest extends TestCase
 {
   /**
    * triu() should not modify initial matrix

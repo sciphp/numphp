@@ -2,11 +2,11 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 
-class IndexTraitTest extends PHPUnit_Framework_TestCase
+class IndexTraitTest extends TestCase
 {
   /**
    * Tests offsetUnset()

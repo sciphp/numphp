@@ -2,10 +2,10 @@
 
 namespace SciPhpTest\NdArray\Traits\Arithmetic;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;
 
-class ReciprocalTest extends PHPUnit_Framework_TestCase
+class ReciprocalTest extends TestCase
 {
   /**
    * reciprocal(), array

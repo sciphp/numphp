@@ -3,22 +3,18 @@
 namespace SciPhpTest\Unit;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
-class MultiRunner extends PHPUnit_Framework_TestCase
+class MultiRunner extends TestCase
 {
   /**
    * Test equality for a method
    * 
    * @param string $type
-   * 
    * @param string $method
-   * 
    * @param mixed $input
-   * 
    * @param mixed $expected
-   * 
    * @param array $args
    */
   public function equals($type, $method, $input, $expected, array $args = null)
@@ -37,13 +33,9 @@ class MultiRunner extends PHPUnit_Framework_TestCase
    * Switch between expected returns
    * 
    * @param string $type
-   * 
    * @param string $method
-   * 
    * @param mixed $input
-   * 
    * @param array $params
-   * 
    * @param mixed $expected
    */
   public function processMethod($type, $method, $input, $params, $expected)
@@ -71,13 +63,9 @@ class MultiRunner extends PHPUnit_Framework_TestCase
    * Test equality for a static method
    * 
    * @param string $type
-   * 
    * @param string $method
-   * 
    * @param mixed $input
-   * 
    * @param mixed $expected
-   * 
    * @param array $args
    */
   public function staticEquals($type, $method, $input, $expected, array $args = null)
@@ -96,11 +84,8 @@ class MultiRunner extends PHPUnit_Framework_TestCase
    * Static switch between expected returns
    * 
    * @param string $type
-   * 
    * @param string $method
-   * 
    * @param array $params
-   * 
    * @param mixed $expected
    */
   public function processStaticMethod($type, $method, $params, $expected)

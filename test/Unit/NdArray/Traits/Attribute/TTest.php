@@ -2,11 +2,11 @@
 
 namespace SciPhpTest\NdArray;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 
-class TTest extends PHPUnit_Framework_TestCase
+class TTest extends TestCase
 {
   /**
    * Tests T attribute
