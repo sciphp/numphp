@@ -16,12 +16,9 @@ trait FloatTrait
   /**
    * Returns element-wise true where signbit is set (less than zero).
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.signbit Documentation
-   * 
    * @api
    */
   final public static function signbit($m)
@@ -44,20 +41,15 @@ trait FloatTrait
   /**
    * Change the sign of m-element to that of n-element, element-wise.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
-   * @param \SciPhp\NdArray|array|int|float $n
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
+   * @param  \SciPhp\NdArray|array|int|float $n
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.copysign Documentation
-   * 
    * @api
    */
   final public static function copysign($m, $n)
   {
-    if (is_numeric($m) && is_numeric($n))
-    {
+    if (static::allNumeric($m, $n)) {
       return np::signbit($m) == np::signbit($n)
         ? $m : -$m;
     }
