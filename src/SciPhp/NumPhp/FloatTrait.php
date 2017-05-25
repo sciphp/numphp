@@ -28,10 +28,7 @@ trait FloatTrait
       return $m < 0;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -54,15 +51,8 @@ trait FloatTrait
         ? $m : -$m;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // array / lamba
     if (is_numeric($n) && $m instanceof NdArray)

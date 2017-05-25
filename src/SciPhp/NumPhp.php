@@ -49,6 +49,17 @@ final class NumPhp extends Decorator
     return $args;
   }
 
+  /**
+   * Transform a PHP array in a NdArray
+   * 
+   * @param mixed $m
+   */
+  final public static function transform(&$m)
+  {
+    if (is_array($m)) {
+      $m = static::ar($m);
+    }
+  }
 
   /**
    * Check that all values are numeric

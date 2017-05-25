@@ -13,27 +13,17 @@ trait DiagonalTrait
   /**
    * Sum along diagonals
    * 
-   * @param \SciPhp\NdArray|array $m
-   * 
-   * @param int $k offset
-   * 
+   * @param  \SciPhp\NdArray|array $m
+   * @param  int $k offset
    * @return int|float|array
-   * 
    * @throws \InvalidArgumentException
-   * 
-   * @link http://sciphp.org/numphp.trace
-   *  Documentation for trace()
-   * 
+   * @link http://sciphp.org/numphp.trace Documentation
    * @todo Implement axis supports
-   * 
    * @api
    */
   final public static function trace($m, $k = 0)
   {
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -43,17 +33,11 @@ trait DiagonalTrait
   /**
    * Construct an identity array
    * 
-   * @param int $n
-   * 
+   * @param  int $n
    * @return \SciPhp\NdArray
-   * 
    * @throws \InvalidArgumentException
-   * 
-   * @link http://sciphp.org/numphp.identity
-   *  Documentation for identity()
-   * 
+   * @link http://sciphp.org/numphp.identity Documentation
    * @todo implement Assert::natural()
-   * 
    * @api
    */
   final public static function identity($n)
@@ -67,17 +51,11 @@ trait DiagonalTrait
   /**
    * Construct a diagonal array 
    * 
-   * @param int $rows Number of rows
-   * 
-   * @param int $cols Number of columns
-   * 
-   * @param int $k    Offset
-   *
+   * @param  int $rows Number of rows
+   * @param  int $cols Number of columns
+   * @param  int $k    Offset
    * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/numphp.eye
-   *  Documentation for eye()
-   * 
+   * @link http://sciphp.org/numphp.eye Documentation
    * @api
    */
   final public static function eye($rows, $cols = 0, $k = 0)
@@ -110,25 +88,16 @@ trait DiagonalTrait
   /**
    * Extract a diagonal or construct a diagonal array
    * 
-   * @param array|\SciPhp\NdArray $m
-   * 
-   * @param int $k Diagonal
-   * 
+   * @param  array|\SciPhp\NdArray $m
+   * @param  int $k Diagonal
    * @return \SciPhp\NdArray
-   * 
    * @throws \SciPhp\Exception\InvalidArgumentException
-   * 
-   * @link http://sciphp.org/numphp.diag
-   *  Documentation for diag()
-   * 
+   * @link http://sciphp.org/numphp.diag Documentation
    * @api
    */
   final public static function diag($m, $k = 0)
   {
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
@@ -144,25 +113,17 @@ trait DiagonalTrait
   /**
    * Extract a diagonal
    * 
-   * @param \SciPhp\NdArray|array $m
-   * 
-   * @param int $k Offset
-   * 
+   * @param  \SciPhp\NdArray|array $m
+   * @param  int $k Offset
    * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/numphp.diagonal
-   *  Documentation for diagonal()
-   * 
+   * @link http://sciphp.org/numphp.diagonal Documentation
    * @api
    */
   final public static function diagonal($m, $k = 0)
   {
     Assert::integer($k, 'Offset must be an integer. Given %s.');
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [1, 2]);
@@ -188,25 +149,17 @@ trait DiagonalTrait
    * Create a two-dimensional array with the flattened input 
    * as a diagonal.
    * 
-   * @param mixed $m An array to flatten
-   * 
-   * @param int $k
-   * 
+   * @param  mixed $m An array to flatten
+   * @param  int $k
    * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/numphp.diagflat
-   *  Documentation for diagflat()
-   * 
+   * @link http://sciphp.org/numphp.diagflat Documentation
    * @api
    */
   final public static function diagflat($m, $k = 0)
   {
     Assert::integer($k);
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -216,10 +169,8 @@ trait DiagonalTrait
   /**
    * Construct a diagonal array
    * 
-   * @param array $diagonal
-   * 
-   * @param int $k
-   * 
+   * @param  array $diagonal
+   * @param  int $k
    * @return \SciPhp\NdArray
    */
   final protected static function fromDiagonal(array $diagonal, $k)
@@ -241,12 +192,9 @@ trait DiagonalTrait
   /**
    * Fill a line among diagonal, offset and indexes
    * 
-   * @param int   $col  Diagonal column index
-   * 
-   * @param array $diagonal
-   * 
-   * @param int   $k    Offset
-   * 
+   * @param  int   $col  Diagonal column index
+   * @param  array $diagonal
+   * @param  int   $k    Offset
    * @return array
    */
   final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1)

@@ -9,14 +9,10 @@ trait LogarithmTrait
   /**
    * Natural logarithm, element-wise.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
-   * @param int|float $base
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
+   * @param  int|float $base
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.log Documentation
-   * 
    * @api
    */
   final public static function log($m, $base = M_E)
@@ -29,10 +25,7 @@ trait LogarithmTrait
       return log($m, $base);
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -42,12 +35,9 @@ trait LogarithmTrait
   /**
    * Base 10 logarithm, element-wise.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.log10 Documentation
-   * 
    * @api
    */
   final public static function log10($m)
@@ -59,11 +49,8 @@ trait LogarithmTrait
    * Base 2 logarithm, element-wise.
    * 
    * @param \SciPhp\NdArray|array|int|float $m
-   * 
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.log2 Documentation
-   * 
    * @api
    */
   final public static function log2($m)

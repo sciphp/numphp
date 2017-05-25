@@ -12,12 +12,9 @@ trait ExponentTrait
   /**
    * Calculate the exponential of all elements in the input array.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.exp Documentation
-   * 
    * @api
    */
   final public static function exp($m)
@@ -27,10 +24,7 @@ trait ExponentTrait
       return exp($m);
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -40,12 +34,9 @@ trait ExponentTrait
   /**
    * Calculate exp(x) - 1 for all elements in the array.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.expm1 Documentation
-   * 
    * @api
    */
   final public static function expm1($m)
@@ -55,10 +46,7 @@ trait ExponentTrait
       return expm1($m);
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -68,12 +56,9 @@ trait ExponentTrait
   /**
    * Calculate 2**p for all p in the input array.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray|int|float
-   * 
    * @link http://sciphp.org/numphp.exp2 Documentation
-   * 
    * @api
    */
   final public static function exp2($m)
@@ -83,10 +68,7 @@ trait ExponentTrait
       return 2 ** $m;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 

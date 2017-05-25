@@ -27,10 +27,7 @@ trait ArithmeticTrait
       return 1 / $m;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -54,15 +51,8 @@ trait ArithmeticTrait
       return $m - $n;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // lambda - array
     if (is_numeric($m) && $n instanceof NdArray)
@@ -94,15 +84,8 @@ trait ArithmeticTrait
       return $m + $n;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // lambda + array
     if (is_numeric($m) && $n instanceof NdArray)
@@ -137,15 +120,8 @@ trait ArithmeticTrait
       return $m / $n;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // array / lamba
     if (is_numeric($n) && $m instanceof NdArray)
@@ -223,15 +199,8 @@ trait ArithmeticTrait
       return $m * $n;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // array * lamba
     if (is_numeric($n) && $m instanceof NdArray)
@@ -308,15 +277,8 @@ trait ArithmeticTrait
       return $m * $n;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
-
-    if (is_array($n))
-    {
-      $n = static::ar($n);
-    }
+    static::transform($m);
+    static::transform($n);
 
     // array.lamba
     if (is_numeric($n) && $m instanceof NdArray)

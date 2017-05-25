@@ -9,12 +9,9 @@ trait OperationTrait
   /**
    * Sum all elements.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return int|float
-   * 
    * @link http://sciphp.org/numphp.sum Documentation
-   * 
    * @api
    */
   final public static function sum($m)
@@ -24,10 +21,7 @@ trait OperationTrait
       return $m;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -37,24 +31,16 @@ trait OperationTrait
   /**
    * Integrate along the given axis using the composite trapezoidal rule.
    * 
-   * @param \SciPhp\NdArray|array $m
-   * 
-   * @param array $options
-   * 
+   * @param  \SciPhp\NdArray|array $m
+   * @param  array $options
    * @return int|float|array
-   * 
    * @link http://sciphp.org/numphp.trapz Documentation
-   * 
    * @todo implement dx, x options parameters
-   * 
    * @api
    */
   final public static function trapz($m, array $options = [])
   {
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::eq(1, $m->ndim);

@@ -9,12 +9,9 @@ trait MatrixTrait
   /**
    * Numerical negative, element-wise.
    * 
-   * @param \SciPhp\NdArray|array|int|float $m
-   * 
+   * @param  \SciPhp\NdArray|array|int|float $m
    * @return \SciPhp\NdArray
-   * 
    * @link http://sciphp.org/numphp.negative Documentation
-   * 
    * @api
    */
   final public static function negative($m)
@@ -24,10 +21,7 @@ trait MatrixTrait
       return -$m;
     }
 
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
 
@@ -37,27 +31,17 @@ trait MatrixTrait
   /**
    * Permute the dimensions of an array.
    * 
-   * @param array|\SciPhp\NdArray $m
-   * 
-   * @param array $axis
-   * 
-   * @todo Implement axis permutation for ndim > 2
-   * 
+   * @param  array|\SciPhp\NdArray $m
+   * @param  array $axis
+   * @todo   Implement axis permutation for ndim > 2
    * @return \SciPhp\NdArray
-   * 
    * @throws \InvalidArgumentException
-   * 
-   * @link http://sciphp.org/numphp.transpose
-   *  Documentation for transpose()
-   * 
+   * @link http://sciphp.org/numphp.transpose Documentation
    * @api
    */
   final public static function transpose($m, array $axis = null)
   {
-    if (is_array($m))
-    {
-      $m = static::ar($m);
-    }
+    static::transform($m);
 
     Assert::isInstanceof($m, 'SciPhp\NdArray');
     Assert::oneOf($m->ndim, [0, 1, 2],
