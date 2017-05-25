@@ -15,6 +15,7 @@ php:
 
 before_install:
  - sudo apt-get install -qq python-numpy python-scipy
+ - pip install numpy
 
 install:
   - composer install --prefer-source --no-interaction

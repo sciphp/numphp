@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/bash -e
+
+set -o nounset
 
 #----------------------------------------------------------------------#
 # This script runs small PHP and Python scripts to make a comparison
