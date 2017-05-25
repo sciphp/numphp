@@ -25,6 +25,8 @@ install:
 script:
   # Run PHP unit tests
   - ./vendor/bin/phpunit -c test/Unit/phpunit.xml.dist
+  # Run benchmark tests
+  - ./test/Benchmark/bench.sh
 
 after_script:
   ## Code climate
