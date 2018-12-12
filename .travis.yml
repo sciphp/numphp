@@ -30,6 +30,12 @@ install:
   - if [[ ${TRAVIS_PHP_VERSION:0:4} == "hhvm" ]]; then composer require phpunit/phpunit; fi
   - ./vendor/bin/phpunit --version
 
+before_script: 
+    ## Install Code climate reporter
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter 
+    - chmod +x ./cc-test-reporter 
+    - ./cc-test-reporter before-build
+
 script:
   # Run PHP unit tests
   - ./vendor/bin/phpunit -c test/Unit/phpunit.xml.dist
@@ -38,4 +44,4 @@ script:
 
 after_script:
   ## Code climate
-  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./vendor/bin/test-reporter; fi
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
