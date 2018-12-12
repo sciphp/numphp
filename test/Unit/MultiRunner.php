@@ -21,9 +21,10 @@ class MultiRunner extends TestCase
   {
     $params = [];
 
-    while (count($args))
-    {
-      $params[] = array_shift($args);
+    if (!is_null($args)) {
+        while (count($args)) {
+          $params[] = array_shift($args);
+        }
     }
 
     $this->processMethod($type, $method, $input, $params, $expected);
@@ -72,9 +73,10 @@ class MultiRunner extends TestCase
   {
     $params[] = $input;
 
-    while (count($args))
-    {
-      $params[] = array_shift($args);
+    if (!is_null($args)) {
+        while (count($args)) {
+          $params[] = array_shift($args);
+        }
     }
 
     $this->processStaticMethod($type, $method, $params, $expected);
