@@ -13,7 +13,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - hhvm
+  - hhvm-nightly
 
 before_install:
  - sudo apt-get install -qq python-numpy python-scipy
