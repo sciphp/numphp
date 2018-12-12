@@ -3,11 +3,12 @@
 namespace SciPhp\NdArray;
 
 use ArrayAccess;
+use Countable;
 
 /**
  * Multiple inheritance for NdArray
  */
-abstract class Decorator implements ArrayAccess, IndexInterface
+abstract class Decorator implements ArrayAccess, Countable, IndexInterface
 {
   use ArithmeticTrait;
   use AttributeTrait;

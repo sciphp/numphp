@@ -9,6 +9,16 @@ use Webmozart\Assert\Assert;
  */
 trait IndexTrait
 {
+    /**
+     * Provide count method for \Countable interface
+     * 
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->data);
+    }
+
   /**
    * Get a view by index
    * 
