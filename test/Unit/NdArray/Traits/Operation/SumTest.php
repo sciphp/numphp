@@ -1,43 +1,36 @@
 <?php
 
-namespace SciPhpTest\NdArray\Traits\Arithmetic;
+namespace SciPhpTest\NdArray\Traits\Operation;
 
-use PHPUnit\Framework\TestCase;
-use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
+use SciPhpTest\Unit\MultiRunner;
 
-class SumTest extends TestCase
+class SumTest extends MultiRunner
 {
-  /**
-   * sum(), 1-dim array
-   */
-  public function testOneDimArray()
-  {
-    $this->assertEquals(
-      6,
-      (new NdArray([0, 2, 4]))->sum()
-    );
-  }
+    public function getScenarios()
+    {
+        // method / input / expected / args
+        return [
+            ['sum', [], 0                                              ], # 0 dim
+            ['sum', [[]], 0                                            ], # 0 dim
+            ['sum', [0, 2, 4], 6                                       ], # 1 dim with values
+            ['sum', [[0, 2, 4], [6, 8, 10]], 30                        ], # 2 dim
+            ['sum', [[[0, 2, 4]], [[6, 8, 10]]], 30                    ], # 3 dim
+            
+            // Sum over axis
+            ['sum', [[0, 1], [0, 5], [2, 0]], [2, 6], [0]              ], # Axis 0
+            ['sum', [[0, 1], [0, 5], [2, 0]], [1, 5, 2], [1]           ], # Axis 1
+        ];
+    }
 
-  /**
-   * sum(), 2-dim array
-   */
-  public function testTwoDimArray()
-  {
-    $this->assertEquals(
-      30,
-      np::ar([[0, 2, 4], [6, 8, 10]])->sum()
-    );
-  }
+    /**
+     * @dataProvider getScenarios
+     */
+    public function testScenario($func, $input, $expected, $args = null)
+    {
+        $matrix = np::ar($input);
 
-  /**
-   * sum(), 3-dim array
-   */
-  public function testThreeDimArray()
-  {
-    $this->assertEquals(
-      30,
-      np::ar([[[0, 2, 4]], [[6, 8, 10]]])->sum()
-    );
-  }
+        // Input won be used here
+        $this->equals($matrix, $func, null, $expected, $args);
+    }
 }

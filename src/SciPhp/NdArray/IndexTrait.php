@@ -19,247 +19,247 @@ trait IndexTrait
         return count($this->data);
     }
 
-  /**
-   * Get a view by index
-   * 
-   * @param mixed $index
-   * 
-   * @return mixed
-   */
-  final public function offsetGet($index)
-  {
-    // @todo slicing or indexing switch here
-    if ((is_string($index) || is_int($index))
-         && preg_match(static::IDX_PAT_FILTER, $index)
-         && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
-    ) {
-      $params = $this->indexFilter($matches);
-
-      $data = $this->filterGet($params, 0, $this->data);
-
-      return is_array($data) ? new static($data) : $data;
-    }
-    // @todo filtering with array and NdArray
-
-    return Assert::false($index, 'Index "%s" is not defined');
-  }
-
-  /**
-   * Set a view by index
-   * 
-   * @param int|string $index
-   * 
-   * @param int|string $value
-   * 
-   * @return \SciPhp\NdArray
-   */
-  final public function offsetSet($index, $value)
-  {
-    if ((is_string($index) || is_int($index))
-         && preg_match(static::IDX_PAT_FILTER, $index)
-         && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
-    ) {
-      $params = $this->indexFilter($matches);
-
-      $this->filterSet($params, 0, $this->data, $value);
-    }
-    else
+    /**
+     * Get a view by index
+     * 
+     * @param mixed $index
+     * 
+     * @return mixed
+     */
+    final public function offsetGet($index)
     {
-      return Assert::false($index, 'Index "%s" is not defined');
-    }
-
-    return $this;
-  }
-
-  /**
-   * Get values from an element or a range
-   *
-   * @param array $filter
-   * 
-   * @param int $index
-   * 
-   * @param array $data
-   * 
-   * @return int|float|array $value
-   */
-  final protected function filterGet(array $filter, $index, array &$data = null)
-  {
-    if (!isset($filter['start'][$index]))
-    {
-      return $data;
-    }
-
-    list($start, $stop) = $this->filterRange($filter, $index, count($data));
-
-    $stack = array_map(
-      function($value) use ($filter, $index) {
-        return is_array($value)
-             ? $this->filterGet($filter, $index + 1, $value)
-             : $value;
-      },
-      array_slice($data, $start, $stop - $start + 1)
-    );
-
-    return $start === $stop ? $stack[0] : $stack;
-  }
-
-  /**
-   * Assign values to an element or a range
-   *
-   * @param array $filter
-   * 
-   * @param int $index
-   * 
-   * @param array $data
-   * 
-   * @param int|float $value
-   */
-  final protected function filterSet(array $filter, $index, array &$data = null, $value)
-  {
-    if (!isset($filter['start'][$index]))
-    {
-      return array_walk_recursive($data, function(&$item) use ($value) {
-        $item = $value;
-      });
-    }
-
-    list($start, $stop) = $this->filterRange($filter, $index, count($data));
-
-    array_walk(
-      $data,
-      function(&$item, $key) use ($filter, $index, $value, $start, $stop) {
-        if ($key >= $start && $key <= $stop) {
-          if (is_array($item)) {
-            $this->filterSet($filter, $index + 1, $item, $value);
-          }
-          else {
-            $item = $value;
-          }
-        }
-      }
-    );
-  }
-
-  /**
-   * Prepare filter values
-   * 
-   * @param array $filter
-   *
-   * @return array $filter
-   */
-  final protected function indexFilter($matches)
-  {
-    $filter = [];
-
-    array_walk(
-      $matches,
-      function($item, $key) use (&$filter) {
-        if (!is_int($key)) {
-          $filter[$key] = $item;
-        }
-      }
-    );
-
-    $params = [];
-
-    array_walk(
-      $filter['start'],
-      function($value, $key) use (&$params, $filter) {
-        if ($value !== '' 
-          || $filter['col'] [$key] !== ''
-          || $filter['stop'][$key] !== ''
-          || $filter['comma'][$key] !== ''
+        // @todo slicing or indexing switch here
+        if ((is_string($index) || is_int($index))
+                 && preg_match(static::IDX_PAT_FILTER, $index)
+                 && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
         ) {
-          $params['start'][] = intval($value);
-          $params['col']  [] = $filter['col'][$key];
-          $params['stop'] [] = intval($filter['stop'][$key]);
-          $params['comma'][] = $filter['comma'][$key];
+            $params = $this->indexFilter($matches);
+
+            $data = $this->filterGet($params, 0, $this->data);
+
+            return is_array($data) ? new static($data) : $data;
         }
-      }
-    );
-    
-    return $params;
-  }
+        // @todo filtering with array and NdArray
 
-  /**
-   * Get range definition
-   * 
-   * @param array $filter
-   * 
-   * @param int $index
-   * 
-   * @param int $count
-   * 
-   * @return int[$start, $stop]
-   */
-  final protected function filterRange(array $filter, $index, $count)
-  {
-    // eq. '-1' '-1,' '-1:-1,' '-2:-1,'
-    if ($filter['start'][$index] < 0)
-    {
-      $filter['start'][$index] = $count + $filter['start'][$index] + 1;
+        return Assert::false($index, 'Index "%s" is not defined');
     }
 
-    // all, eq. ','  ':,' '0:0,'
-    if ($filter['start'][$index] == 0 && $filter['stop'][$index] == 0)
+    /**
+     * Set a view by index
+     * 
+     * @param int|string $index
+     * 
+     * @param int|string $value
+     * 
+     * @return \SciPhp\NdArray
+     */
+    final public function offsetSet($index, $value)
     {
-      $filter['start'][$index] = 1;
-      $filter['stop'][$index] = $count;
-    }
-    // one value, eq. '1,'
-    elseif ($filter['start'][$index] > 0 && $filter['stop'][$index] == 0
-            && $filter['col'][$index] !== ':')
-    {
-      $filter['stop'][$index] = $filter['start'][$index];
-    }
+        if ((is_string($index) || is_int($index))
+                 && preg_match(static::IDX_PAT_FILTER, $index)
+                 && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
+        ) {
+            $params = $this->indexFilter($matches);
 
-    $start = $filter['start'][$index] - 1;
+            $this->filterSet($params, 0, $this->data, $value);
+        }
+        else
+        {
+            return Assert::false($index, 'Index "%s" is not defined');
+        }
 
-    Assert::range($start, 0, $count - 1);
-
-    // eq. ':-1,' '2:-2,'
-    if ($filter['stop'][$index] < 0)
-    {
-      $stop = $count + $filter['stop'][$index];
-    }
-    // eq. ':5,' '2:3,'
-    elseif ($filter['stop'][$index] > 0)
-    {
-      $stop = $filter['stop'][$index] - 1;
-    }
-    // eq. '-2:,'
-    elseif ($filter['stop'][$index] == 0 && $filter['col'][$index] == ':')
-    {
-      $stop = $count - 1;
+        return $this;
     }
 
-    Assert::range($stop, $start, $count - 1, 'Stop index must be [%s, %s]. Got %s.');
+    /**
+     * Get values from an element or a range
+     *
+     * @param array $filter
+     * 
+     * @param int $index
+     * 
+     * @param array $data
+     * 
+     * @return int|float|array $value
+     */
+    final protected function filterGet(array $filter, $index, array &$data = null)
+    {
+        if (!isset($filter['start'][$index]))
+        {
+            return $data;
+        }
 
-    return [$start, $stop];
-  }
+        list($start, $stop) = $this->filterRange($filter, $index, count($data));
 
-  /**
-   * Remove a portion of the data array
-   * 
-   * @param mixed $offset
-   * 
-   * @return bool
-   */
-  final public function offsetUnset($offset)
-  {
-    return is_array(array_splice($this->data, $offset));
-  }
+        $stack = array_map(
+            function($value) use ($filter, $index) {
+                return is_array($value)
+                         ? $this->filterGet($filter, $index + 1, $value)
+                         : $value;
+            },
+            array_slice($data, $start, $stop - $start + 1)
+        );
 
-  /**
-   * Check that an index is defined
-   * 
-   * @param mixed $offset
-   * 
-   * @return bool
-   */
-  final public function offsetExists($offset)
-  {
-    return isset($this->data[$offset]) 
-        || array_key_exists($offset, $this->data);
-  }
+        return $start === $stop ? $stack[0] : $stack;
+    }
+
+    /**
+     * Assign values to an element or a range
+     *
+     * @param array $filter
+     * 
+     * @param int $index
+     * 
+     * @param array $data
+     * 
+     * @param int|float $value
+     */
+    final protected function filterSet(array $filter, $index, array &$data = null, $value)
+    {
+        if (!isset($filter['start'][$index]))
+        {
+            return array_walk_recursive($data, function(&$item) use ($value) {
+                $item = $value;
+            });
+        }
+
+        list($start, $stop) = $this->filterRange($filter, $index, count($data));
+
+        array_walk(
+            $data,
+            function(&$item, $key) use ($filter, $index, $value, $start, $stop) {
+                if ($key >= $start && $key <= $stop) {
+                    if (is_array($item)) {
+                        $this->filterSet($filter, $index + 1, $item, $value);
+                    }
+                    else {
+                        $item = $value;
+                    }
+                }
+            }
+        );
+    }
+
+    /**
+     * Prepare filter values
+     * 
+     * @param array $filter
+     *
+     * @return array $filter
+     */
+    final protected function indexFilter($matches)
+    {
+        $filter = [];
+
+        array_walk(
+            $matches,
+            function($item, $key) use (&$filter) {
+                if (!is_int($key)) {
+                    $filter[$key] = $item;
+                }
+            }
+        );
+
+        $params = [];
+
+        array_walk(
+            $filter['start'],
+            function($value, $key) use (&$params, $filter) {
+                if ($value !== '' 
+                    || $filter['col'] [$key] !== ''
+                    || $filter['stop'][$key] !== ''
+                    || $filter['comma'][$key] !== ''
+                ) {
+                    $params['start'][] = intval($value);
+                    $params['col']    [] = $filter['col'][$key];
+                    $params['stop'] [] = intval($filter['stop'][$key]);
+                    $params['comma'][] = $filter['comma'][$key];
+                }
+            }
+        );
+        
+        return $params;
+    }
+
+    /**
+     * Get range definition
+     * 
+     * @param array $filter
+     * 
+     * @param int $index
+     * 
+     * @param int $count
+     * 
+     * @return int[$start, $stop]
+     */
+    final protected function filterRange(array $filter, $index, $count)
+    {
+        // eq. '-1' '-1,' '-1:-1,' '-2:-1,'
+        if ($filter['start'][$index] < 0)
+        {
+            $filter['start'][$index] = $count + $filter['start'][$index] + 1;
+        }
+
+        // all, eq. ','    ':,' '0:0,'
+        if ($filter['start'][$index] == 0 && $filter['stop'][$index] == 0)
+        {
+            $filter['start'][$index] = 1;
+            $filter['stop'][$index] = $count;
+        }
+        // one value, eq. '1,'
+        elseif ($filter['start'][$index] > 0 && $filter['stop'][$index] == 0
+                        && $filter['col'][$index] !== ':')
+        {
+            $filter['stop'][$index] = $filter['start'][$index];
+        }
+
+        $start = $filter['start'][$index] - 1;
+
+        Assert::range($start, 0, $count - 1);
+
+        // eq. ':-1,' '2:-2,'
+        if ($filter['stop'][$index] < 0)
+        {
+            $stop = $count + $filter['stop'][$index];
+        }
+        // eq. ':5,' '2:3,'
+        elseif ($filter['stop'][$index] > 0)
+        {
+            $stop = $filter['stop'][$index] - 1;
+        }
+        // eq. '-2:,'
+        elseif ($filter['stop'][$index] == 0 && $filter['col'][$index] == ':')
+        {
+            $stop = $count - 1;
+        }
+
+        Assert::range($stop, $start, $count - 1, 'Stop index must be [%s, %s]. Got %s.');
+
+        return [$start, $stop];
+    }
+
+    /**
+     * Remove a portion of the data array
+     * 
+     * @param mixed $offset
+     * 
+     * @return bool
+     */
+    final public function offsetUnset($offset)
+    {
+        return is_array(array_splice($this->data, $offset));
+    }
+
+    /**
+     * Check that an index is defined
+     * 
+     * @param mixed $offset
+     * 
+     * @return bool
+     */
+    final public function offsetExists($offset)
+    {
+        return isset($this->data[$offset]) 
+                || array_key_exists($offset, $this->data);
+    }
 }

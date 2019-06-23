@@ -1,6 +1,6 @@
 <?php
 
-namespace SciPhpTest\Unit\NumPhp\Traits\Diagonal;
+namespace SciPhpTest\Unit\NumPhp\LinAlg;
 
 use SciPhp\NumPhp as np;
 use SciPhpTest\Unit\MultiRunner;
@@ -17,9 +17,6 @@ class NormsTest extends MultiRunner
             ['norm', [1, -1, 0],  1.4142135623731                      ], # 1 dim
             ['norm', [1, -1, 0],  1.4142135623731                      ], # 2 dim
             ['norm', np::diag([2, 2, 2])->data, 3.4641016151378        ], # 2 dim diagonalized
-
-            //~ # \InvalidArgumentException
-            //~ ['negative', 'hello',        \InvalidArgumentException::class],
         ];
     }
 
