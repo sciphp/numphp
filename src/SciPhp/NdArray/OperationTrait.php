@@ -14,13 +14,14 @@ trait OperationTrait
      * Sum all elements.
      * 
      * @param  null|int $axis
+     * @param  bool     $keepdims
      * @return int|float
      * 
      * @link http://sciphp.org/ndarray.sum Documentation
      * 
      * @api
      */
-    final public function sum($axis = null)
+    final public function sum($axis = null, $keepdims = false)
     {
         $func = function(array $array) use (&$func)
         {
@@ -29,16 +30,13 @@ trait OperationTrait
                             : array_sum($array);
         };
 
-        return is_null($axis)
-            ? $func($this->data)
-            : $this->axis($axis, $func);
+        return $this->axis($func, $axis, $keepdims);
     }
 
     /**
      * Integrate along the given axis using the composite trapezoidal rule.
      * 
-     * @param array $options
-     * 
+     * @param  array $options
      * @return int|float|array
      * 
      * @link http://sciphp.org/ndarray.trapz Documentation

@@ -11,11 +11,12 @@ trait OperationTrait
      * 
      * @param  \SciPhp\NdArray|array|int|float $m
      * @param  int|null $axis
+     * @param  bool     $keepdims
      * @return int|float
      * @link http://sciphp.org/numphp.sum Documentation
      * @api
      */
-    final public static function sum($m, $axis = null)
+    final public static function sum($m, $axis = null, $keepdims = false)
     {
         if (is_numeric($m)) {
             return $m;
@@ -23,7 +24,7 @@ trait OperationTrait
 
         static::transform($m, true);
 
-        return $m->sum($axis);
+        return $m->sum($axis, $keepdims);
     }
 
     /**

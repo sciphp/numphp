@@ -15,10 +15,10 @@ class AxisTest extends MultiRunner
         return [
 
               # \InvalidArgumentException
-            ['axis', [1, 0, 1],         \InvalidArgumentException::class, [1, $func]],  # must be less than ndim - 1
-            ['axis', [1, 0, 1],         \InvalidArgumentException::class, [-1, $func]],  # must be greater than 0
-            ['axis', [[1, 0, 1]],         \InvalidArgumentException::class, [0.5, $func]], # must be an integer
-            ['axis', [[[1, 0, 1]]],         \InvalidArgumentException::class, [2, $func]],  # Cannot be used on matrices with a dimension > 2
+            ['axis', [1, 0, 1],         \InvalidArgumentException::class, [$func, 1]],   # must be less than ndim - 1
+            ['axis', [1, 0, 1],         \InvalidArgumentException::class, [$func, -1]],  # must be greater than 0
+            ['axis', [[1, 0, 1]],       \InvalidArgumentException::class, [$func, 0.5]], # must be an integer
+            ['axis', [[[1, 0, 1]]],     \InvalidArgumentException::class, [$func, 2]],   # Cannot be used on matrices with a dimension > 2
         ];
     }
 
