@@ -2,7 +2,6 @@
 
 namespace SciPhp\LinAlg;
 
-use Webmozart\Assert\Assert;
 use SciPhp\NdArray;
 
 /**
@@ -14,7 +13,6 @@ trait NormsTrait
      * Matrix or vector norm.
      * 
      * @param  \SciPhp\NdArray $matrix
-     * 
      * @return float|int
      * 
      * @link http://sciphp.org/linalg.norm
@@ -24,7 +22,7 @@ trait NormsTrait
      */
     final public function norm(NdArray $matrix)
     {
-        if ($matrix->ndim ==0) {
+        if ($matrix->ndim == 0) {
             return 0;
         }
 
