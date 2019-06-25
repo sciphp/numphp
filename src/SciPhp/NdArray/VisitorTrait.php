@@ -116,9 +116,9 @@ trait VisitorTrait
         $fn = function(&$value, $key) use ($func, $number) {
                 $k = $key + 1;
                 if ($number == 0) {
-                    $index = " , $k";
+                    $index = ": , $key";
                 } elseif ($number == 1) {
-                    $index = "$k, ";
+                    $index = "$key, :";
                 }
 
                 $value = $func($this->offsetGet($index)->data);

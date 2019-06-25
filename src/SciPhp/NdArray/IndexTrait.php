@@ -116,8 +116,7 @@ trait IndexTrait
      */
     final protected function filterSet(array $filter, $index, array &$data = null, $value)
     {
-        if (!isset($filter['start'][$index]))
-        {
+        if (!isset($filter['start'][$index])) {
             return array_walk_recursive($data, function(&$item) use ($value) {
                 $item = $value;
             });
@@ -130,7 +129,7 @@ trait IndexTrait
             function(&$item, $key) use ($filter, $index, $value, $start, $stop) {
                 if ($key >= $start && $key <= $stop) {
                     if (is_array($item)) {
-                        $this->filterSet($filter, $index + 1, $item, $value);
+                        $this->filterSet($filter, $index+1, $item, $value);
                     }
                     else {
                         $item = $value;
@@ -143,8 +142,7 @@ trait IndexTrait
     /**
      * Prepare filter values
      * 
-     * @param array $filter
-     *
+     * @param  array $filter
      * @return array $filter
      */
     final protected function indexFilter($matches)
@@ -165,14 +163,37 @@ trait IndexTrait
         array_walk(
             $filter['start'],
             function($value, $key) use (&$params, $filter) {
+                if ($key == 0) {
+                    $index = sprintf(
+                            '%s%s%s%s',
+                            $value,
+                            $filter['col'] [$key],
+                            $filter['stop'][$key],
+                            $filter['comma'][$key]
+                    );
+                    Assert::notEq(
+                        $index,
+                        ',',
+                        "Invalid index syntax. Index=$index" 
+                    );
+                }
+                
                 if ($value !== '' 
                     || $filter['col'] [$key] !== ''
                     || $filter['stop'][$key] !== ''
                     || $filter['comma'][$key] !== ''
                 ) {
                     $params['start'][] = intval($value);
-                    $params['col']    [] = $filter['col'][$key];
-                    $params['stop'] [] = intval($filter['stop'][$key]);
+                    $params['col']  [] = $filter['col'][$key];
+                    
+                    if ($filter['col'][$key] === ':') {
+                        $stop = $filter['stop'][$key] != ''
+                            ? intval($filter['stop'][$key]) : 'max';
+                    } else {
+                        $stop = intval($value);
+                    }
+                    
+                    $params['stop'] [] = $stop;
                     $params['comma'][] = $filter['comma'][$key];
                 }
             }
@@ -184,53 +205,41 @@ trait IndexTrait
     /**
      * Get range definition
      * 
-     * @param array $filter
-     * 
-     * @param int $index
-     * 
-     * @param int $count
-     * 
+     * @param  array $filter
+     * @param  int   $index
+     * @param  int   $count
      * @return int[$start, $stop]
      */
     final protected function filterRange(array $filter, $index, $count)
     {
         // eq. '-1' '-1,' '-1:-1,' '-2:-1,'
-        if ($filter['start'][$index] < 0)
-        {
-            $filter['start'][$index] = $count + $filter['start'][$index] + 1;
+        if ($filter['start'][$index] < 0) {
+            $filter['start'][$index] = $count + $filter['start'][$index] ;
         }
 
         // all, eq. ','    ':,' '0:0,'
-        if ($filter['start'][$index] == 0 && $filter['stop'][$index] == 0)
-        {
-            $filter['start'][$index] = 1;
-            $filter['stop'][$index] = $count;
-        }
-        // one value, eq. '1,'
-        elseif ($filter['start'][$index] > 0 && $filter['stop'][$index] == 0
-                        && $filter['col'][$index] !== ':')
-        {
-            $filter['stop'][$index] = $filter['start'][$index];
+        if ($filter['start'][$index] === 0 
+          && $filter['stop'][$index] === 'max'
+        ) {
+            $filter['start'][$index] = 0;
+            $filter['stop'][$index] = $count - 1;
         }
 
-        $start = $filter['start'][$index] - 1;
+        $start = $filter['start'][$index];
 
         Assert::range($start, 0, $count - 1);
 
+        if ($filter['stop'][$index] === 'max') {
+            $filter['stop'][$index]  = $count - 1;
+        }
+
         // eq. ':-1,' '2:-2,'
-        if ($filter['stop'][$index] < 0)
-        {
-            $stop = $count + $filter['stop'][$index];
+        if ($filter['stop'][$index] < 0) {
+            $stop = $count + $filter['stop'][$index]; //  - 1;
         }
         // eq. ':5,' '2:3,'
-        elseif ($filter['stop'][$index] > 0)
-        {
-            $stop = $filter['stop'][$index] - 1;
-        }
-        // eq. '-2:,'
-        elseif ($filter['stop'][$index] == 0 && $filter['col'][$index] == ':')
-        {
-            $stop = $count - 1;
+        elseif ($filter['stop'][$index] >= 0) {
+            $stop = $filter['stop'][$index];
         }
 
         Assert::range($stop, $start, $count - 1, 'Stop index must be [%s, %s]. Got %s.');
