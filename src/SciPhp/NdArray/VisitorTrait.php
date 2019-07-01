@@ -114,14 +114,11 @@ trait VisitorTrait
         }
 
         $fn = function(&$value, $key) use ($func, $number) {
-                $k = $key + 1;
-                if ($number == 0) {
-                    $index = ": , $key";
-                } elseif ($number == 1) {
-                    $index = "$key, :";
-                }
+            $index = ($number == 0)
+                ? ": , $key"
+                : "$key, :";
 
-                $value = $func($this->offsetGet($index)->data);
+            $value = $func($this->offsetGet($index)->data);
         };
 
         // keepdims handling
@@ -131,7 +128,8 @@ trait VisitorTrait
         } else {
             unset($targetShape[$number]);
         }
-        
+
+        // No axis number
         if (is_null($number)) {
             if ($keepdims) {
                 $targetShape = array_fill(0, $this->ndim, 1);
