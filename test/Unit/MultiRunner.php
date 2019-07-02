@@ -109,12 +109,22 @@ class MultiRunner extends TestCase
         } else {
             $m = $ref->invokeArgs(null, $params);
 
-            $this->assertEquals(
-                $expected,
-                $m instanceof \SciPhp\NdArray ? $m->data : $m,
-                '',
-                0.00000001
-            );
+            // Support for PHP 7.1+
+            if (version_compare(PHP_VERSION, '7.1.0') >= 0) {
+                $this->assertEqualsWithDelta(
+                    $expected,
+                    $m instanceof \SciPhp\NdArray ? $m->data : $m,
+                    0.00000001
+                );
+            // Support for PHP 5.6, 7.0
+            } else {
+                $this->assertEquals(
+                    $expected,
+                    $m instanceof \SciPhp\NdArray ? $m->data : $m,
+                    '',
+                    0.00000001
+                );
+            }
         }
     }
 }

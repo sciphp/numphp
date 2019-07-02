@@ -86,11 +86,11 @@ class MultiplyTest extends TestCase
 
     /**
      * multiply(), First parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testFirstArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::multiply('hello', [55]);
     }
 
