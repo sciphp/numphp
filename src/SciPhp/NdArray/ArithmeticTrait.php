@@ -30,8 +30,7 @@ trait ArithmeticTrait
     /**
      * Divide matrix by a given input, element-wise
      * 
-     * @param \SciPhp\NdArray|array|float|int $input
-     * 
+     * @param  \SciPhp\NdArray|array|float|int $input
      * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.divide
@@ -58,8 +57,7 @@ trait ArithmeticTrait
     /**
      * Multiply matrix by a given input, element-wise
      * 
-     * @param \SciPhp\NdArray|array|float|int $input
-     * 
+     * @param  \SciPhp\NdArray|array|float|int $input
      * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.multiply
@@ -69,8 +67,7 @@ trait ArithmeticTrait
      */
     final public function multiply($input)
     {
-        if (is_numeric($input))
-        {
+        if (is_numeric($input)) {
             return $this->dot($input);
         }
 
@@ -80,8 +77,7 @@ trait ArithmeticTrait
     /**
      * Subtract input from matrix
      * 
-     * @param \SciPhp\NdArray|array|float|int $input
-     * 
+     * @param  \SciPhp\NdArray|array|float|int $input
      * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.subtract
@@ -97,8 +93,7 @@ trait ArithmeticTrait
     /**
      * Dot matrix with an input
      * 
-     * @param \SciPhp\NdArray|array|float|int $input
-     * 
+     * @param  \SciPhp\NdArray|array|float|int $input
      * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.dot
@@ -123,8 +118,7 @@ trait ArithmeticTrait
     /**
      * Add a matrix or a number
      * 
-     * @param NdArray|array|float|int $value
-     * 
+     * @param  NdArray|array|float|int $value
      * @return \SciPhp\NdArray
      * 
      * @link http://sciphp.org/ndarray.add
@@ -190,20 +184,4 @@ trait ArithmeticTrait
             ? $this->copy()->walk_recursive($func)
             : $input->copy()->walk_recursive($func);
     }
-
-    /**
-     * Transform each element into $base ** $element
-     *
-     * @param float $base
-     * 
-     * @return \SciPhp\NdArray
-     */
-    //~ final public function power($base)
-    //~ {
-        //~ $func = function(&$item) use ($base) {
-            //~ $item = pow($base, $item);
-        //~ };
-
-        //~ return $this->copy()->walk_recursive($func);
-    //~ }
 }
