@@ -96,31 +96,31 @@ class MultiplyTest extends TestCase
 
     /**
      * multiply(), Second parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testSecondArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::multiply([55], 'hello');
     }
 
     /**
      * multiply(), vector * vector not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testVectorVectorNotAligned()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::multiply([1, 2, 3], [1, 2]);
     }
 
     /**
      * multiply(), vector * array not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testVectorArrayNotAligned()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::multiply([1, 2, 3], [[1, 2]]);
     }
 }

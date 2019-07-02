@@ -49,11 +49,11 @@ class SumTest extends MultiRunner
 
     /**
      * Invalid argument
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testInvalidArgumentException()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::sum('hello');
     }
 }

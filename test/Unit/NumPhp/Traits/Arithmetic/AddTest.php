@@ -7,7 +7,6 @@ use SciPhp\NumPhp as np;
 
 class AddTest extends TestCase
 {
-
     /**
      * add(), lambda + lambda
      */
@@ -43,11 +42,11 @@ class AddTest extends TestCase
 
     /**
      * add(), vector + vector Vectors not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddVectorVectorNotAlignedVector()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add([5, 5, 5], [0, 2, 4, 5]);
     }
 
@@ -71,11 +70,11 @@ class AddTest extends TestCase
 
     /**
      * add(), vector + array Vector not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddVectorArrayNotAlignedVector()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add([5, 5, 5], [[0, 2, 4, 5]]);
     }
 
@@ -92,11 +91,11 @@ class AddTest extends TestCase
 
     /**
      * add(), array + vector Vector not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddArrayVectorNotAlignedVector()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add([[0, 2, 4, 5]], [5, 5, 5]);
     }
 
@@ -113,32 +112,31 @@ class AddTest extends TestCase
 
     /**
      * add(), array + array Matrices not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddArrayArrayNotAlignedArrays()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add([[0, 2, 4, 5]], [[5, 5, 5]]);
     }
     
-
     /**
      * add(), first parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddFirstArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add('hello', [55]);
     }
 
     /**
      * add(), Second parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testAddSecondArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::add([55], 'hello');
     }
 }

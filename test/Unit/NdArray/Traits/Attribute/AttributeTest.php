@@ -7,105 +7,105 @@ use SciPhp\NdArray;
 
 class AttributeTest extends TestCase
 {
-  /**
-   * An undefined attribute must throw an exception
-   * 
-   * @expectedException \SciPhp\Exception\InvalidAttributeException
-   */
-  public function testInvalidAttributeException()
-  {
-    ( new NdArray([]) )->ndimmm;
-  }
-
-  /**
-   * Tests data attribute
-   */
-  public function testData()
-  {
-    // expected = sample
-    $tests = [
-      []            ,
-      [1, 2, 3]     ,
-      [[1, 2, 3]]   ,
-      [[[1, 2, 3]]]  
-    ];
-
-    foreach ($tests as $test)
+    /**
+     * An undefined attribute must throw an exception
+     */
+    public function testInvalidAttributeException()
     {
-      $this->assertEquals(
-        $test,
-        ( new NdArray($test) )->data,
-        "Should be " . print_r($test, true)
-      );
+        $this->expectException(\SciPhp\Exception\InvalidAttributeException::class);
+
+        ( new NdArray([]) )->ndimmm;
     }
-  }
 
-  /**
-   * Tests ndim attribute
-   */
-  public function testNdim()
-  {
-    // expected / sample
-    $tests = [
-      [ 0, []             ],
-      [ 1, [1, 2, 3]      ],
-      [ 2, [[1, 2, 3]]    ],
-      [ 3, [[[1, 2, 3]]]  ],
-    ];
-
-    foreach ($tests as $test)
+    /**
+     * Tests data attribute
+     */
+    public function testData()
     {
-      $this->assertEquals(
-        $test[0],
-        ( new NdArray($test[1]) )->ndim,
-        "Should be {$test[0]}"
-      );
+        // expected = sample
+        $tests = [
+            []                        ,
+            [1, 2, 3]         ,
+            [[1, 2, 3]]     ,
+            [[[1, 2, 3]]]    
+        ];
+
+        foreach ($tests as $test)
+        {
+            $this->assertEquals(
+                $test,
+                ( new NdArray($test) )->data,
+                "Should be " . print_r($test, true)
+            );
+        }
     }
-  }
 
-  /**
-   * Tests size attribute
-   */
-  public function testSize()
-  {
-    // expected / sample
-    $tests = [
-      [ 0, []             ],
-      [ 3, [1, 2, 3]      ],
-      [ 3, [[1, 2, 3]]    ],
-      [ 3, [[[1, 2, 3]]]  ],
-    ];
-
-    foreach ($tests as $test)
+    /**
+     * Tests ndim attribute
+     */
+    public function testNdim()
     {
-      $this->assertEquals(
-        $test[0],
-        ( new NdArray($test[1]) )->size,
-        "Should be {$test[0]}"
-      );
+        // expected / sample
+        $tests = [
+            [ 0, []                         ],
+            [ 1, [1, 2, 3]            ],
+            [ 2, [[1, 2, 3]]        ],
+            [ 3, [[[1, 2, 3]]]    ],
+        ];
+
+        foreach ($tests as $test)
+        {
+            $this->assertEquals(
+                $test[0],
+                ( new NdArray($test[1]) )->ndim,
+                "Should be {$test[0]}"
+            );
+        }
     }
-  }
 
-  /**
-   * Tests shape attribute
-   */
-  public function testShape()
-  {
-    // expected / sample
-    $tests = [
-      [ [],        []            ],
-      [ [3],       [1, 2, 3]     ],
-      [ [1 ,3],    [[1, 2, 3]]   ],
-      [ [1, 1, 3], [[[1, 2, 3]]] ],
-    ];
-
-    foreach ($tests as $test)
+    /**
+     * Tests size attribute
+     */
+    public function testSize()
     {
-      $this->assertEquals(
-        $test[0],
-        ( new NdArray($test[1]) )->shape,
-        "Should be " . print_r($test[0], true)
-      );
+        // expected / sample
+        $tests = [
+            [ 0, []                         ],
+            [ 3, [1, 2, 3]            ],
+            [ 3, [[1, 2, 3]]        ],
+            [ 3, [[[1, 2, 3]]]    ],
+        ];
+
+        foreach ($tests as $test)
+        {
+            $this->assertEquals(
+                $test[0],
+                ( new NdArray($test[1]) )->size,
+                "Should be {$test[0]}"
+            );
+        }
     }
-  }
+
+    /**
+     * Tests shape attribute
+     */
+    public function testShape()
+    {
+        // expected / sample
+        $tests = [
+            [ [],                []                        ],
+            [ [3],             [1, 2, 3]         ],
+            [ [1 ,3],        [[1, 2, 3]]     ],
+            [ [1, 1, 3], [[[1, 2, 3]]] ],
+        ];
+
+        foreach ($tests as $test)
+        {
+            $this->assertEquals(
+                $test[0],
+                ( new NdArray($test[1]) )->shape,
+                "Should be " . print_r($test[0], true)
+            );
+        }
+    }
 }

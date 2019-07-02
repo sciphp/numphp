@@ -75,63 +75,63 @@ class DivideTest extends TestCase
 
     /**
      * divide(), First parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideFirstArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide('hello', [55]);
     }
 
     /**
      * divide(), Second parameter is not an array_like
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideSecondArgumentNonArray()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide([55], 'hello');
     }
 
     /**
      * divide(), Second parameter is 0
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideSecondArgumentNull()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide([55], 0);
     }
 
     /**
      * divide(), Second parameter is a matrix with at 
      * least one zero inside
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideSecondArgumentIsVectorWith0()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide([55, 1, 1], [1, 1, 0]);
     }
 
     /**
      * divide(), Second parameter is a vector with at 
      * least one null inside
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideSecondArgumentIsVectorWithNull()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide([55, 1, 1], [1, 1, 0]);
     }
 
     /**
      * divide(), vector / vector not aligned
-     * 
-     * @expectedException \InvalidArgumentException
      */
     public function testDivideVectorVectorNotAligned()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         np::divide([1, 2, 3], [1, 2]);
     }
 }
