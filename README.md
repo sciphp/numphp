@@ -95,6 +95,7 @@ ________________________________________________________________________
 - [NdArray::exp](https://sciphp.org/manual/en/ndarray.exp.html)
 - [NdArray::expm1](https://sciphp.org/manual/en/ndarray.expm1.html)
 - [NdArray::exp2](https://sciphp.org/manual/en/ndarray.exp2.html)
+- [NdArray::power](https://sciphp.org/manual/en/ndarray.power.html)
 - [NdArray::tril](https://sciphp.org/manual/en/ndarray.tril.html)
 - [NdArray::triu](https://sciphp.org/manual/en/ndarray.triu.html)
 - [NdArray::copysign](https://sciphp.org/manual/en/ndarray.copysign.html)
