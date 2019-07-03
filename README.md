@@ -146,6 +146,7 @@ ________________________________________________________________________
 - [NumPhp::exp2](https://sciphp.org/manual/en/numphp.exp2.html)
 - [NumPhp::signbit](https://sciphp.org/manual/en/numphp.signbit.html)
 - [NumPhp::copysign](https://sciphp.org/manual/en/numphp.copysign.html)
+- [NumPhp::broadcast_to](https://sciphp.org/manual/en/numphp.broadcast_to.html)
 
 ________________________________________________________________________
 
