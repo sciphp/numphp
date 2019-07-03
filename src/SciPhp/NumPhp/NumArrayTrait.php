@@ -3,6 +3,7 @@
 namespace SciPhp\NumPhp;
 
 use Webmozart\Assert\Assert;
+use SciPhp\NdArray;
 
 trait NumArrayTrait
 {
@@ -187,6 +188,14 @@ trait NumArrayTrait
     {
         static::transform($matrix, true);
 
+        // Is broadcast allowed?
+        self::can_broadcast_to($matrix, $shape);
+
+        // 1 dim -> 2 dim
+        if ($matrix->ndim == 1) {
+            return $matrix->resize($shape);
+        }
+
         $m = self::zeros($shape);
 
         $row = 0;
@@ -198,5 +207,52 @@ trait NumArrayTrait
         $matrix->walk_recursive($func);
 
         return $m;
+    }
+
+    /**
+     * Checks that an array can be broadcast to a given shape
+     * 
+     * @param  NdArray $matrix
+     * @param  array   $shape
+     * @throws \InvalidArgumentException when broadcast cannot be done
+     */
+    private static function can_broadcast_to(NdArray $m, array $shape)
+    {
+        if (count($shape) > 2) {
+            throw new \InvalidArgumentException(
+                "This library can't broadcast to a shape with more than"
+                . " 2 dimensions."
+            );
+        }
+
+        if ($m->ndim > 2) {
+            throw new \InvalidArgumentException(
+                "This library can't broadcast an array with more than"
+                . " 2 dimensions."
+            );
+        }
+
+        $shape_m = $m->shape;
+        $m_index = $m->ndim;
+
+        for ($i = count($shape) - 1; $i >= 0; $i--) {
+            $m_index--;
+            if (!isset($shape_m[$m_index])) {
+                continue;
+            } elseif ($shape[$i] == $shape_m[$m_index]) {
+                continue;
+            } elseif ($shape_m[$m_index] == 1) {
+                continue;
+            }
+            
+            $message = sprintf(
+                'Arrays could not be broadcast together with remapped ' .
+                'shapes [original->remapped]: %s and requested shape %s',
+                static::ar($m->shape),
+                static::ar($shape)
+            );
+
+            throw new \InvalidArgumentException($message);
+        } 
     }
 }
