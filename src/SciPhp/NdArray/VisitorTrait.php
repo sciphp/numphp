@@ -14,8 +14,7 @@ trait VisitorTrait
     /**
      * Walk on first dimension
      * 
-     * @param callable $func
-     * 
+     * @param  callable $func
      * @return \SciPhp\NdArray
      */
     final public function walk(callable $func, array &$data = null)
@@ -30,8 +29,7 @@ trait VisitorTrait
     /**
      * Walk on last dimension
      * 
-     * @param callable $func
-     * 
+     * @param  callable $func
      * @return \SciPhp\NdArray
      */
     final public function walk_recursive(callable $func)
@@ -44,8 +42,7 @@ trait VisitorTrait
     /**
      * Iterate on next value
      * 
-     * @param \RecursiveIteratorIterator &$iterator
-     * 
+     * @param  \RecursiveIteratorIterator &$iterator
      * @return int|float
      */
     final public function iterate(RecursiveIteratorIterator &$iterator)

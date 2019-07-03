@@ -13,7 +13,7 @@ final class NumPhp extends Decorator
     /**
      * Construct a n-dimensional array
      * 
-     * @param    array $data
+     * @param  array $data
      * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.ar Documentation
      * @api
@@ -26,7 +26,7 @@ final class NumPhp extends Decorator
     /**
      * Parse args as a tuple or an array
      * 
-     * @param    array|array[] $args
+     * @param  array|array[] $args
      * @return array
      * @api
      */
@@ -53,7 +53,7 @@ final class NumPhp extends Decorator
      * Transform a PHP array in a NdArray
      * 
      * @param mixed $m
-     * @param bool    $required
+     * @param bool  $required
      */
     final public static function transform(&$m, $required = false)
     {
@@ -69,7 +69,7 @@ final class NumPhp extends Decorator
     /**
      * Check that all values are numeric
      * 
-     * @param    array $args
+     * @param  array $args
      * @return bool
      * @api
      */

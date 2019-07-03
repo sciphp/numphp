@@ -74,6 +74,23 @@ class DivideTest extends TestCase
     }
 
     /**
+     * divide(), matrix / matrix with broadcast
+     */
+    public function testDivideMatrixMatrixBroadcast()
+    {
+        $this->assertEquals(
+[[1,                2,                3              ],
+ [2,                2.5,              3              ],
+ [2.3333333333333,  2.6666666666667,  3              ]]
+,
+            np::divide(
+                np::linspace(1, 9, 9)->reshape(3, 3),
+                [[1], [2], [3]]
+            )->data
+        );
+    }
+
+    /**
      * divide(), First parameter is not an array_like
      */
     public function testDivideFirstArgumentNonArray()
