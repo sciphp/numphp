@@ -36,4 +36,19 @@ trait BasicTrait
     {
         return $this->dot(-1);
     }
+
+    /**
+     * Is current matrix a square matrix
+     * 
+     * @return bool
+     * 
+     * @link http://sciphp.org/ndarray.is_square Documentation
+     * 
+     * @api
+     */
+    final public function is_square()
+    {
+        return $this->ndim == 2
+            && $this->shape[0] == $this->shape[1];
+    }
 }

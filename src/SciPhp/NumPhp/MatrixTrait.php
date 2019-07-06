@@ -7,9 +7,24 @@ use Webmozart\Assert\Assert;
 trait MatrixTrait
 {
     /**
+     * Is given matrix a square matrix ?
+     * 
+     * @param  \SciPhp\NdArray|array $m
+     * @return bool
+     * @link http://sciphp.org/numphp.is_square Documentation
+     * @api
+     */
+    final public static function is_square($m)
+    {
+        static::transform($m, true);
+
+        return $m->is_square();
+    }
+
+    /**
      * Numerical negative, element-wise.
      * 
-     * @param    \SciPhp\NdArray|array|int|float $m
+     * @param  \SciPhp\NdArray|array|int|float $m
      * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.negative Documentation
      * @api
@@ -28,9 +43,9 @@ trait MatrixTrait
     /**
      * Permute the dimensions of an array.
      * 
-     * @param    array|\SciPhp\NdArray $m
-     * @param    array $axis
-     * @todo     Implement axis permutation for ndim > 2
+     * @param  array|\SciPhp\NdArray $m
+     * @param  array $axis
+     * @todo   Implement axis permutation for ndim > 2
      * @return \SciPhp\NdArray
      * @throws \InvalidArgumentException
      * @link http://sciphp.org/numphp.transpose Documentation
