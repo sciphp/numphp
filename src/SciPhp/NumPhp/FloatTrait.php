@@ -4,6 +4,7 @@ namespace SciPhp\NumPhp;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use SciPhp\Exception\Message;
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
@@ -67,24 +68,24 @@ trait FloatTrait
 
     // n & m are vectors: 
     if (count($m->shape) == 1 && $m->ndim == $n->ndim) {
-      Assert::eq($m->shape, $n->shape, 'Matrices are not aligned.');
+      Assert::eq($m->shape, $n->shape, Message::MAT_NOT_ALIGNED);
     }
 
     // n is a vector
     elseif (!isset($n->shape[1])) {
-      Assert::eq($m->shape[1], $n->shape[0], 'Matrices are not aligned.');
+      Assert::eq($m->shape[1], $n->shape[0], Message::MAT_NOT_ALIGNED);
     }
 
     // m is a vector
     elseif (!isset($m->shape[1])) {
-      Assert::eq($m->shape[0], $n->shape[1], 'Matrices are not aligned.');
+      Assert::eq($m->shape[0], $n->shape[1], Message::MAT_NOT_ALIGNED);
 
       $m = $m->resize($n->shape);
     }
 
     // array / array
     elseif ($m->ndim === $n->ndim) {
-      Assert::eq($m->shape, $n->shape, 'Matrices are not aligned.');
+      Assert::eq($m->shape, $n->shape, Message::MAT_NOT_ALIGNED);
     }
 
     $iterator = new RecursiveIteratorIterator(

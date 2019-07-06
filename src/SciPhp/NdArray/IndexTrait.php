@@ -2,6 +2,7 @@
 
 namespace SciPhp\NdArray;
 
+use SciPhp\Exception\Message;
 use Webmozart\Assert\Assert;
 
 /**
@@ -41,7 +42,7 @@ trait IndexTrait
         }
         // @todo filtering with array and NdArray
 
-        return Assert::false($index, 'Index "%s" is not defined');
+        return Assert::false($index, Message::UNDEFINED_INDEX);
     }
 
     /**
@@ -65,7 +66,7 @@ trait IndexTrait
         }
         else
         {
-            return Assert::false($index, 'Index "%s" is not defined');
+            return Assert::false($index, Message::UNDEFINED_INDEX);
         }
 
         return $this;

@@ -2,6 +2,7 @@
 
 namespace SciPhp\NumPhp;
 
+use SciPhp\Exception\Message;
 use Webmozart\Assert\Assert;
 use SciPhp\NdArray;
 
@@ -220,15 +221,13 @@ trait NumArrayTrait
     {
         if (count($shape) > 2) {
             throw new \InvalidArgumentException(
-                "This library can't broadcast to a shape with more than"
-                . " 2 dimensions."
+                Message::ARRAYS_BROADCAST_NDIM2_ONLY
             );
         }
 
         if ($m->ndim > 2) {
             throw new \InvalidArgumentException(
-                "This library can't broadcast an array with more than"
-                . " 2 dimensions."
+                Message::ARRAYS_BROADCAST_NDIM2_ONLY
             );
         }
 
@@ -246,8 +245,7 @@ trait NumArrayTrait
             }
             
             $message = sprintf(
-                'Arrays could not be broadcast together with remapped ' .
-                'shapes [original->remapped]: %s and requested shape %s',
+                Message::ARRAYS_BROADCAST_IMPOSSIBLE,
                 static::ar($m->shape),
                 static::ar($shape)
             );

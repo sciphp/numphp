@@ -4,6 +4,7 @@ namespace SciPhp\NdArray;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use SciPhp\Exception\Message;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
 
@@ -149,22 +150,22 @@ trait ArithmeticTrait
         // vector + vector
         if ($this->ndim == 1 && $this->ndim == $input->ndim)
         {
-            Assert::eq($this->shape, $input->shape, 'Matrices are not aligned.');
+            Assert::eq($this->shape, $input->shape, Message::MAT_NOT_ALIGNED);
         }
         // vector + array
         elseif ($this->ndim == 1 && $input->ndim == 2)
         {
-            Assert::eq($this->shape[0], $input->shape[1], 'Matrices are not aligned.');
+            Assert::eq($this->shape[0], $input->shape[1], Message::MAT_NOT_ALIGNED);
         }
         // array + vector
         elseif ($input->ndim == 1 && $this->ndim == 2)
         {
-            Assert::eq($this->shape[1], $input->shape[0], 'Matrices are not aligned.');
+            Assert::eq($this->shape[1], $input->shape[0], Message::MAT_NOT_ALIGNED);
         }
         // array + array
         else
         {
-            Assert::eq($this->shape, $input->shape, 'Matrices are not aligned.');
+            Assert::eq($this->shape, $input->shape, Message::MAT_NOT_ALIGNED);
         }
 
         $iterator = new RecursiveIteratorIterator(

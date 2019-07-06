@@ -3,6 +3,7 @@
 namespace SciPhp\NumPhp;
 
 use SciPhp\NdArray;
+use SciPhp\Exception\Message;
 use Webmozart\Assert\Assert;
 
 /**
@@ -40,8 +41,8 @@ trait DiagonalTrait
    */
   final public static function identity($n)
   {
-    Assert::integer($n, 'Must be a positive integer. Given %s.');
-    Assert::greaterThan($n, 0, 'Must be a positive integer. Given %s.');
+    Assert::integer($n, Message::ONLY_POSITIVE_INT);
+    Assert::greaterThan($n, 0, Message::ONLY_POSITIVE_INT);
 
     return self::eye($n, $n);
   }

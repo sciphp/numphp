@@ -2,11 +2,14 @@
 
 namespace SciPhp;
 
+use SciPhp\Exception\Message;
 use SciPhp\NumPhp\Decorator;
 use Webmozart\Assert\Assert;
 
 /**
  * Entry point for np calls.
+ * 
+ * @link http://sciphp.org/ref.numphp
  */
 final class NumPhp extends Decorator
 {
@@ -36,7 +39,7 @@ final class NumPhp extends Decorator
             Assert::oneOf(
                 self::ar($args[0])->ndim,
                 [0, 1],
-                'Argument must be an array or a tuple-like'
+                Message::ARG_NOT_ARRAY_TUPLE
             );
 
             Assert::allNumeric($args[0]);

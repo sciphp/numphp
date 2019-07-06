@@ -4,6 +4,7 @@ namespace SciPhp\NumPhp;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use SciPhp\Exception\Message;
 use SciPhp\NdArray;
 use Webmozart\Assert\Assert;
 
@@ -130,17 +131,17 @@ trait ArithmeticTrait
 
         // n & m are vectors: 
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
-            Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
+            Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         // n is a vector
         elseif (!isset($shape_n[1])) {
-            Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
+            Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
         }
 
         // m is a vector
         elseif (!isset($shape_m[1])) {
-            Assert::eq($shape_m[0], $shape_n[1], 'Matrices are not aligned.');
+            Assert::eq($shape_m[0], $shape_n[1], Message::MAT_NOT_ALIGNED);
 
             $m = $m->resize($shape_n);
         }
@@ -152,7 +153,7 @@ trait ArithmeticTrait
 
         // array / array
         elseif ($m->ndim === $n->ndim) {
-            Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
+            Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         $iterator = new RecursiveIteratorIterator(
@@ -206,24 +207,24 @@ trait ArithmeticTrait
 
         // n & m are vectors: 
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
-            Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
+            Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         // n is a vector
         elseif (!isset($shape_n[1])) {
-            Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
+            Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
         }
 
         // m is a vector
         elseif (!isset($shape_m[1])) {
-            Assert::eq($shape_m[0], $shape_n[1], 'Matrices are not aligned.');
+            Assert::eq($shape_m[0], $shape_n[1], Message::MAT_NOT_ALIGNED);
 
             $m = $m->resize($shape_n);
         }
 
         // array * array
         elseif ($m->ndim === $n->ndim) {
-            Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
+            Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         $iterator = new RecursiveIteratorIterator(
@@ -276,7 +277,7 @@ trait ArithmeticTrait
 
         // n & m are vectors: 
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
-            Assert::eq($shape_m, $shape_n, 'Matrices are not aligned.');
+            Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
 
             return array_sum(
                 array_map(
@@ -291,7 +292,7 @@ trait ArithmeticTrait
 
         // n is a vector
         if (!isset($shape_n[1])) {
-            Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
+            Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
             return static::zeros($shape_m[0], 1)
                 ->walk(
@@ -304,7 +305,7 @@ trait ArithmeticTrait
 
         // m is a vector
         if (!isset($shape_m[1])) {
-            Assert::eq($shape_m[0], $shape_n[0], 'Matrices are not aligned.');
+            Assert::eq($shape_m[0], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
             $callback = function(&$item, $k_m) use ($m, $n) {
                 $item = array_sum(
@@ -321,7 +322,7 @@ trait ArithmeticTrait
             return static::zeros($shape_n[1])->walk($callback);
         }
 
-        Assert::eq($shape_m[1], $shape_n[0], 'Matrices are not aligned.');
+        Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
         return static::zeros($shape_m[0], $shape_n[1])->walk(
                          self::rowDot($m, $n)
