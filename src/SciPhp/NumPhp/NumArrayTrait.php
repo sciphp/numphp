@@ -246,8 +246,8 @@ trait NumArrayTrait
             
             $message = sprintf(
                 Message::ARRAYS_BROADCAST_IMPOSSIBLE,
-                static::ar($m->shape),
-                static::ar($shape)
+                trim(static::ar($m->shape)),
+                trim(static::ar($shape))
             );
 
             throw new \InvalidArgumentException($message);

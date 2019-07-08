@@ -23,8 +23,8 @@ abstract class Message
      * @var string
      */
     const ARRAYS_BROADCAST_IMPOSSIBLE = 'Arrays could not be broadcast '
-                . 'together with remapped shapes [original->remapped]: '
-                . '%s and requested shape %s.';
+                . 'together [original.shape -> requested->shape]: '
+                . '%s -> %s.';
 
     /**
      * @var string
