@@ -2,7 +2,7 @@
 
 namespace SciPhp\LinAlg;
 
-use SciPhp\NdArray;
+use SciPhp\NumPhp as np;
 
 /**
  * Norms methods
@@ -12,16 +12,19 @@ trait NormsTrait
     /**
      * Matrix or vector norm.
      * 
-     * @param  \SciPhp\NdArray $matrix
+     * @param  \SciPhp\NdArray|array $matrix
      * @return float|int
      * 
      * @link http://sciphp.org/linalg.norm
      * Documentation for norm()
      * 
+     * @since 0.3.0
      * @api
      */
-    final public function norm(NdArray $matrix)
+    final public function norm($matrix)
     {
+        np::transform($matrix, true);
+
         if ($matrix->ndim == 0) {
             return 0;
         }

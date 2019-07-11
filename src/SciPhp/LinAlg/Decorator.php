@@ -7,5 +7,6 @@ namespace SciPhp\LinAlg;
  */
 abstract class Decorator
 {
+    use CholeskyTrait;
     use NormsTrait;
 }

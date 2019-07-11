@@ -1,0 +1,15 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+$m = [
+    [1 , 1 , 1  , 1 ],
+    [1 , 5 , 5  , 5 ],
+    [1 , 5 , 14 , 14 ],
+    [1 , 5 , 14 , 15 ]
+];
+
+np::linalg()->cholesky($m);
+
