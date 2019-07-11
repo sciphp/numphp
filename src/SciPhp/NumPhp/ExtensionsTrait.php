@@ -6,13 +6,18 @@ use SciPhp\LinAlg;
 
 trait ExtensionsTrait
 {
+    /**
+     * @var \SciPhp\LinAlg LinAlg instance
+     */
     private static $linalg;
 
     /**
-     * Linear algebra extension
+     * Loads Linear Algebra extension
      * 
-     * @return \SciPhp\LinAlg A Linear algebra
-     * @link http://sciphp.org/numphp.linalg Documentation
+     * @return \SciPhp\LinAlg Linear algebra wrapper instance
+     * @link http://sciphp.org/ref.linalg Documentation
+     * 
+     * @since 0.3.0
      * @api
      */
      final public static function linalg()

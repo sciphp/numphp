@@ -21,6 +21,7 @@ trait CholeskyTrait
      * @link http://sciphp.org/linalg.cholesky
      * Documentation for cholesky()
      * 
+     * @since 0.3.0
      * @api
      */
     final public function cholesky($matrix)
@@ -62,7 +63,9 @@ trait CholeskyTrait
                 $l["$b, $a"] = $w["$b, $a"] / $l["$a, $a"];
 
                 for ($c = $a + 1; $c <= $b; $c++) {
-                    $w["$b, $c"] = $w["$b, $c"] - $l["$b, $a"] * $l["$c, $a"];
+                    $w["$b, $c"] = $w["$b, $c"] 
+                                 - $l["$b, $a"] 
+                                 * $l["$c, $a"];
                 }
             }
 
