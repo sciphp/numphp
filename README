@@ -17,12 +17,14 @@ Table of contents
     - [NdArray attributes](#ndarray-attributes)
     - [NdArray methods](#ndarray-methods)
     - [NumPhp methods](#numphp-methods)
+- [Contributing](#contributing)
+	
 ________________________________________________________________________
 
 Requirements
 ------------
 
-NumPhp supports PHP 5.6, 7.0, 7.1, 7.2, 7.3 and HHVM.
+NumPhp supports PHP 5.6, 7.0, 7.1, 7.2, 7.3, and 7.4.
 
 ________________________________________________________________________
 
@@ -101,6 +103,7 @@ ________________________________________________________________________
 - [NdArray::copysign](https://sciphp.org/manual/en/ndarray.copysign.html)
 - [NdArray::signbit](https://sciphp.org/manual/en/ndarray.signbit.html)
 - [NdArray::vander](https://sciphp.org/manual/en/ndarray.vander.html)
+- [NdArray::is_square](https://sciphp.org/manual/en/ndarray.is_square.html)
 
 ________________________________________________________________________
 
@@ -147,8 +150,26 @@ ________________________________________________________________________
 - [NumPhp::signbit](https://sciphp.org/manual/en/numphp.signbit.html)
 - [NumPhp::copysign](https://sciphp.org/manual/en/numphp.copysign.html)
 - [NumPhp::broadcast_to](https://sciphp.org/manual/en/numphp.broadcast_to.html)
+- [NumPhp::is_square](https://sciphp.org/manual/en/numphp.is_square.html)
 
 ________________________________________________________________________
 
 
-[Full documentation](http://sciphp.org)
+In the [complete documentation](http://sciphp.org), you will find all implemented stuff
+including some [Linear Algebra methods](https://sciphp.org/manual/en/ref.linalg.html) 
+like [matrix norms](https://sciphp.org/manual/en/linalg.norm.html)
+and [Cholesky transformation](https://sciphp.org/manual/en/linalg.cholesky.html).
+
+
+________________________________________________________________________
+
+Contributing
+------------
+
+Feel free to open issues and make PR. Contributions are welcome.
+
+If you find a mistake or think an example is missing in the documentation,
+it's hosted on [numphp-doc](https://github.com/sciphp/numphp-doc)
+repository. 
+
+
