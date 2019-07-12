@@ -44,6 +44,7 @@ trait BasicTrait
      * 
      * @link http://sciphp.org/ndarray.is_square Documentation
      * 
+	 * @since 0.3.0
      * @api
      */
     final public function is_square()

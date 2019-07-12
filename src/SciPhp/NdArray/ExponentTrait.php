@@ -74,6 +74,7 @@ trait ExponentTrait
      * 
      * @link http://sciphp.org/ndarray.power Documentation
      * 
+	 * @since 0.3.0 
      * @api
      */
     final public function power($exponent)

@@ -12,6 +12,7 @@ trait MatrixTrait
      * @param  \SciPhp\NdArray|array $m
      * @return bool
      * @link http://sciphp.org/numphp.is_square Documentation
+	 * @since 0.3.0
      * @api
      */
     final public static function is_square($m)

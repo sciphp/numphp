@@ -183,6 +183,7 @@ trait NumArrayTrait
      * @link http://sciphp.org/numphp.broadcast_to
      *    Documentation for broadcast_to()
      * 
+	 * @since 0.3.0
      * @api
      */
     final public static function broadcast_to($matrix, array $shape)
