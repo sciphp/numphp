@@ -1,7 +1,10 @@
 # coding: utf8
 import numpy as np
 
-m = np.linspace(1, 50, 500).reshape(10, 50)
+m = np.linspace(1, 20, 20).reshape(2, 10)
 
-for i in range(0, 100):
-  s = np.sum(m)
+s = np.sum(m)
+s = np.sum(m,axis = 0)
+s = np.sum(m,axis = 1)
+s = np.sum(m,axis = 0, keepdims=True)
+s = np.sum(m,axis = 1, keepdims=True)

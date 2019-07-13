@@ -4,9 +4,10 @@ include __DIR__ . '/../../../vendor/autoload.php';
 
 use SciPhp\NumPhp as np;
 
-$m = np::linspace(1, 50, 500)->reshape(10, 50);
+$m = np::linspace(1, 20, 20)->reshape(2, 10);
 
-for ($i = 0; $i < 100; $i++)
-{
-  $s = $m->sum();
-}
+$s = $m->sum();
+$s = $m->sum(0);
+$s = $m->sum(1);
+$s = $m->sum(0, true);
+$s = $m->sum(1, true);
