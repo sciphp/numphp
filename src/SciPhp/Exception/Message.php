@@ -45,5 +45,10 @@ abstract class Message
     /**
      * @var string
      */
+    const ONLY_POSITIVE_NUMBER = 'Must be a positive number. Given %s.';
+
+    /**
+     * @var string
+     */
     const MAT_NOT_SQUARE = "Given matrix %s is not a square matrix.";
 }
