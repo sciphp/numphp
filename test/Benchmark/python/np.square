@@ -1,0 +1,9 @@
+# coding: utf8
+import numpy as np
+
+
+m = np.linspace(0, 1, 25).reshape(5, 5)
+
+for i in np.arange(0.1, 5.1, 0.1):
+
+    m = np.square(m)
