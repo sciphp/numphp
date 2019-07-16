@@ -9,60 +9,83 @@ use Webmozart\Assert\Assert;
  */
 trait ExponentTrait
 {
-  /**
-   * Calculate the exponential of all elements in the input array.
-   * 
-   * @param  \SciPhp\NdArray|array|int|float $m
-   * @return \SciPhp\NdArray|int|float
-   * @link http://sciphp.org/numphp.exp Documentation
-   * @api
-   */
-  final public static function exp($m)
-  {
-    if (is_numeric($m)) {
-      return exp($m);
+    /**
+     * Calculate the exponential of all elements in the input array.
+     *
+     * @param  \SciPhp\NdArray|array|int|float $m
+     * @return \SciPhp\NdArray|int|float
+     * @link http://sciphp.org/numphp.exp Documentation
+     * @api
+     */
+    final public static function exp($m)
+    {
+        if (\is_numeric($m)) {
+            return exp($m);
+        }
+
+        static::transform($m, true);
+
+        return $m->exp();
     }
 
-    static::transform($m, true);
+    /**
+     * Calculate exp(x) - 1 for all elements in the array.
+     *
+     * @param  \SciPhp\NdArray|array|int|float $m
+     * @return \SciPhp\NdArray|int|float
+     * @link http://sciphp.org/numphp.expm1 Documentation
+     * @api
+     */
+    final public static function expm1($m)
+    {
+        if (\is_numeric($m)) {
+            return expm1($m);
+        }
 
-    return $m->exp();
-  }
+        static::transform($m, true);
 
-  /**
-   * Calculate exp(x) - 1 for all elements in the array.
-   * 
-   * @param  \SciPhp\NdArray|array|int|float $m
-   * @return \SciPhp\NdArray|int|float
-   * @link http://sciphp.org/numphp.expm1 Documentation
-   * @api
-   */
-  final public static function expm1($m)
-  {
-    if (is_numeric($m)) {
-      return expm1($m);
+        return $m->expm1();
     }
 
-    static::transform($m, true);
+    /**
+     * Calculate 2**p for all p in the input array.
+     *
+     * @param  \SciPhp\NdArray|array|int|float $m
+     * @return \SciPhp\NdArray|int|float
+     * @link http://sciphp.org/numphp.exp2 Documentation
+     * @api
+     */
+    final public static function exp2($m)
+    {
+        if (\is_numeric($m)) {
+            return 2 ** $m;
+        }
 
-    return $m->expm1();
-  }
+        static::transform($m, true);
 
-  /**
-   * Calculate 2**p for all p in the input array.
-   * 
-   * @param  \SciPhp\NdArray|array|int|float $m
-   * @return \SciPhp\NdArray|int|float
-   * @link http://sciphp.org/numphp.exp2 Documentation
-   * @api
-   */
-  final public static function exp2($m)
-  {
-    if (is_numeric($m)) {
-      return 2 ** $m;
+        return $m->exp2();
     }
 
-    static::transform($m, true);
+    /**
+     * Matrix elements raised to powers.
+     *
+     * @param  float|int|array|\SciPhp\NdArray $matrix
+     * @param  float|int $exponent
+     * @return \SciPhp\NdArray
+     * @link http://sciphp.org/numphp.power Documentation
+	 * @since 0.3.0
+     * @api
+     */
+    final public static function power($matrix, $exponent)
+    {
+        Assert::numeric($exponent);
 
-    return $m->exp2();
-  }
+        if (\is_numeric($matrix)) {
+            return $matrix ** $exponent;
+        }
+
+        static::transform($matrix, true);
+
+        return $matrix->power($exponent);
+    }
 }

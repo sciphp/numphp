@@ -18,7 +18,7 @@ Table of contents
     - [NdArray methods](#ndarray-methods)
     - [NumPhp methods](#numphp-methods)
 - [Contributing](#contributing)
-	
+
 ________________________________________________________________________
 
 Requirements
@@ -136,6 +136,7 @@ ________________________________________________________________________
 - [NumPhp::divide](https://sciphp.org/manual/en/numphp.divide.html)
 - [NumPhp::dot](https://sciphp.org/manual/en/numphp.dot.html)
 - [NumPhp::multiply](https://sciphp.org/manual/en/numphp.multiply.html)
+- [NumPhp::power](https://sciphp.org/manual/en/numphp.power.html)
 - [NumPhp::reciprocal](https://sciphp.org/manual/en/numphp.reciprocal.html)
 - [NumPhp::subtract](https://sciphp.org/manual/en/numphp.subtract.html)
 - [NumPhp::transpose](https://sciphp.org/manual/en/numphp.transpose.html)
@@ -156,7 +157,7 @@ ________________________________________________________________________
 
 
 In the [complete documentation](http://sciphp.org), you will find all implemented stuff
-including some [Linear Algebra methods](https://sciphp.org/manual/en/ref.linalg.html) 
+including some [Linear Algebra methods](https://sciphp.org/manual/en/ref.linalg.html)
 like [matrix norms](https://sciphp.org/manual/en/linalg.norm.html)
 and [Cholesky transformation](https://sciphp.org/manual/en/linalg.cholesky.html).
 
@@ -170,6 +171,4 @@ Feel free to open issues and make PR. Contributions are welcome.
 
 If you find a mistake or think an example is missing in the documentation,
 it's hosted on [numphp-doc](https://github.com/sciphp/numphp-doc)
-repository. 
-
-
+repository.

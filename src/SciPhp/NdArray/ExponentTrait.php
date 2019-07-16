@@ -11,11 +11,9 @@ trait ExponentTrait
 {
     /**
      * Calculate the exponential of all elements in the input array.
-     * 
+     *
      * @return \SciPhp\NdArray
-     * 
      * @link http://sciphp.org/ndarray.exp Documentation
-     * 
      * @api
      */
     final public function exp()
@@ -30,11 +28,9 @@ trait ExponentTrait
 
     /**
      * Calculate exp(x) - 1 for all elements in the array.
-     * 
+     *
      * @return \SciPhp\NdArray
-     * 
      * @link http://sciphp.org/ndarray.expm1 Documentation
-     * 
      * @api
      */
     final public function expm1()
@@ -49,11 +45,9 @@ trait ExponentTrait
 
     /**
      * Calculate 2**p for all p in the input array.
-     * 
+     *
      * @return \SciPhp\NdArray
-     * 
      * @link http://sciphp.org/ndarray.exp2 Documentation
-     * 
      * @api
      */
     final public function exp2()
@@ -68,13 +62,11 @@ trait ExponentTrait
 
     /**
      * Matrix elements raised to powers.
-     * 
+     *
      * @param  float|int $exponent
      * @return \SciPhp\NdArray
-     * 
      * @link http://sciphp.org/ndarray.power Documentation
-     * 
-	 * @since 0.3.0 
+	 * @since 0.3.0
      * @api
      */
     final public function power($exponent)
