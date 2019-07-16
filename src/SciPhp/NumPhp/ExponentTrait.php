@@ -3,6 +3,7 @@
 namespace SciPhp\NumPhp;
 
 use Webmozart\Assert\Assert;
+use SciPhp\Exception\Message;
 
 /**
  * Exponent methods
@@ -87,5 +88,50 @@ trait ExponentTrait
         static::transform($matrix, true);
 
         return $matrix->power($exponent);
+    }
+
+    /**
+     * The element-wise square of the input.
+     * 
+     * @param  float|int|array|\SciPhp\NdArray $matrix
+     * @return float|int|\SciPhp\NdArray
+     * @link   http://sciphp.org/numphp.square Documentation
+	 * @since  0.3.0 
+     * @api
+     */
+    final public static function square($matrix)
+    {
+        if (\is_numeric($matrix)) {
+            return $matrix ** 2;
+        }
+
+        static::transform($matrix, true);
+
+        return $matrix->square();
+    }
+
+    /**
+     * The non-negative square-root of an array, element-wise.
+     * 
+     * @return \SciPhp\NdArray
+     * @link   http://sciphp.org/ndarray.sqrt Documentation
+	 * @since  0.3.0 
+     * @api
+     */
+    final public static function sqrt($matrix)
+    {
+        if (\is_numeric($matrix)) {
+            Assert::greaterThanEq(
+                $matrix, 
+                0, 
+                Message::ONLY_POSITIVE_NUMBER
+            );
+
+            return sqrt($matrix);
+        }
+
+        static::transform($matrix, true);
+
+        return $matrix->sqrt();
     }
 }
