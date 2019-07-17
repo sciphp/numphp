@@ -84,7 +84,6 @@ trait VisitorTrait
         if (!is_null($number)) {
             Assert::integer(
                 $number,
-                0, 
                 "Axis number must be an integer. Given: %s"
             );
 
@@ -136,14 +135,8 @@ trait VisitorTrait
             }
         }
 
-        return np::ar(
-                array_fill(
-                    0,
-                    $this->shape[$this->ndim - 1 - $number], 
-                    0
-                )
-        )
-        ->walk($fn)
-        ->reshape(array_values($targetShape));
+        return np::zeros($this->shape[$this->ndim - 1 - $number])
+                 ->walk($fn)
+                 ->reshape(...$targetShape);
     }
 }
