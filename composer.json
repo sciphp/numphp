@@ -1,9 +1,9 @@
 {
     "name": "sciphp/numphp",
     "type": "library",
-    "version": "0.2.0",
-    "description": "PHP scientific computing",
-    "keywords": ["numeric", "linear-algebra", "numpy", "matrix", "scientific", "computing"],
+    "version": "0.3.0",
+    "description": "PHP library for scientific computing.",
+    "keywords": ["matrix", "linear-algebra", "numeric", "scientific", "computing"],
     "homepage": "https://github.com/sciphp/numphp",
     "license": "MIT",
     "require": {
