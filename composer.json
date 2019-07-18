@@ -1,7 +1,7 @@
 {
     "name": "sciphp/numphp",
     "type": "library",
-    "version": "0.3.0",
+    "version": "0.4.0-dev",
     "description": "PHP library for scientific computing.",
     "keywords": ["matrix", "linear-algebra", "numeric", "scientific", "computing"],
     "homepage": "https://github.com/sciphp/numphp",
