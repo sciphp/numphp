@@ -37,7 +37,7 @@ abstract class Decorator implements ArrayAccess, IndexInterface
      * @param  array  $arguments
      * @return mixed
      */
-    final public function __call(string $name, array $arguments = null)
+    final public function __call($name, array $arguments = null)
     {
         return np::$name($this, ...$arguments);
     }
