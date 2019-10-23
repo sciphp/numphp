@@ -43,23 +43,22 @@ class MultiRunner extends TestCase
      */
     public function processMethod($type, $method, $input, $params, $expected)
     {
-        $ref = new ReflectionMethod($type, $method);
-
         if (InvalidArgumentException::class === $expected) {
             $this->expectException(InvalidArgumentException::class);
+            $m = new $type($input);
+            $m->$method(...$params);
 
-            $m = $ref->invokeArgs(new $type($input), $params);
         // Instanciate with $input and pass $params to the tested method
         } elseif (is_string($type)) {
-            $m = $ref->invokeArgs(new $type($input), $params);
-
+            $m = new $type($input);
+            $m = $m->$method(...$params);
             $this->assertEquals(
                 $expected,
                 $m instanceof \SciPhp\NdArray ? $m->data : $m
             );
         // Class has been instanciated, just pass $params to the tested method
         } else {
-            $m = $ref->invokeArgs($type, $params);
+            $m = $type->$method(...$params);
 
             $this->assertEquals(
                 $expected,

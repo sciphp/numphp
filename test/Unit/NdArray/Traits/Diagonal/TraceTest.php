@@ -28,6 +28,21 @@ class TraceTest extends MultiRunner
    */
   public function testScenario($func, $input, $expected, $args = null)
   {
-    $this->equals('\SciPhp\NdArray', $func, $input, $expected, $args);
+    $this->equals(\SciPhp\NdArray::class, $func, $input, $expected, $args);
   }
+
+  /**
+   * tril(), square array, positive offset
+   */
+  //~ public function testSquareArrayPositiveOffset()
+  //~ {
+    //~ $m = \SciPhp\NumPhp::linspace(1, 9, 9)->reshape(3, 3);
+    
+    //~ // M 3*3, offset=1
+    //~ $this->assertEquals(
+      //~ 15,
+      //~ $m->trace(),
+      //~ 15
+    //~ );
+  //~ }
 }

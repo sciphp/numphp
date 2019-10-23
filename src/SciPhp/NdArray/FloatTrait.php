@@ -3,32 +3,12 @@
 namespace SciPhp\NdArray;
 
 use SciPhp\NumPhp as np;
-use Webmozart\Assert\Assert;
 
 /**
  * Floating points methods
  */
 trait FloatTrait
 {
-  /**
-   * Returns element-wise true where signbit is set (less than zero).
-   * 
-   * @return \SciPhp\NdArray
-   * 
-   * @link http://sciphp.org/ndarray.signbit Documentation
-   * 
-   * @api
-   */
-  final public function signbit()
-  {
-    $func = function(&$element)
-    {
-      $element = $element < 0;
-    };
-
-    return $this->copy()->walk_recursive($func);
-  }
-
   /**
    * Change the sign to that of given matrix, element-wise.
    * 

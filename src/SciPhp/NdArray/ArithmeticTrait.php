@@ -14,21 +14,6 @@ use Webmozart\Assert\Assert;
 trait ArithmeticTrait
 {
     /**
-     * Return the reciprocal of the argument, element-wise.
-     * 
-     * @return \SciPhp\NdArray
-     *
-     * @link http://sciphp.org/ndarray.reciprocal
-     *    Documentation for reciprocal() method
-     * 
-     * @api
-     */
-    final public function reciprocal()
-    {
-        return np::reciprocal($this);
-    }
-
-    /**
      * Divide matrix by a given input, element-wise
      * 
      * @param  \SciPhp\NdArray|array|float|int $input
