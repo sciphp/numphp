@@ -19,7 +19,8 @@ trait MatrixTrait
     {
         static::transform($m, true);
 
-        return $m->is_square();
+        return $m->ndim == 2
+            && $m->shape[0] == $m->shape[1];
     }
 
     /**
@@ -38,7 +39,7 @@ trait MatrixTrait
 
         static::transform($m, true);
 
-        return $m->negative();
+        return $m->dot(-1);
     }
 
     /**

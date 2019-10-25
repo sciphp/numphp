@@ -24,7 +24,13 @@ trait OperationTrait
 
         static::transform($m, true);
 
-        return $m->sum($axis, $keepdims);
+        $func = function(array $array) use (&$func) {
+            return isset($array[0]) && is_array($array[0])
+                            ? array_sum(array_map($func, $array))
+                            : array_sum($array);
+        };
+
+        return $m->axis($func, $axis, $keepdims);
     }
 
     /**

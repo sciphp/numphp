@@ -26,7 +26,11 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        return $m->exp();
+        $func = function(&$element) {
+            $element = exp($element);
+        };
+
+        return $m->copy()->walk_recursive($func);
     }
 
     /**
@@ -45,7 +49,11 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        return $m->expm1();
+        $func = function(&$element) {
+            $element = expm1($element);
+        };
+
+        return $m->copy()->walk_recursive($func);
     }
 
     /**
@@ -64,7 +72,11 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        return $m->exp2();
+        $func = function(&$element) {
+            $element = 2 ** $element;
+        };
+
+        return $m->copy()->walk_recursive($func);
     }
 
     /**
@@ -87,7 +99,11 @@ trait ExponentTrait
 
         static::transform($matrix, true);
 
-        return $matrix->power($exponent);
+        $func = function(&$element) use ($exponent) {
+            $element = $element ** $exponent;
+        };
+
+        return $matrix->copy()->walk_recursive($func);
     }
 
     /**
@@ -107,7 +123,7 @@ trait ExponentTrait
 
         static::transform($matrix, true);
 
-        return $matrix->square();
+        return $matrix->power(2);
     }
 
     /**
@@ -132,6 +148,16 @@ trait ExponentTrait
 
         static::transform($matrix, true);
 
-        return $matrix->sqrt();
+        $func = function(&$element) {
+            Assert::greaterThanEq(
+                $element, 
+                0, 
+                Message::ONLY_POSITIVE_NUMBER
+            );
+
+            $element = sqrt($element);
+        };
+
+        return $matrix->copy()->walk_recursive($func);
     }
 }
