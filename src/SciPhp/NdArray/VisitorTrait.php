@@ -19,9 +19,7 @@ trait VisitorTrait
      */
     final public function walk(callable $func, array &$data = null)
     {
-        null === $data
-            ? array_walk($this->data, $func)
-            : array_walk($data, $func);            
+        array_walk($this->data, $func);
 
         return $this;
     }
