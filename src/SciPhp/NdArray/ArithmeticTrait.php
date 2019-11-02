@@ -41,42 +41,6 @@ trait ArithmeticTrait
     }
 
     /**
-     * Multiply matrix by a given input, element-wise
-     * 
-     * @param  \SciPhp\NdArray|array|float|int $input
-     * @return \SciPhp\NdArray
-     *
-     * @link http://sciphp.org/ndarray.multiply
-     *    Documentation for multiply() method
-     * 
-     * @api
-     */
-    final public function multiply($input)
-    {
-        if (is_numeric($input)) {
-            return $this->dot($input);
-        }
-
-        return np::multiply($this, $input);
-    }
-
-    /**
-     * Subtract input from matrix
-     * 
-     * @param  \SciPhp\NdArray|array|float|int $input
-     * @return \SciPhp\NdArray
-     *
-     * @link http://sciphp.org/ndarray.subtract
-     *    Documentation for subtract() method
-     * 
-     * @api
-     */
-    final public function subtract($input)
-    {
-        return $this->negative()->add($input)->negative();
-    }
-
-    /**
      * Dot matrix with an input
      * 
      * @param  \SciPhp\NdArray|array|float|int $input

@@ -17,13 +17,14 @@ final class NumPhp extends Decorator
      * Construct a n-dimensional array
      * 
      * @param  array $data
+     * @param  string $identifier
      * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.ar Documentation
      * @api
      */
-    final public static function ar(array $data)
+    final public static function ar(array $data, $identifier = null)
     {
-        return new NdArray($data);
+        return new NdArray($data, $identifier);
     }
 
     /**

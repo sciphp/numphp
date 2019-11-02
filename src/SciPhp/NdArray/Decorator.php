@@ -26,13 +26,15 @@ use SciPhp\NumPhp as np;
  * @method \SciPhp\NdArray sqrt() The non-negative square-root of an array, element-wise. {@link http://sciphp.org/ndarray.sqrt}
  * @method int|float|array trapz() Integrate along the given axis using the composite trapezoidal rule. {@link http://sciphp.org/ndarray.trapz}
  * @method int|float|\SciPhp\NdArray sum(null|int $axis, bool $keepdims) Sum all elements. {@link http://sciphp.org/ndarray.sum}
+ * @method \SciPhp\NdArray subtract(\SciPhp\NdArray|array|float|int $input) Subtract input from matrix. {@link http://sciphp.org/ndarray.subtract}
+ * @method \SciPhp\NdArray multiply(\SciPhp\NdArray|array|float|int $input) Multiply matrix by a given input, element-wise. {@link http://sciphp.org/ndarray.multiply}
+ * @method \SciPhp\NdArray copysign(\SciPhp\NdArray|array|float|int $m) Change the sign to that of given matrix, element-wise. {@link http://sciphp.org/ndarray.copysign}
  */
 abstract class Decorator implements ArrayAccess, IndexInterface
 {
     use ArithmeticTrait;
     use AttributeTrait;
     use BasicTrait;
-    use FloatTrait;
     use IndexTrait;
     use ShapeTrait;
     use VisitorTrait;

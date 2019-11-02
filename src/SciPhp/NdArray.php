@@ -22,9 +22,10 @@ final class NdArray extends Decorator
     /**
      * Constructor
      * 
-     * @param array $data
+     * @param  array $data
+     * @param  string $identifier A NdArray identifier
      */
-    final public function __construct(array $data)
+    final public function __construct(array $data, $identifier = null)
     {
         $this->data = $data;
     }

@@ -58,7 +58,7 @@ trait ArithmeticTrait
         static::transform($m, true);
 
         // array - array OR array - lambda
-        return $m->subtract($n);
+        return $m->negative()->add($n)->negative();
     }
 
     /**
@@ -199,8 +199,8 @@ trait ArithmeticTrait
         }
 
         // array * array
-        Assert::isInstanceof($m, 'SciPhp\NdArray');
-        Assert::isInstanceof($n, 'SciPhp\NdArray');
+        Assert::isInstanceof($m, NdArray::class);
+        Assert::isInstanceof($n, NdArray::class);
 
         $shape_m = $m->shape;
         $shape_n = $n->shape;
