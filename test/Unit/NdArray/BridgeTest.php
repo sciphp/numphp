@@ -174,6 +174,23 @@ class BridgeTest extends MultiRunner
             // --- square() ---
             'square:1-dim'  => ['square', [0, 1], [0, 1]                                  ],
             'square:2-dim'  => ['square', [[2, 1], [1, 3]], [[4, 1], [1, 9]]              ],
+
+            // --- reciprocal() ---
+            'reciprocal:1-dim'  => ['reciprocal', [1, 2, 4], [1, 1/2, 1/4]                ],
+            'reciprocal:2-dim'  => ['reciprocal', [[1, 2, 4]], [[1, 1/2, 1/4]]            ],
+            'reciprocal:2-dim div by 0'  => ['reciprocal', [[1, 2, 3, 0]],  \InvalidArgumentException::class],
+
+            // --- multiply() ---
+            'multiply:1-dim by lambda'  => ['multiply', [0, 2, 4], [0, 10, 20], [5]           ],
+            'multiply:1-dim by 1-dim'   => ['multiply', [0, 2, 4], [0, 8, 8], [[0, 4, 2]]     ],
+
+            // --- is_square() ---
+            'is_square:1-dim'  => ['is_square', [0, 1], false       ], # 1 dim is not square
+            'is_square:2-dim not suaqre'  => ['is_square', [[0, 1]], false                                    ], # 2 dim but not square
+            'is_square:4x4x4 not square'  => ['is_square', np::arange(0, 16)->resize(4,4,4)->data, false      ], # 4x4x4 is NOT square
+            'is_square:2x2'  => ['is_square', [[0, 1], [1, 0]], true                             ], # 2x2 is square
+            'is_square:3x3'  => ['is_square', np::arange(0, 9)->reshape(3,3)->data, true         ], # 3x3 is square
+            'is_square:4x4'  => ['is_square', np::arange(0, 16)->reshape(4,4)->data, true        ], # 4x4 is square
         ];
     }
 
