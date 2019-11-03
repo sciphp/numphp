@@ -15,7 +15,7 @@ class BridgeTest extends MultiRunner
             // --- trapz() ---
             'trapz:1-dim array' => ['trapz', [1, 2, 3], 4],
             'trapz:2-dim array' => ['trapz', [[1, 0]],      \InvalidArgumentException::class],
-            
+
             // --- sum() ---
             'sum:0-dim' => ['sum', [], 0                                              ], # 0 dim
             'sum:0-dim-pseudo-2-dim' => ['sum', [[]], 0                               ], # 0 dim
@@ -100,6 +100,80 @@ class BridgeTest extends MultiRunner
             // --- signbit() ---
             'signbit:1-dim' => ['signbit', [-1, 1], [true, false]],
             'signbit:2-dim' => ['signbit', [[-1, 1], [1, -1]], [[true, false], [false, true]]],
+
+            // --- tril() ---
+            # square
+            'tril:3x3 offset=0'  => ['tril', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 0, 0], [4, 5, 0], [7, 8, 9]]],
+            'tril:3x3 offset=1'  => ['tril', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 2, 0], [4, 5, 6], [7, 8, 9]], [1]],
+            'tril:3x3 offset=2'  => ['tril', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], [2]],
+            'tril:3x3 offset=-1' => ['tril', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[0, 0, 0], [4, 0, 0], [7, 8, 0]], [-1]],
+            'tril:3x3 offset=-2' => ['tril', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[0, 0, 0], [0, 0, 0], [7, 0, 0]], [-2]],
+            # non square
+            'tril:4x2 offset=0'  => ['tril', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 0], [3, 4], [5, 6], [7, 8]]],
+            'tril:2x4 offset=0'  => ['tril', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[1, 0, 0, 0], [5, 6, 0, 0]]],
+            'tril:4x2 offset=1'  => ['tril', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 2], [3, 4], [5, 6], [7, 8]], [1]],
+            'tril:2x4 offset=1'  => ['tril', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[1, 2, 0, 0], [5, 6, 7, 0]], [1]],
+            'tril:2x4 offset=2'  => ['tril', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[1, 2, 3, 0], [5, 6, 7, 8]], [2]],
+            'tril:4x2 offset=-1' => ['tril', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[0, 0], [3, 0], [5, 6], [7, 8]], [-1]],
+            'tril:4x2 offset=-2' => ['tril', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[0, 0], [0, 0], [5, 0], [7, 8]], [-2]],
+            'tril:2x4 offset=-1' => ['tril', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[0, 0, 0, 0], [5, 0, 0, 0]], [-1]],
+            'tril:2x4 offset=-2' => ['tril', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[0, 0, 0, 0], [0, 0, 0, 0]], [-2]],
+
+            // --- triu() ---
+            # square
+            'triu:3x3 offset=0'  => ['triu', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 2, 3], [0, 5, 6], [0, 0, 9]],],
+            'triu:3x3 offset=1'  => ['triu', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[0, 2, 3], [0, 0, 6], [0, 0, 0]], [1]],
+            'triu:3x3 offset=2'  => ['triu', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[0, 0, 3], [0, 0, 0], [0, 0, 0]], [2]],
+            'triu:3x3 offset=-1' => ['triu', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 2, 3], [4, 5, 6], [0, 8, 9]], [-1]],
+            'triu:3x3 offset=-2' => ['triu', np::linspace(1, 9, 9)->reshape(3, 3)->data, [[1, 2, 3], [4, 5, 6], [7, 8, 9]], [-2]],
+            # non square
+            'triu:4x2 offset=0'  => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 2], [0, 4], [0, 0], [0, 0]]],
+            'triu:2x4 offset=0'  => ['triu', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[1, 2, 3, 4], [0, 6, 7, 8]]],
+            'triu:4x2 offset=1'  => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[0, 2], [0, 0], [0, 0], [0, 0]], [1]],
+            'triu:4x2 offset=2'  => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[0, 0], [0, 0], [0, 0], [0, 0]], [2]],
+            'triu:2x4 offset=1'  => ['triu', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[0, 2, 3, 4], [0, 0, 7, 8]], [1]],
+            'triu:2x4 offset=2'  => ['triu', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[0, 0, 3, 4], [0, 0, 0, 8]], [2]],
+            'triu:2x4 offset=3'  => ['triu', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[0, 0, 0, 4], [0, 0, 0, 0]], [3]],
+            'triu:4x2 offset=-1' => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 2], [3, 4], [0, 6], [0, 0]], [-1]],
+            'triu:4x2 offset=-2' => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 2], [3, 4], [5, 6], [0, 8]], [-2]],
+            'triu:4x2 offset=-3' => ['triu', np::linspace(1, 8, 8)->reshape(4, 2)->data, [[1, 2], [3, 4], [5, 6], [7, 8]], [-3]],
+            'triu:2x4 offset=-1' => ['triu', np::linspace(1, 8, 8)->reshape(2, 4)->data, [[1, 2, 3, 4], [5, 6, 7, 8]], [-1]],
+            'triu:empty matrix offset=0' => ['triu', np::ar([[]])->data, [[]]],
+            'triu:empty matrix offset=-1' => ['triu', np::ar([[]])->data, [[]], [-1]],
+
+            // --- vander() ---
+            'vander:3'  => ['vander', [1, 2, 3], [[1, 1, 1], [4, 2, 1], [9, 3, 1]]],
+            'vander:3, 3 cols'  => ['vander', [1, 2, 3], [[1, 1, 1], [4, 2, 1], [9, 3, 1]], [3]],
+            'vander:3, 1 cols'  => ['vander', [1, 2, 3], [[1], [1], [1]], [1]],
+            'vander:3, 2 cols'  => ['vander', [1, 2, 3], [[1, 1], [2, 1], [3, 1]], [2]],
+            'vander:3, 4 cols'  => ['vander', [1, 2, 3], [[1,    1, 1, 1], [8,    4, 2, 1], [27, 9, 3, 1] ], [4]],
+
+            'vander:3, n cols is not an int'  => ['vander', [1, 2, 3], \InvalidArgumentException::class, [[42]]],
+            'vander:3, n cols is negative'  => ['vander', [1, 2, 3], \InvalidArgumentException::class, [-1]],
+            'vander:3, n cols is float'  => ['vander', [1, 2, 3], \InvalidArgumentException::class, [1.5]],
+            'vander:0, empty array'  => ['vander', [], \InvalidArgumentException::class],
+            'vander:1x1, ndim>1'  => ['vander', [[0]], \InvalidArgumentException::class],
+
+            // --- exp2() ---
+            'exp2:1-dim'  => ['exp2', [0, 1], [1, 2]] ,
+            'exp2:2-dim'  => ['exp2', [[0, 1], [1, 0]], [[1, 2], [2, 1]] ],
+
+            // --- expm1() ---
+            'expm1:1-dim'  => ['expm1', [0, 1], [0, 1.718281828459]],
+            'expm1:2-dim'  => ['expm1', [[0, 1], [1, 0]], [[0, 1.718281828459],   [1.718281828459, 0]] ],   
+
+            // --- exp() ---
+            'exp:1-dim'  => ['exp', [0, 1], [1, 2.71828182846]],
+            'exp:2-dim'  => ['exp', [[0, 1], [1, 0]], [[1, 2.71828182846], [2.71828182846, 1]] ], 
+
+            // --- sqrt() ---
+            'sqrt:1-dim'  => ['sqrt', [0, 1], [0, 1]                                    ],
+            'sqrt:2-dim'  => ['sqrt', [[4, 1], [1, 9]], [[2, 1], [1, 3]]                ],
+            'sqrt:2-dim negative number'  => ['sqrt', [[-1, 2], [3, 4]],  \InvalidArgumentException::class,],
+
+            // --- square() ---
+            'square:1-dim'  => ['square', [0, 1], [0, 1]                                  ],
+            'square:2-dim'  => ['square', [[2, 1], [1, 3]], [[4, 1], [1, 9]]              ],
         ];
     }
 
