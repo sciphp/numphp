@@ -29,6 +29,7 @@ use SciPhp\NumPhp as np;
  * @method \SciPhp\NdArray subtract(\SciPhp\NdArray|array|float|int $input) Subtract input from matrix. {@link http://sciphp.org/ndarray.subtract}
  * @method \SciPhp\NdArray multiply(\SciPhp\NdArray|array|float|int $input) Multiply matrix by a given input, element-wise. {@link http://sciphp.org/ndarray.multiply}
  * @method \SciPhp\NdArray copysign(\SciPhp\NdArray|array|float|int $m) Change the sign to that of given matrix, element-wise. {@link http://sciphp.org/ndarray.copysign}
+ * @method \SciPhp\NdArray cos() Cosine element-wise. {@link http://sciphp.org/ndarray.cos}
  */
 abstract class Decorator implements ArrayAccess, IndexInterface
 {

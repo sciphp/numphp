@@ -6,6 +6,5 @@ use SciPhp\NumPhp as np;
 
 $m = np::linspace(0, 1, 25)->reshape(5, 5);
 
-for ($i = 0.1; $i < 5; $i+=0.1) {
+for ($i = 0.1; $i < 5; $i+=0.1)
     $m = $m->sqrt();
-}

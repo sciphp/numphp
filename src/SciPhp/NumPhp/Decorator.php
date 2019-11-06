@@ -14,6 +14,7 @@ abstract class Decorator
     use FileTrait;
     use FloatTrait;
     use LogarithmTrait;
+    use Mathematical\TrigonometricTrait;
     use MatrixTrait;
     use NumArrayTrait;
     use OperationTrait;
