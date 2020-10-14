@@ -17,7 +17,6 @@ class LoadtxtTest extends MultiRunner
 
       # \InvalidArgumentException
       ['loadtxt', 1,             \InvalidArgumentException::class],
-      ['loadtxt', [[1, 0]],      \InvalidArgumentException::class],
       ['loadtxt', 'fileDoesNotExist.csv',  \InvalidArgumentException::class],
     ];
   }

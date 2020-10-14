@@ -3,6 +3,7 @@
 namespace SciPhp\NdArray;
 
 use RecursiveIteratorIterator;
+use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
 
@@ -13,11 +14,8 @@ trait VisitorTrait
 {
     /**
      * Walk on first dimension
-     * 
-     * @param  callable $func
-     * @return \SciPhp\NdArray
      */
-    final public function walk(callable $func, array &$data = null)
+    final public function walk(callable $func, array &$data = null): NdArray
     {
         array_walk($this->data, $func);
 
@@ -26,11 +24,8 @@ trait VisitorTrait
 
     /**
      * Walk on last dimension
-     * 
-     * @param  callable $func
-     * @return \SciPhp\NdArray
      */
-    final public function walk_recursive(callable $func)
+    final public function walk_recursive(callable $func): NdArray
     {
         array_walk_recursive($this->data, $func);
 
@@ -39,8 +34,7 @@ trait VisitorTrait
 
     /**
      * Iterate on next value
-     * 
-     * @param  \RecursiveIteratorIterator &$iterator
+     *
      * @return int|float
      */
     final public function iterate(RecursiveIteratorIterator &$iterator)
@@ -52,7 +46,7 @@ trait VisitorTrait
                 $key = $iterator->key();
 
                 $iterator->next();
-                // At first iteration on 1 dim array, 
+                // At first iteration on 1 dim array,
                 // key is not incremented
                 if ($key == $iterator->key()) {
                     $iterator->next();
@@ -71,13 +65,10 @@ trait VisitorTrait
 
     /**
      * Execute axis operations and return an aggregate
-     * 
-     * @param  callable $func
-     * @param  int|null $number Axis number
-     * @param  bool     $keepdims
-     * @return \SciPhp\NdArray
+     *
+     * @return int|NdArray
      */
-    final public function axis(callable $func, $number = null, $keepdims = false)
+    final public function axis(callable $func, $number = null, bool $keepdims = false)
     {
         if (!is_null($number)) {
             Assert::integer(
@@ -87,14 +78,14 @@ trait VisitorTrait
 
             Assert::greaterThanEq(
                 $number,
-                0, 
+                0,
                 "Axis number must be greater than 0. Given: %s"
             );
 
             Assert::lessThan(
                 $number,
                 $this->ndim,
-                "Axis number must be lower than " 
+                "Axis number must be lower than "
                 . ($this->ndim - 1)
                 . 'Given: %s'
             );
@@ -108,7 +99,7 @@ trait VisitorTrait
         }
 
         $fn = function(&$value, $key) use ($func, $number) {
-            $index = ($number == 0)
+            $index = $number == 0
                 ? ": , $key"
                 : "$key, :";
 

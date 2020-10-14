@@ -5,6 +5,7 @@ namespace SciPhp\NdArray;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
 use SciPhp\Exception\Message;
+use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
 
@@ -15,16 +16,15 @@ trait ArithmeticTrait
 {
     /**
      * Divide matrix by a given input, element-wise
-     * 
+     *
      * @param  \SciPhp\NdArray|array|float|int $input
-     * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.divide
      *    Documentation for divide() method
-     * 
+     *
      * @api
      */
-    final public function divide($input)
+    final public function divide($input): NdArray
     {
         if (is_numeric($input))
         {
@@ -42,16 +42,15 @@ trait ArithmeticTrait
 
     /**
      * Dot matrix with an input
-     * 
+     *
      * @param  \SciPhp\NdArray|array|float|int $input
-     * @return \SciPhp\NdArray
      *
      * @link http://sciphp.org/ndarray.dot
      *    Documentation for dot() method
-     * 
+     *
      * @api
      */
-    final public function dot($input)
+    final public function dot($input): NdArray
     {
         if (is_numeric($input))
         {
@@ -67,16 +66,15 @@ trait ArithmeticTrait
 
     /**
      * Add a matrix or a number
-     * 
+     *
      * @param  NdArray|array|float|int $value
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/ndarray.add
      *    Documentation for add() method
-     * 
+     *
      * @api
      */
-    final public function add($input)
+    final public function add($input): NdArray
     {
         if (is_numeric($input))
         {
@@ -86,7 +84,7 @@ trait ArithmeticTrait
                 }
             );
         }
-        
+
         if (is_array($input))
         {
             $input = np::ar($input);
@@ -119,7 +117,7 @@ trait ArithmeticTrait
 
         $iterator = new RecursiveIteratorIterator(
             new RecursiveArrayIterator(
-                $this->ndim >= $input->ndim 
+                $this->ndim >= $input->ndim
                     ? $input->data
                     : $this->data
             ),

@@ -17,7 +17,6 @@ class IdentityTest extends MultiRunner
       ],
 
       # \InvalidArgumentException
-      ['identity', 'hello',       \InvalidArgumentException::class],
       ['identity', '-5',           \InvalidArgumentException::class],
       ['identity', '0',           \InvalidArgumentException::class],
       ['identity', '0.5',           \InvalidArgumentException::class],

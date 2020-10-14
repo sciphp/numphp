@@ -10,15 +10,13 @@ trait NumArrayTrait
 {
     /**
      * Creates a NdArray with zero as default value
-     * 
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.zeros
      *    Documentation for zeros()
-     * 
+     *
      * @api
      */
-    final public static function zeros()
+    final public static function zeros(): NdArray
     {
         return self::full(
             static::parseArgs(func_get_args()), 0
@@ -27,15 +25,13 @@ trait NumArrayTrait
 
     /**
      * Creates a NdArray with one as default value
-     * 
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.ones
      *    Documentation for ones()
-     * 
+     *
      * @api
      */
-    final public static function ones()
+    final public static function ones(): NdArray
     {
         return self::full(
             static::parseArgs(func_get_args()), 1
@@ -45,15 +41,13 @@ trait NumArrayTrait
     /**
      * Creates a NdArray with null as default value
      * 'empty' can not be used in PHP
-     * 
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.nulls
      *    Documentation for nulls()
-     * 
+     *
      * @api
      */
-    final public static function nulls()
+    final public static function nulls(): NdArray
     {
         return self::full(
             static::parseArgs(func_get_args()), null
@@ -62,17 +56,16 @@ trait NumArrayTrait
 
     /**
      * Creates a NdArray with a default value
-     * 
+     *
      * @param  array $shape
      * @param  mixed $value
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.full
      *    Documentation for full()
-     * 
+     *
      * @api
      */
-    final public static function full(array $shape, $value)
+    final public static function full(array $shape, $value): NdArray
     {
         Assert::allInteger($shape);
         Assert::allGreaterThan($shape, 0);
@@ -84,13 +77,13 @@ trait NumArrayTrait
 
     /**
      * Construct a n-dim array with a default value
-     * 
+     *
      * @param  array $params
      * @param  mixed $value
      * @return mixed|array
      */
     final protected static function createArray(array $params, $value)
-    {            
+    {
         return isset($params[0])
             ? array_fill(
                     0,
@@ -100,69 +93,65 @@ trait NumArrayTrait
     }
 
     /**
-     * Construct a new array of nulls with the same shape and type 
+     * Construct a new array of nulls with the same shape and type
      * as a given array.
-     * 
+     *
      * @param  array|\SciPhp\NdArray $matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.nulls_like
      *    Documentation for nulls_like()
-     * 
+     *
      * @api
      */
-    final public static function nulls_like($matrix)
+    final public static function nulls_like($matrix): NdArray
     {
         return self::full_like($matrix, null);
     }
 
     /**
-     * Construct a new array of zeros with the same shape and type 
+     * Construct a new array of zeros with the same shape and type
      * as a given array.
-     * 
+     *
      * @param  array|\SciPhp\NdArray $matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.zeros_like
      *    Documentation for zeros_like()
-     * 
+     *
      * @api
      */
-    final public static function zeros_like($matrix)
+    final public static function zeros_like($matrix): NdArray
     {
         return self::full_like($matrix, 0);
     }
 
     /**
-     * Construct a new array of ones with the same shape and type 
+     * Construct a new array of ones with the same shape and type
      * as a given array.
-     * 
+     *
      * @param  array|\SciPhp\NdArray $matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.ones_like
      *    Documentation for ones_like()
-     * 
+     *
      * @api
      */
-    final public static function ones_like($matrix)
+    final public static function ones_like($matrix): NdArray
     {
         return self::full_like($matrix, 1);
     }
 
     /**
      * Construct a new array with the same shape and type as a given array,
-     * filled with a given value 
-     * 
+     * filled with a given value
+     *
      * @param  array|\SciPhp\NdArray $matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.full_like
      *    Documentation for full_like()
-     * 
+     *
      * @api
      */
-    final public static function full_like($matrix, $value = null)
+    final public static function full_like($matrix, $value = null): NdArray
     {
         if (is_array($matrix)) {
             $matrix = static::ar($matrix);
@@ -175,18 +164,17 @@ trait NumArrayTrait
 
     /**
      * Broadcast an array to a new shape.
-     * 
+     *
      * @param  array|\SciPhp\NdArray $matrix
      * @param  array $shape
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.broadcast_to
      *    Documentation for broadcast_to()
-     * 
-	 * @since 0.3.0
+     *
+     * @since 0.3.0
      * @api
      */
-    final public static function broadcast_to($matrix, array $shape)
+    final public static function broadcast_to($matrix, array $shape): NdArray
     {
         static::transform($matrix, true);
 
@@ -213,12 +201,12 @@ trait NumArrayTrait
 
     /**
      * Checks that an array can be broadcast to a given shape
-     * 
+     *
      * @param  NdArray $matrix
      * @param  array   $shape
      * @throws \InvalidArgumentException when broadcast cannot be done
      */
-    private static function can_broadcast_to(NdArray $m, array $shape)
+    private static function can_broadcast_to(NdArray $m, array $shape): void
     {
         if (count($shape) > 2) {
             throw new \InvalidArgumentException(
@@ -244,7 +232,7 @@ trait NumArrayTrait
             } elseif ($shape_m[$m_index] == 1) {
                 continue;
             }
-            
+
             $message = sprintf(
                 Message::ARRAYS_BROADCAST_IMPOSSIBLE,
                 trim(static::ar($m->shape)),
@@ -252,6 +240,6 @@ trait NumArrayTrait
             );
 
             throw new \InvalidArgumentException($message);
-        } 
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace SciPhpTest\NdArray\Traits\Operation;
+namespace SciPhpTest\NdArray\Traits\Visitor;
 
 use PHPUnit\Framework\TestCase;
 use SciPhp\NumPhp as np;

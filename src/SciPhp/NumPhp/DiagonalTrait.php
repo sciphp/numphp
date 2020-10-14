@@ -13,7 +13,7 @@ trait DiagonalTrait
 {
     /**
      * Sum along diagonals
-     * 
+     *
      * @param  \SciPhp\NdArray|array $m
      * @param  int $k offset
      * @return int|float|array
@@ -31,15 +31,14 @@ trait DiagonalTrait
 
     /**
      * Construct an identity array
-     * 
+     *
      * @param  int $n
-     * @return \SciPhp\NdArray
      * @throws \InvalidArgumentException
      * @link http://sciphp.org/numphp.identity Documentation
      * @todo implement Assert::natural()
      * @api
      */
-    final public static function identity($n)
+    final public static function identity(int $n): NdArray
     {
       Assert::integer($n, Message::ONLY_POSITIVE_INT);
       Assert::greaterThan($n, 0, Message::ONLY_POSITIVE_INT);
@@ -48,52 +47,50 @@ trait DiagonalTrait
     }
 
     /**
-     * Construct a diagonal array 
-     * 
+     * Construct a diagonal array
+     *
      * @param  int $rows Number of rows
      * @param  int $cols Number of columns
      * @param  int $k    Offset
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.eye Documentation
      * @api
      */
-    final public static function eye($rows, $cols = 0, $k = 0)
+    final public static function eye($rows, $cols = 0, $k = 0): NdArray
     {
-      Assert::integer($rows);
-      Assert::integer($cols);
-      Assert::integer($k);
-      Assert::greaterThan($rows, 0);
-      Assert::greaterThanEq($cols, 0);
+        Assert::integer($rows);
+        Assert::integer($cols);
+        Assert::integer($k);
+        Assert::greaterThan($rows, 0);
+        Assert::greaterThanEq($cols, 0);
 
-      if (0 === $cols) {
-        $cols = $rows;
-      }
+        if (0 === $cols) {
+            $cols = $rows;
+        }
 
-      $diag = $rows > $cols
-        ? array_fill(0, $cols, 1)
-        : array_fill(0, $rows, 1);
+        $diag = $rows > $cols
+            ? array_fill(0, $cols, 1)
+            : array_fill(0, $rows, 1);
 
-      $col  = $k > 0 ?  $k : 0;
+        $col  = $k > 0 ?  $k : 0;
 
-      return static::ar(
-        array_map(
-          self::itemFromDiagonal($col, $diag, $k),
-          static::zeros($rows, $cols)->data
-        )
-      );
+        return static::ar(
+            array_map(
+                self::itemFromDiagonal($col, $diag, $k),
+                static::zeros($rows, $cols)->data
+            )
+        );
     }
 
     /**
      * Extract a diagonal or construct a diagonal array
-     * 
+     *
      * @param  array|\SciPhp\NdArray $m
      * @param  int $k Diagonal
-     * @return \SciPhp\NdArray
      * @throws \SciPhp\Exception\InvalidArgumentException
      * @link http://sciphp.org/numphp.diag Documentation
      * @api
      */
-    final public static function diag($m, $k = 0)
+    final public static function diag($m, int $k = 0): NdArray
     {
       static::transform($m, true);
 
@@ -108,14 +105,13 @@ trait DiagonalTrait
 
     /**
      * Extract a diagonal
-     * 
+     *
      * @param  \SciPhp\NdArray|array $m
      * @param  int $k Offset
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.diagonal Documentation
      * @api
      */
-    final public static function diagonal($m, $k = 0)
+    final public static function diagonal($m, $k = 0): NdArray
     {
       Assert::integer($k, 'Offset must be an integer. Given %s.');
 
@@ -141,16 +137,15 @@ trait DiagonalTrait
     }
 
     /**
-     * Create a two-dimensional array with the flattened input 
+     * Create a two-dimensional array with the flattened input
      * as a diagonal.
-     * 
+     *
      * @param  mixed $m An array to flatten
      * @param  int $k
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.diagflat Documentation
      * @api
      */
-    final public static function diagflat($m, $k = 0)
+    final public static function diagflat($m, $k = 0): NdArray
     {
       Assert::integer($k);
 
@@ -161,12 +156,11 @@ trait DiagonalTrait
 
     /**
      * Construct a diagonal array
-     * 
+     *
      * @param  array $diagonal
      * @param  int $k
-     * @return \SciPhp\NdArray
      */
-    final protected static function fromDiagonal(array $diagonal, $k)
+    final protected static function fromDiagonal(array $diagonal, $k): NdArray
     {
       $col    = $k > 0 ?  $k : 0;
 
@@ -184,17 +178,16 @@ trait DiagonalTrait
 
     /**
      * Fill a line among diagonal, offset and indexes
-     * 
+     *
      * @param  int   $col  Diagonal column index
      * @param  array $diagonal
      * @param  int   $k    Offset
-     * @return array
      */
-    final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1)
+    final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1): callable
     {
       return function($item) use (&$line, &$col, $diagonal, $k) {
         if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {
-          $item[$col] = $diagonal[$col - $k];    
+          $item[$col] = $diagonal[$col - $k];
           $col++;
         } elseif ($k < 0) {
           if ($line++ > -$k && isset($item[$col], $diagonal[$col])) {
@@ -206,14 +199,4 @@ trait DiagonalTrait
         return $item;
       };
     }
-
-    /**
-     * {@inheritdoc}
-     */
-//  public abstract static function ar(array $array);
-
-    /**
-     * {@inheritdoc}
-     */
-//  public abstract static function zeros();
 }

@@ -8,7 +8,7 @@ trait OperationTrait
 {
     /**
      * Sum all elements.
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @param  int|null $axis
      * @param  bool     $keepdims
@@ -16,7 +16,7 @@ trait OperationTrait
      * @link http://sciphp.org/numphp.sum Documentation
      * @api
      */
-    final public static function sum($m, $axis = null, $keepdims = false)
+    final public static function sum($m, $axis = null, bool $keepdims = false)
     {
         if (is_numeric($m)) {
             return $m;
@@ -35,7 +35,7 @@ trait OperationTrait
 
     /**
      * Integrate along the given axis using the composite trapezoidal rule.
-     * 
+     *
      * @param    \SciPhp\NdArray|array $m
      * @return int|float|array
      * @link http://sciphp.org/numphp.trapz Documentation
@@ -55,14 +55,14 @@ trait OperationTrait
 
                 return 0;
             }
-            
+
             $sum = ($value + $prev) / 2;
-            
+
             $prev = $value;
-            
+
             return $sum;
         };
-        
+
         return array_sum(
             array_map(
                 $func,

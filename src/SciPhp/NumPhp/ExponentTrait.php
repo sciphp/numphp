@@ -84,9 +84,8 @@ trait ExponentTrait
      *
      * @param  float|int|array|\SciPhp\NdArray $matrix
      * @param  float|int $exponent
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.power Documentation
-	 * @since 0.3.0
+     * @since 0.3.0
      * @api
      */
     final public static function power($matrix, $exponent)
@@ -108,11 +107,11 @@ trait ExponentTrait
 
     /**
      * The element-wise square of the input.
-     * 
+     *
      * @param  float|int|array|\SciPhp\NdArray $matrix
      * @return float|int|\SciPhp\NdArray
      * @link   http://sciphp.org/numphp.square Documentation
-	 * @since  0.3.0 
+     * @since  0.3.0
      * @api
      */
     final public static function square($matrix)
@@ -128,18 +127,18 @@ trait ExponentTrait
 
     /**
      * The non-negative square-root of an array, element-wise.
-     * 
+     *
      * @return \SciPhp\NdArray
      * @link   http://sciphp.org/ndarray.sqrt Documentation
-	 * @since  0.3.0 
+     * @since  0.3.0
      * @api
      */
     final public static function sqrt($matrix)
     {
         if (\is_numeric($matrix)) {
             Assert::greaterThanEq(
-                $matrix, 
-                0, 
+                $matrix,
+                0,
                 Message::ONLY_POSITIVE_NUMBER
             );
 
@@ -150,8 +149,8 @@ trait ExponentTrait
 
         $func = function(&$element) {
             Assert::greaterThanEq(
-                $element, 
-                0, 
+                $element,
+                0,
                 Message::ONLY_POSITIVE_NUMBER
             );
 

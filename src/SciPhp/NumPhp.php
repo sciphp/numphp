@@ -8,33 +8,33 @@ use Webmozart\Assert\Assert;
 
 /**
  * Entry point for np calls.
- * 
+ *
  * @link http://sciphp.org/ref.numphp
  */
 final class NumPhp extends Decorator
 {
     /**
      * Construct a n-dimensional array
-     * 
+     *
      * @param  array $data
      * @param  string $identifier
      * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.ar Documentation
      * @api
      */
-    final public static function ar(array $data, $identifier = null)
+    final public static function ar(array $data, $identifier = null): NdArray
     {
         return new NdArray($data, $identifier);
     }
 
     /**
      * Parse args as a tuple or an array
-     * 
+     *
      * @param  array|array[] $args
      * @return array
      * @api
      */
-    final public static function parseArgs(array $args)
+    final public static function parseArgs(array $args): array
     {
         if (isset($args[0]) && is_array($args[0])) {
             Assert::oneOf(
@@ -55,11 +55,11 @@ final class NumPhp extends Decorator
 
     /**
      * Transform a PHP array in a NdArray
-     * 
+     *
      * @param mixed $m
      * @param bool  $required
      */
-    final public static function transform(&$m, $required = false)
+    final public static function transform(&$m, bool $required = false): void
     {
         if (is_array($m)) {
             $m = static::ar($m);
@@ -72,12 +72,11 @@ final class NumPhp extends Decorator
 
     /**
      * Check that all values are numeric
-     * 
+     *
      * @param  array $args
-     * @return bool
      * @api
      */
-    final public static function allNumeric()
+    final public static function allNumeric(): bool
     {
         return !count(
             array_filter(

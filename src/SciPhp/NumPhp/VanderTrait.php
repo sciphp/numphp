@@ -9,7 +9,7 @@ trait VanderTrait
 {
     /**
      * Generate a Vandermonde matrix.
-     * 
+     *
      * @param    \SciPhp\NdArray|array $matrix A 1-dim array.
      * @param    int $num Number of columns for the output.
      * @return \SciPhp\NdArray A Vandermonde matrix
@@ -17,7 +17,7 @@ trait VanderTrait
      * @link http://sciphp.org/numphp.vander Documentation
      * @api
      */
-    final public static function vander($matrix, $num = null)
+    final public static function vander($matrix, $num = null): NdArray
     {
         static::transform($matrix, true);
 
@@ -38,11 +38,10 @@ trait VanderTrait
 
     /**
      * Apply decreasing power on each row values
-     * 
+     *
      * @param    int $num Number of wanted columns
-     * @return array
      */
-    final protected static function itemVander($num)
+    final protected static function itemVander(int $num): callable
     {
         return function($row, $value) use ($num) {
             return array_map(
@@ -53,7 +52,4 @@ trait VanderTrait
             );
         };
     }
-
-//    public abstract static function ar(array $array);
-//    public abstract static function ones();
 }

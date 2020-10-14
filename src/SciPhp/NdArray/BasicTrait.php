@@ -2,6 +2,7 @@
 
 namespace SciPhp\NdArray;
 
+use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 
 /**
@@ -11,14 +12,11 @@ trait BasicTrait
 {
     /**
      * Create a copy
-     * 
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/ndarray.copy Documentation
-     * 
      * @api
      */
-    final public function copy()
+    final public function copy(): NdArray
     {
         return np::ar($this->data);
     }

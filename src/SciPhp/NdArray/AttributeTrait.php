@@ -10,88 +10,83 @@ use SciPhp\NumPhp as np;
  */
 trait AttributeTrait
 {
-  /**
-   * @var array 
-   */
-  protected $data = [];
+    /**
+     * @var array
+     */
+    protected $data = [];
 
-  /**
-   * Attribute setter
-   * 
-   * @param string $name
-   * @param mixed $value
-   */
-  final public function __set($name, $value)
-  {
-    switch ($name)
+    /**
+     * Attribute setter
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    final public function __set(string $name, $value)
     {
-      case 'shape':
-        return $this->__construct(
-          $this->reshape($value)->data
-        );
-      default:
+        switch ($name)
+        {
+            case 'shape':
+                return $this->__construct(
+                    $this->reshape($value)->data
+                );
+            default:
+                throw new InvalidAttributeException(__CLASS__, $name);
+        }
+    }
+
+    /**
+     * Generic getter
+     *
+     * @param  string $name
+     * @return mixed
+     * @throws \SciPhp\Exception\InvalidAttributeException
+     */
+    final public function __get(string $name)
+    {
+        switch ($name)
+        {
+            case 'data':
+                return $this->data;
+            case 'ndim':
+                return (int)$this->getNdim($this->data);
+            case 'size':
+                return $this->getSize();
+            case 'shape':
+                return $this->getShape($this->data, []);
+            case 'T':
+                return np::transpose($this);
+        }
+
         throw new InvalidAttributeException(__CLASS__, $name);
     }
-  }
 
-  /**
-   * Generic getter
-   * 
-   * @param  string $name
-   * @return mixed
-   * @throws \SciPhp\Exception\InvalidAttributeException
-   */
-  final public function __get($name)
-  {
-    switch ($name)
+    /**
+     * Gets NdArray rank
+     */
+    final protected function getNdim(array $data): int
     {
-      case 'data':
-        return $this->data;
-      case 'ndim':
-        return (int)$this->getNdim($this->data);
-      case 'size':
-        return $this->getSize();
-      case 'shape':
-        return $this->getShape($this->data, []);
-      case 'T':
-        return np::transpose($this);
+        if (isset($data[0])) {
+            return is_array($data[0])
+                ? 1 + $this->getNdim($data[0])
+                : 1;
+        }
+        return 0;
     }
 
-    throw new InvalidAttributeException(__CLASS__, $name);
-  }
+    /**
+     * Gets the total number of elements of the array
+     */
+    final protected function getSize(int $count = 0): int
+    {
+        array_walk_recursive(
+            $this->data,
+            function () use (&$count) {
+                $count++;
+            }
+        );
 
-  /**
-   * Gets NdArray rank
-   * 
-   * @param  array $data
-   * @return int
-   */
-  final protected function getNdim(array $data)
-  {
-    if (isset($data[0])) {
-      return is_array($data[0])
-        ? 1 + $this->getNdim($data[0])
-        : 1;
+        return $count;
     }
-  }
 
-  /**
-   * Gets the total number of elements of the array
-   * 
-   * @param  int $count current count
-   * @return int
-   */
-  final protected function getSize($count = 0)
-  {
-    array_walk_recursive(
-      $this->data,
-      function () use (&$count) {
-        $count++;
-      }
-    );
-
-    return $count;
-  }
-
-  protected abstract function getShape($data, $shape);
+    protected abstract function getShape($data, array $shape): array;
 }

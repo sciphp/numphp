@@ -3,6 +3,7 @@
 namespace SciPhp\LinAlg;
 
 use SciPhp\Exception\Message;
+use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
 
@@ -12,23 +13,22 @@ use Webmozart\Assert\Assert;
 trait CholeskyTrait
 {
     /**
-     * Decomposition of a Hermitian, positive-definite matrix into the 
+     * Decomposition of a Hermitian, positive-definite matrix into the
      * product of a lower triangular matrix
-     * 
+     *
      * @param  \SciPhp\NdArray|array $matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/linalg.cholesky
      * Documentation for cholesky()
-     * 
+     *
      * @since 0.3.0
      * @api
      */
-    final public function cholesky($matrix)
+    final public function cholesky($matrix): NdArray
     {
         np::transform($matrix, true);
 
-        $shape = $matrix->shape; 
+        $shape = $matrix->shape;
 
         Assert::true(
             $matrix->is_square(),
@@ -57,20 +57,20 @@ trait CholeskyTrait
                 Assert::eq(
                     $matrix["$b, $a"],
                     $matrix["$a, $b"],
-                    "Not a symmetric matrix"
+                    "Not a symetric matrix"
                 );
 
                 $l["$b, $a"] = $w["$b, $a"] / $l["$a, $a"];
 
                 for ($c = $a + 1; $c <= $b; $c++) {
-                    $w["$b, $c"] = $w["$b, $c"] 
-                                 - $l["$b, $a"] 
+                    $w["$b, $c"] = $w["$b, $c"]
+                                 - $l["$b, $a"]
                                  * $l["$c, $a"];
                 }
             }
 
         }
-    
+
         return $l;
     }
 }

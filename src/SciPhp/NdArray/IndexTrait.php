@@ -3,6 +3,7 @@
 namespace SciPhp\NdArray;
 
 use SciPhp\Exception\Message;
+use SciPhp\NdArray;
 use Webmozart\Assert\Assert;
 
 /**
@@ -12,17 +13,16 @@ trait IndexTrait
 {
     /**
      * Get a view by index
-     * 
+     *
      * @param mixed $index
-     * 
      * @return mixed
      */
     final public function offsetGet($index)
     {
         // @todo slicing or indexing switch here
         if ((is_string($index) || is_int($index))
-                 && preg_match(static::IDX_PAT_FILTER, $index)
-                 && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
+             && preg_match(static::IDX_PAT_FILTER, $index)
+             && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
         ) {
             $params = $this->indexFilter($matches);
 
@@ -37,14 +37,14 @@ trait IndexTrait
 
     /**
      * Set a view by index
-     * 
+     *
      * @param int|string $index
-     * 
+     *
      * @param int|string $value
-     * 
+     *
      * @return \SciPhp\NdArray
      */
-    final public function offsetSet($index, $value)
+    final public function offsetSet($index, $value): NdArray
     {
         if ((is_string($index) || is_int($index))
                  && preg_match(static::IDX_PAT_FILTER, $index)
@@ -53,9 +53,7 @@ trait IndexTrait
             $params = $this->indexFilter($matches);
 
             $this->filterSet($params, 0, $this->data, $value);
-        }
-        else
-        {
+        } else {
             return Assert::false($index, Message::UNDEFINED_INDEX);
         }
 
@@ -66,17 +64,13 @@ trait IndexTrait
      * Get values from an element or a range
      *
      * @param array $filter
-     * 
      * @param int $index
-     * 
      * @param array $data
-     * 
      * @return int|float|array $value
      */
-    final protected function filterGet(array $filter, $index, array &$data = null)
+    final protected function filterGet(array $filter, int $index, array &$data = null)
     {
-        if (!isset($filter['start'][$index]))
-        {
+        if (!isset($filter['start'][$index])) {
             return $data;
         }
 
@@ -98,14 +92,11 @@ trait IndexTrait
      * Assign values to an element or a range
      *
      * @param array $filter
-     * 
      * @param int $index
-     * 
      * @param array $data
-     * 
      * @param int|float $value
      */
-    final protected function filterSet(array $filter, $index, array &$data = null, $value)
+    final protected function filterSet(array $filter, int $index, array &$data = null, $value)
     {
         if (!isset($filter['start'][$index])) {
             return array_walk_recursive($data, function(&$item) use ($value) {
@@ -132,11 +123,8 @@ trait IndexTrait
 
     /**
      * Prepare filter values
-     * 
-     * @param  array $filter
-     * @return array $filter
      */
-    final protected function indexFilter($matches)
+    final protected function indexFilter(array $matches): array
     {
         $filter = [];
 
@@ -165,43 +153,40 @@ trait IndexTrait
                     Assert::notEq(
                         $index,
                         ',',
-                        "Invalid index syntax. Index=$index" 
+                        "Invalid index syntax. Index=$index"
                     );
                 }
-                
-                if ($value !== '' 
+
+                if ($value !== ''
                     || $filter['col'] [$key] !== ''
                     || $filter['stop'][$key] !== ''
                     || $filter['comma'][$key] !== ''
                 ) {
                     $params['start'][] = intval($value);
                     $params['col']  [] = $filter['col'][$key];
-                    
+
                     if ($filter['col'][$key] === ':') {
                         $stop = $filter['stop'][$key] != ''
                             ? intval($filter['stop'][$key]) : 'max';
                     } else {
                         $stop = intval($value);
                     }
-                    
+
                     $params['stop'] [] = $stop;
                     $params['comma'][] = $filter['comma'][$key];
                 }
             }
         );
-        
+
         return $params;
     }
 
     /**
      * Get range definition
-     * 
-     * @param  array $filter
-     * @param  int   $index
-     * @param  int   $count
+     *
      * @return int[$start, $stop]
      */
-    final protected function filterRange(array $filter, $index, $count)
+    final protected function filterRange(array $filter, int $index, int $count): array
     {
         // eq. '-1' '-1,' '-1:-1,' '-2:-1,'
         if ($filter['start'][$index] < 0) {
@@ -209,7 +194,7 @@ trait IndexTrait
         }
 
         // all, eq. ','    ':,' '0:0,'
-        if ($filter['start'][$index] === 0 
+        if ($filter['start'][$index] === 0
           && $filter['stop'][$index] === 'max'
         ) {
             $filter['start'][$index] = 0;
@@ -240,26 +225,22 @@ trait IndexTrait
 
     /**
      * Remove a portion of the data array
-     * 
+     *
      * @param mixed $offset
-     * 
-     * @return bool
      */
-    final public function offsetUnset($offset)
+    final public function offsetUnset($offset): bool
     {
         return is_array(array_splice($this->data, $offset));
     }
 
     /**
      * Check that an index is defined
-     * 
+     *
      * @param mixed $offset
-     * 
-     * @return bool
      */
-    final public function offsetExists($offset)
+    final public function offsetExists($offset): bool
     {
-        return isset($this->data[$offset]) 
+        return isset($this->data[$offset])
                 || array_key_exists($offset, $this->data);
     }
 }

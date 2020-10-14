@@ -9,14 +9,13 @@ trait TriangleTrait
 {
   /**
    * Upper triangle of an array
-   * 
+   *
    * @param  \SciPhp\NdArray|array $m
    * @param  int $k Offset
-   * @return \SciPhp\NdArray The upper triangle
    * @link http://sciphp.org/numphp.triu Documentation
    * @api
    */
-  final public static function triu($m, $k = 0)
+  final public static function triu($m, $k = 0): NdArray
   {
     Assert::integer($k);
 
@@ -39,14 +38,14 @@ trait TriangleTrait
 
   /**
    * Fill zeros from first item to a position
-   * 
+   *
    * @param  int $col  Stop column position
    * @param  int $k    Offset
    * @param  int $count Max column position
    * @param  int $line Start line for negative offsets
    * @return array
    */
-  final protected static function itemTriu($col, $k, $count, $line = 1)
+  final protected static function itemTriu($col, $k, $count, $line = 1): callable
   {
     return function($item) use (&$col, &$line, $k, $count) {
       if ($k >= 0 || ($k < 0 && $line++ > -$k)) {
@@ -66,14 +65,13 @@ trait TriangleTrait
 
   /**
    * Lower triangle of an array
-   * 
+   *
    * @param  \SciPhp\NdArray|array $m
    * @param  int $k Offset
-   * @return \SciPhp\NdArray The lower triangle
    * @link http://sciphp.org/numphp.tril Documentation
    * @api
    */
-  final public static function tril($m, $k = 0)
+  final public static function tril($m, $k = 0): NdArray
   {
     Assert::integer($k);
 
@@ -96,14 +94,13 @@ trait TriangleTrait
 
   /**
    * Fill zeros from a position to the end of the array
-   * 
+   *
    * @param  int $col  Start column position
    * @param  int $k    Offset
    * @param  int $count Last column position
    * @param  int $line Start line for negative offsets
-   * @return array
    */
-  final protected static function itemTril($col, $k, $count, $line = 1)
+  final protected static function itemTril($col, $k, $count, $line = 1): callable
   {
     return function($item) use (&$col, &$line, $k, $count) {
       if ($k >= 0) {
@@ -126,17 +123,16 @@ trait TriangleTrait
   }
 
   /**
-   * Construct an array with ones at and below the given diagonal 
+   * Construct an array with ones at and below the given diagonal
    * and zeros elsewhere
-   * 
+   *
    * @param  int $rows Number of rows
    * @param  int $cols Number of columns
    * @param  int $k    Offset
-   * @return \SciPhp\NdArray
    * @link http://sciphp.org/numphp.tri Documentation
    * @api
    */
-  final public static function tri($rows, $cols = null, $k = 0)
+  final public static function tri($rows, $cols = null, $k = 0): NdArray
   {
     Assert::integer($rows);
     Assert::greaterThan($rows, 0);
@@ -162,14 +158,13 @@ trait TriangleTrait
 
   /**
    * Return a closure that fill a line item with ones
-   * 
+   *
    * @param  int $col     Position until which filling is done
    * @param  int $k       Offset
    * @param  int $maxCols Max position to fill
    * @param  int $line    Start at this line if offset is negative
-   * @return array
    */
-  final protected static function itemTri($col, $k, $maxCols, $line = 1)
+  final protected static function itemTri($col, $k, $maxCols, $line = 1): callable
   {
     return function($item) use (&$line, &$col, $k, $maxCols) {
       if ($k >= 0 || ($k < 0 && $line++ > -$k)) {
@@ -184,7 +179,4 @@ trait TriangleTrait
       return $item;
     };
   }
-
-//  public abstract static function ar(array $array);
-//  public abstract static function zeros();
 }

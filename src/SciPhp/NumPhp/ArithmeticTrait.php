@@ -12,9 +12,8 @@ trait ArithmeticTrait
 {
     /**
      * Return the reciprocal of the argument, element-wise.
-     * 
+     *
      * @param \SciPhp\NdArray|array|float|int $m
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.reciprocal
      *    Documentation for reciprocal() method
      * @api
@@ -34,10 +33,9 @@ trait ArithmeticTrait
 
     /**
      * Subtract a matrix from matrix
-     * 
+     *
      * @param \SciPhp\NdArray|array|float|int $m
      * @param \SciPhp\NdArray|array|float|int $n
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.subtract Documentation
      * @api
      */
@@ -63,7 +61,7 @@ trait ArithmeticTrait
 
     /**
      * Add two array_like
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @param  \SciPhp\NdArray|array|int|float $n
      * @return \SciPhp\NdArray|int|float
@@ -92,7 +90,7 @@ trait ArithmeticTrait
 
     /**
      * Divide two arrays, element-wise
-     * 
+     *
      * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
      * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
      * @return \SciPhp\NdArray|float|int
@@ -116,7 +114,7 @@ trait ArithmeticTrait
         if (is_numeric($n) && $m instanceof NdArray) {
             return $m->copy()->divide($n);
         }
-        
+
         // lamba / array
         if (is_numeric($m) && $n instanceof NdArray) {
             return static::full_like($n, $m)->divide($n);
@@ -129,7 +127,7 @@ trait ArithmeticTrait
         $shape_m = $m->shape;
         $shape_n = $n->shape;
 
-        // n & m are vectors: 
+        // n & m are vectors:
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
@@ -171,7 +169,7 @@ trait ArithmeticTrait
 
     /**
      * Multiply two arrays, element-wise
-     * 
+     *
      * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
      * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
      * @return \SciPhp\NdArray|float|int
@@ -205,7 +203,7 @@ trait ArithmeticTrait
         $shape_m = $m->shape;
         $shape_n = $n->shape;
 
-        // n & m are vectors: 
+        // n & m are vectors:
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
@@ -241,7 +239,7 @@ trait ArithmeticTrait
 
     /**
      * Dot product of two arrays
-     * 
+     *
      * @param  \SciPhp\NdArray|array|float|int $m A 2-dim array.
      * @param  \SciPhp\NdArray|array|float|int $n A 2-dim array.
      * @return \SciPhp\NdArray|float|int
@@ -262,7 +260,7 @@ trait ArithmeticTrait
         if (is_numeric($n) && $m instanceof NdArray) {
             return $m->copy()->dot($n);
         }
-        
+
         // lamba.array
         if (is_numeric($m) && $n instanceof NdArray) {
             return $n->copy()->dot($m);
@@ -275,7 +273,7 @@ trait ArithmeticTrait
         $shape_m = $m->shape;
         $shape_n = $n->shape;
 
-        // n & m are vectors: 
+        // n & m are vectors:
         if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
 
@@ -331,12 +329,11 @@ trait ArithmeticTrait
 
     /**
      * Browse p rows
-     * 
+     *
      * @param  \SciPhp\NdArray $m
      * @param  \SciPhp\NdArray $n
-     * @return \Closure
      */
-    final protected static function rowDot(NdArray $m, NdArray $n)
+    final protected static function rowDot(NdArray $m, NdArray $n): callable
     {
         return function(&$row, $row_m) use ($m, $n) {
             array_walk($row, self::colDot($row_m, $m, $n));
@@ -345,7 +342,7 @@ trait ArithmeticTrait
 
     /**
      * Browse p cols and sum products
-     * 
+     *
      * @param  \SciPhp\NdArray $m
      * @param  \SciPhp\NdArray $n
      * @return \Closure

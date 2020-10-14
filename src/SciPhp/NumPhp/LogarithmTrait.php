@@ -8,7 +8,7 @@ trait LogarithmTrait
 {
     /**
      * Natural logarithm, element-wise.
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @param  int|float $base
      * @return \SciPhp\NdArray|int|float
@@ -18,7 +18,7 @@ trait LogarithmTrait
     final public static function log($m, $base = M_E)
     {
         Assert::greaterThan($base, 0);
-        
+
         if (is_numeric($m)) {
             Assert::greaterThan($m, 0);
             return log($m, $base);
@@ -37,7 +37,7 @@ trait LogarithmTrait
 
     /**
      * Base 10 logarithm, element-wise.
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @return \SciPhp\NdArray|int|float
      * @link http://sciphp.org/numphp.log10 Documentation
@@ -45,12 +45,12 @@ trait LogarithmTrait
      */
     final public static function log10($m)
     {
-      return self::log($m, 10);
+        return self::log($m, 10);
     }
 
     /**
      * Base 2 logarithm, element-wise.
-     * 
+     *
      * @param \SciPhp\NdArray|array|int|float $m
      * @return \SciPhp\NdArray|int|float
      * @link http://sciphp.org/numphp.log2 Documentation
@@ -58,6 +58,6 @@ trait LogarithmTrait
      */
     final public static function log2($m)
     {
-      return self::log($m, 2);
+        return self::log($m, 2);
     }
 }

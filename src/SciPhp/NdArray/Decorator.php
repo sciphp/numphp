@@ -7,7 +7,7 @@ use SciPhp\NumPhp as np;
 
 /**
  * Multiple inheritance for NdArray
- * 
+ *
  * @method \SciPhp\NdArray reciprocal() Return the reciprocal of the argument, element-wise. {@link http://sciphp.org/ndarray.reciprocal}
  * @method int|float|array trace(int $k = 0) Sum along diagonals {@link http://sciphp.org/ndarray.trace}.
  * @method \SciPhp\NdArray tril(int $k = 0) Lower triangle of an array {@link http://sciphp.org/ndarray.tril}
@@ -43,12 +43,10 @@ abstract class Decorator implements ArrayAccess, IndexInterface
 
     /**
      * Call a np function
-     * 
-     * @param  string $name
-     * @param  array  $arguments
+     *
      * @return mixed
      */
-    final public function __call($name, array $arguments = null)
+    final public function __call(string $name, array $arguments = null)
     {
         return np::$name($this, ...$arguments);
     }

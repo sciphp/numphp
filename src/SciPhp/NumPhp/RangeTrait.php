@@ -2,27 +2,24 @@
 
 namespace SciPhp\NumPhp;
 
+use SciPhp\NdArray;
 use Webmozart\Assert\Assert;
 
 trait RangeTrait
 {
     /**
      * Creates a NdArray with a range of values
-     * 
+     *
      * @param int|float $start
-     * 
      * @param int|float $end
-     * 
      * @param int|float $step
-     * 
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/numphp.arange
      *    Documentation for arange()
-     * 
+     *
      * @api
      */
-    final public static function arange($start, $end = null, $step = 1)
+    final public static function arange($start, $end = null, $step = 1): NdArray
     {
         Assert::numeric($start);
 
@@ -73,22 +70,17 @@ trait RangeTrait
 
     /**
      * Creates a n-dim array with a range of values
-     * 
+     *
      * @param int|float $start
-     * 
      * @param int|float $end
-     * 
      * @param int $num
-     * 
      * @param bool $endpoint
-     * 
      * @param bool $retstep
-     * 
-     * @return \SciPhp\NdArray|[\NumPhp\NdArray, $retstep] 
-     * 
+     * @return \SciPhp\NdArray|[\NumPhp\NdArray, $retstep]
+     *
      * @link http://sciphp.org/numphp.linspace
      *    Documentation for linspace()
-     * 
+     *
      * @api
      */
     final public static function linspace($start, $end, $num = 50, $endpoint = true, $retstep = false)
@@ -97,40 +89,30 @@ trait RangeTrait
         Assert::numeric($end);
         Assert::integer($num);
         Assert::greaterThanEq($num, 0, '$num must be non-negative. "%s" given.');
-        
+
         $step = $end - $start;
 
-        if ($num == 0)
-        {
+        if ($num == 0) {
             return !$retstep
                 ? static::ar([])
                 : [static::ar([]), null];
-        }
-        elseif ($endpoint && $num == 1)
-        {
+        } elseif ($endpoint && $num == 1) {
             $start = $end;
-        }
-        elseif (!$endpoint && $num == 1)
-        {
+        } elseif (!$endpoint && $num == 1) {
             $end = $start;
-        }
-        elseif ($endpoint)
-        {
+        } elseif ($endpoint) {
             $step = ($end - $start) / ($num - 1);
             $end = $start + $num * $step;
-        }
-        elseif (!$endpoint)
-        {
+        } elseif (!$endpoint) {
             $step = ($end - $start) / $num;
-            
+
             // workaround because sometimes when $step is a float
             // $start + $num * $step > $stop
             $end = $start + $num * $step;
         }
 
         // range with same number
-        if ($start == $end)
-        {
+        if ($start == $end) {
             return !$retstep
                 ? static::ar(array_fill(0, $num, $start))
                 : [static::ar(array_fill(0, $num, $start)), $step];
@@ -151,25 +133,19 @@ trait RangeTrait
 
     /**
      * Creates a NdArray with a range of values
-     * 
+     *
      * @param int|float $start
-     * 
      * @param int|float $end
-     * 
      * @param int $num
-     * 
      * @param bool $endpoint
-     * 
      * @param float $base
-     * 
-     * @return \SciPhp\NdArray 
-     * 
+     *
      * @link http://sciphp.org/numphp.logspace
      *    Documentation for logspace()
-     * 
+     *
      * @api
      */
-    final public static function logspace($start, $end, $num = 50, $endpoint = true, $base = 10)
+    final public static function logspace($start, $end, $num = 50, $endpoint = true, $base = 10): NdArray
     {
         $func = function(&$item) use ($base) {
             $item = pow($base, $item);
@@ -178,6 +154,4 @@ trait RangeTrait
         //return $this->copy()->walk_recursive($func);
         return self::linspace($start, $end, $num, $endpoint)->walk_recursive($func);
     }
-
-//    public abstract static function ar(array $array);
 }
