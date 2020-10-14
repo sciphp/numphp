@@ -1,13 +1,13 @@
 {
     "name": "sciphp/numphp",
     "type": "library",
-    "version": "0.4.0-dev",
+    "version": "0.4.0",
     "description": "PHP library for scientific computing.",
     "keywords": ["matrix", "linear-algebra", "numeric", "scientific", "computing"],
     "homepage": "https://github.com/sciphp/numphp",
     "license": "MIT",
     "require": {
-        "php": ">=5.6.0 || ^7.0",
+        "php": ">=7.2",
         "webmozart/assert": "^1.2"
     },
     "require-dev": {
