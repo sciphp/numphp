@@ -39,6 +39,7 @@ trait FileTrait
 
         if (($handle = fopen($file, "r")) !== false) {
             $row = 0;
+            $num = 0;
 
             while (false !== ($data = fgetcsv($handle, 2048, $options['delimiter']))) {
                 if ($row == 0) {

@@ -43,7 +43,7 @@ trait TriangleTrait
    * @param  int $k    Offset
    * @param  int $count Max column position
    * @param  int $line Start line for negative offsets
-   * @return array
+   * @return callable
    */
   final protected static function itemTriu($col, $k, $count, $line = 1): callable
   {
@@ -54,8 +54,8 @@ trait TriangleTrait
 
       if (isset($num)) {
         return array_replace(
-          $item,
-          array_fill(0, min($num, $count), 0)
+            $item,
+            array_fill(0, min($num, $count), 0)
         );
       }
 
@@ -107,14 +107,14 @@ trait TriangleTrait
         $num = $count - ++$col;
       } else {
         $num = $line++ > -$k
-          ? $count - ++$col
-          : $count;
+            ? $count - ++$col
+            : $count;
       }
 
       if ($num > 0) {
         return array_replace(
-          $item,
-          array_fill($col, $num, 0)
+            $item,
+            array_fill($col, $num, 0)
         );
       }
 
@@ -171,8 +171,8 @@ trait TriangleTrait
         $num = min(++$col, $maxCols);
 
         return array_replace(
-          $item,
-          array_fill(0, $num, 1)
+            $item,
+            array_fill(0, $num, 1)
         );
       }
 

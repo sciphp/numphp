@@ -83,7 +83,7 @@ trait ShapeTrait
      */
     final protected function getShape($data, array $shape): array
     {
-        if (!is_array($data) || !count($data)) {
+        if (!\is_array($data) || !count($data)) {
             return $shape;
         }
 

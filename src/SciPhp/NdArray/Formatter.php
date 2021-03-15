@@ -87,7 +87,7 @@ final class Formatter
         array_walk(
             $array,
             function($item, $key) use ($count) {
-                if (is_array($item))
+                if (\is_array($item))
                 {
                     if ($key > 0) {
                         $this->string .= PHP_EOL . $this->indent();

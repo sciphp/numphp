@@ -22,7 +22,7 @@ trait ExtensionsTrait
      */
      final public static function linalg(): LinAlg
      {
-        if (is_null(self::$linalg)) {
+        if (\is_null(self::$linalg)) {
             self::$linalg = new LinAlg();
         }
 

@@ -46,7 +46,6 @@ trait MatrixTrait
      * Permute the dimensions of an array.
      *
      * @param  array|\SciPhp\NdArray $m
-     * @param  array $axis
      * @todo   Implement axis permutation for ndim > 2
      * @throws \InvalidArgumentException
      * @link http://sciphp.org/numphp.transpose Documentation

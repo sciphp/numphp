@@ -153,7 +153,7 @@ trait NumArrayTrait
      */
     final public static function full_like($matrix, $value = null): NdArray
     {
-        if (is_array($matrix)) {
+        if (\is_array($matrix)) {
             $matrix = static::ar($matrix);
         }
 
@@ -202,7 +202,7 @@ trait NumArrayTrait
     /**
      * Checks that an array can be broadcast to a given shape
      *
-     * @param  NdArray $matrix
+     * @param  NdArray $m
      * @param  array   $shape
      * @throws \InvalidArgumentException when broadcast cannot be done
      */

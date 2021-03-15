@@ -70,7 +70,7 @@ trait VisitorTrait
      */
     final public function axis(callable $func, $number = null, bool $keepdims = false)
     {
-        if (!is_null($number)) {
+        if (!\is_null($number)) {
             Assert::integer(
                 $number,
                 "Axis number must be an integer. Given: %s"
@@ -115,7 +115,7 @@ trait VisitorTrait
         }
 
         // No axis number
-        if (is_null($number)) {
+        if (\is_null($number)) {
             if ($keepdims) {
                 $targetShape = array_fill(0, $this->ndim, 1);
                 return np::full($targetShape, $func($this->data));

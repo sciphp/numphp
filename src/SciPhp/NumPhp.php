@@ -36,7 +36,7 @@ final class NumPhp extends Decorator
      */
     final public static function parseArgs(array $args): array
     {
-        if (isset($args[0]) && is_array($args[0])) {
+        if (isset($args[0]) && \is_array($args[0])) {
             Assert::oneOf(
                 self::ar($args[0])->ndim,
                 [0, 1],
@@ -61,7 +61,7 @@ final class NumPhp extends Decorator
      */
     final public static function transform(&$m, bool $required = false): void
     {
-        if (is_array($m)) {
+        if (\is_array($m)) {
             $m = static::ar($m);
         }
 
@@ -73,7 +73,6 @@ final class NumPhp extends Decorator
     /**
      * Check that all values are numeric
      *
-     * @param  array $args
      * @api
      */
     final public static function allNumeric(): bool

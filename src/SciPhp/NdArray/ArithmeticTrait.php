@@ -85,7 +85,7 @@ trait ArithmeticTrait
             );
         }
 
-        if (is_array($input))
+        if (\is_array($input))
         {
             $input = np::ar($input);
         }

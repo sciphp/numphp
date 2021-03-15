@@ -28,7 +28,7 @@ trait IndexTrait
 
             $data = $this->filterGet($params, 0, $this->data);
 
-            return is_array($data) ? new static($data) : $data;
+            return \is_array($data) ? new static($data) : $data;
         }
         // @todo filtering with array and NdArray
 
@@ -78,7 +78,7 @@ trait IndexTrait
 
         $stack = array_map(
             function($value) use ($filter, $index) {
-                return is_array($value)
+                return \is_array($value)
                          ? $this->filterGet($filter, $index + 1, $value)
                          : $value;
             },
@@ -110,7 +110,7 @@ trait IndexTrait
             $data,
             function(&$item, $key) use ($filter, $index, $value, $start, $stop) {
                 if ($key >= $start && $key <= $stop) {
-                    if (is_array($item)) {
+                    if (\is_array($item)) {
                         $this->filterSet($filter, $index+1, $item, $value);
                     }
                     else {
@@ -214,7 +214,7 @@ trait IndexTrait
             $stop = $count + $filter['stop'][$index]; //  - 1;
         }
         // eq. ':5,' '2:3,'
-        elseif ($filter['stop'][$index] >= 0) {
+        else { // if ($filter['stop'][$index] >= 0) {
             $stop = $filter['stop'][$index];
         }
 
@@ -230,7 +230,7 @@ trait IndexTrait
      */
     final public function offsetUnset($offset): bool
     {
-        return is_array(array_splice($this->data, $offset));
+        return \is_array(array_splice($this->data, $offset));
     }
 
     /**

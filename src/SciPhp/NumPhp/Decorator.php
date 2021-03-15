@@ -4,6 +4,8 @@ namespace SciPhp\NumPhp;
 
 /**
  * Multiple inheritance for NumPhp
+ *
+ * @static \SciPhp\NdArray ar() Create a NdArray from a PHP array
  */
 abstract class Decorator
 {

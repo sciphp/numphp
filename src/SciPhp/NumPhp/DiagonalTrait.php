@@ -24,9 +24,9 @@ trait DiagonalTrait
      */
     final public static function trace($m, $k = 0)
     {
-      static::transform($m, true);
+        static::transform($m, true);
 
-      return array_sum( static::diagonal($m, $k)->data );
+        return array_sum( static::diagonal($m, $k)->data );
     }
 
     /**
@@ -40,10 +40,10 @@ trait DiagonalTrait
      */
     final public static function identity(int $n): NdArray
     {
-      Assert::integer($n, Message::ONLY_POSITIVE_INT);
-      Assert::greaterThan($n, 0, Message::ONLY_POSITIVE_INT);
+        Assert::integer($n, Message::ONLY_POSITIVE_INT);
+        Assert::greaterThan($n, 0, Message::ONLY_POSITIVE_INT);
 
-      return self::eye($n, $n);
+        return self::eye($n, $n);
     }
 
     /**
@@ -86,21 +86,21 @@ trait DiagonalTrait
      *
      * @param  array|\SciPhp\NdArray $m
      * @param  int $k Diagonal
-     * @throws \SciPhp\Exception\InvalidArgumentException
+     * @throws \InvalidArgumentException
      * @link http://sciphp.org/numphp.diag Documentation
      * @api
      */
     final public static function diag($m, int $k = 0): NdArray
     {
-      static::transform($m, true);
+        static::transform($m, true);
 
-      Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
+        Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
 
-      if ($m->ndim == 1) {
-        return self::fromDiagonal($m->data, $k);
-      }
+        if ($m->ndim == 1) {
+            return self::fromDiagonal($m->data, $k);
+        }
 
-      return self::diagonal($m, $k);
+        return self::diagonal($m, $k);
     }
 
     /**
@@ -113,27 +113,27 @@ trait DiagonalTrait
      */
     final public static function diagonal($m, $k = 0): NdArray
     {
-      Assert::integer($k, 'Offset must be an integer. Given %s.');
+        Assert::integer($k, 'Offset must be an integer. Given %s.');
 
-      static::transform($m, true);
+        static::transform($m, true);
 
-      Assert::oneOf($m->ndim, [1, 2]);
+        Assert::oneOf($m->ndim, [1, 2]);
 
-      $col  = $k > 0 ?  $k : 0;
-      $line = $k < 0 ? -$k : 0;
+        $col  = $k > 0 ?  $k : 0;
+        $line = $k < 0 ? -$k : 0;
 
-      return static::ar(
-        array_reduce(
-          $m->data,
-          function($diag) use (&$line, &$col, $m) {
-            if (isset($m->data[$line], $m->data[$line][$col])) {
-              $diag[] = $m->data[$line++][$col++];
-            }
-            return $diag;
-          }
-          , []
-        )
-      );
+        return static::ar(
+            array_reduce(
+                $m->data,
+                function($diag) use (&$line, &$col, $m) {
+                    if (isset($m->data[$line], $m->data[$line][$col])) {
+                        $diag[] = $m->data[$line++][$col++];
+                    }
+                    return $diag;
+                },
+                []
+            )
+        );
     }
 
     /**
@@ -147,11 +147,11 @@ trait DiagonalTrait
      */
     final public static function diagflat($m, $k = 0): NdArray
     {
-      Assert::integer($k);
+        Assert::integer($k);
 
-      static::transform($m, true);
+        static::transform($m, true);
 
-      return self::fromDiagonal($m->copy()->ravel()->data, $k);
+        return self::fromDiagonal($m->copy()->ravel()->data, $k);
     }
 
     /**
@@ -162,18 +162,18 @@ trait DiagonalTrait
      */
     final protected static function fromDiagonal(array $diagonal, $k): NdArray
     {
-      $col    = $k > 0 ?  $k : 0;
+        $col    = $k > 0 ?  $k : 0;
 
-      $height = $width = count($diagonal);
-      $height+= $k < 0 ? -$k : 0;
-      $width += $col;
+        $height = $width = count($diagonal);
+        $height+= $k < 0 ? -$k : 0;
+        $width += $col;
 
-      return static::ar(
-        array_map(
-          self::itemFromDiagonal($col, $diagonal, $k),
-          static::zeros($height, $width)->data
-        )
-      );
+        return static::ar(
+            array_map(
+                self::itemFromDiagonal($col, $diagonal, $k),
+                static::zeros($height, $width)->data
+            )
+        );
     }
 
     /**
@@ -185,18 +185,18 @@ trait DiagonalTrait
      */
     final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1): callable
     {
-      return function($item) use (&$line, &$col, $diagonal, $k) {
-        if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {
-          $item[$col] = $diagonal[$col - $k];
-          $col++;
-        } elseif ($k < 0) {
-          if ($line++ > -$k && isset($item[$col], $diagonal[$col])) {
-            $item[$col] = $diagonal[$col];
-            $col++;
-          }
-        }
+        return function($item) use (&$line, &$col, $diagonal, $k) {
+            if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {
+                $item[$col] = $diagonal[$col - $k];
+                $col++;
+            } elseif ($k < 0) {
+                if ($line++ > -$k && isset($item[$col], $diagonal[$col])) {
+                    $item[$col] = $diagonal[$col];
+                    $col++;
+                }
+            }
 
-        return $item;
-      };
+            return $item;
+        };
     }
 }
