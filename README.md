@@ -1,4 +1,4 @@
-NumPhp [![Build Status](https://travis-ci.org/sciphp/numphp.svg?branch=master)](https://travis-ci.org/sciphp/numphp) [![Test Coverage](https://codeclimate.com/github/sciphp/numphp/badges/coverage.svg)](https://codeclimate.com/github/sciphp/numphp/coverage) [![Code Climate](https://codeclimate.com/github/sciphp/numphp/badges/gpa.svg)](https://codeclimate.com/github/sciphp/numphp)
+NumPhp [![Build Status](https://travis-ci.com/sciphp/numphp.svg?branch=master)](https://travis-ci.com/sciphp/numphp) [![Test Coverage](https://codeclimate.com/github/sciphp/numphp/badges/coverage.svg)](https://codeclimate.com/github/sciphp/numphp/coverage) [![Code Climate](https://codeclimate.com/github/sciphp/numphp/badges/gpa.svg)](https://codeclimate.com/github/sciphp/numphp)
 ======
 
 NumPhp is a port of the famous NumPy (Python) package in PHP language.
