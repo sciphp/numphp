@@ -1,0 +1,5 @@
+# coding: utf8
+import numpy as np
+
+for i in range(0, 50):
+    r = np.random.randn(5, 5, i + 1)

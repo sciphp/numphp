@@ -3,6 +3,7 @@
 namespace SciPhp\NumPhp;
 
 use SciPhp\LinAlg;
+use SciPhp\Random;
 
 trait ExtensionsTrait
 {
@@ -10,6 +11,11 @@ trait ExtensionsTrait
      * @var \SciPhp\LinAlg LinAlg instance
      */
     private static $linalg;
+
+    /**
+     * @var \SciPhp\Random Random instance
+     */
+    private static $random;
 
     /**
      * Loads Linear Algebra extension
@@ -27,5 +33,23 @@ trait ExtensionsTrait
         }
 
         return self::$linalg;
+    }
+
+    /**
+     * Loads Random generator extension
+     *
+     * @return \SciPhp\Random Random wrapper instance
+     * @link http://sciphp.org/ref.random Documentation
+     *
+     * @since 0.5.0
+     * @api
+     */
+     final public static function random(): Random
+     {
+        if (\is_null(self::$random)) {
+            self::$random = new Random();
+        }
+
+        return self::$random;
     }
 }
