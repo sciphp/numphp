@@ -36,13 +36,19 @@ final class Formatter
     private $string = '';
 
     /**
+     * @var bool
+     *
+     * Is there any negative number ?
+     */
+    private $negative = false;
+
+    /**
      * Set array data and options
      */
     public function __construct(NdArray $array)
     {
         // truncate
-        if (count($array->data) > $this->maxRows)
-        {
+        if (count($array->data) > $this->maxRows) {
             $data = $array->data;
             array_splice(
                 $data,
@@ -55,12 +61,22 @@ final class Formatter
 
         $this->array = $array;
 
-        // estimate column size
+        // Estimate max column size
         $this->array->walk_recursive(
             function($item) {
-                if (strlen($item) > $this->maxColSize)
-                {
-                    $this->maxColSize = strlen($item);
+                
+                $negative = $item < 0;
+                $length = strlen($item);
+
+                if ($negative) {
+                    $length++;
+                    if (!$this->negative) {
+                        $this->negative = true;
+                    }
+                }
+
+                if ($length > $this->maxColSize) {
+                    $this->maxColSize = $length;
                 }
         });
     }
@@ -87,8 +103,7 @@ final class Formatter
         array_walk(
             $array,
             function($item, $key) use ($count) {
-                if (\is_array($item))
-                {
+                if (\is_array($item)) {
                     if ($key > 0) {
                         $this->string .= PHP_EOL . $this->indent();
                     }
@@ -112,7 +127,7 @@ final class Formatter
      * Format a number with column sizing
      *
      * @param mixed $number
-     * @param bool $last
+     * @param bool  $last
      */
     private function formatNumber($number, bool $last): string
     {
@@ -129,9 +144,19 @@ final class Formatter
             default: # Workaround for code coverage
         }
 
+        $representation = $number;
+
+        // Format opsitive numbers
+        if (is_numeric($number)) {
+            // Number is not negative, but there are some
+            if ($number > 0 && $this->negative) {
+                $representation = ' ' . $representation;
+            }
+        }
+
         return $last
-            ? sprintf("%-{$this->maxColSize}s"  , $number)
-            : sprintf("%-{$this->maxColSize}s  ", $number);
+            ? sprintf("%-{$this->maxColSize}s"  , $representation)
+            : sprintf("%-{$this->maxColSize}s  ", $representation);
     }
 
     /**

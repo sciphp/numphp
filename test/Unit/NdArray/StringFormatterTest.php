@@ -169,4 +169,22 @@ EXPECTED;
     
     $this->assertEquals($expected, $m->__toString());
   }
+
+  /**
+   * Test padding for positive numbers versus negative
+   */
+  public function testPositiveNumberPadding()
+  {
+    $m = np::ar(
+[[-1,-1],
+ [ 1, 1]],
+);
+
+    $expected = <<<EXPECTED
+[[-1   -1 ]
+ [ 1    1 ]]\n
+EXPECTED;
+    
+    $this->assertEquals($expected, $m->__toString());
+  }
 }
