@@ -177,7 +177,7 @@ EXPECTED;
   {
     $m = np::ar(
 [[-1,-1],
- [ 1, 1]],
+ [ 1, 1]]
 );
 
     $expected = <<<EXPECTED
