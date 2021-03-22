@@ -65,7 +65,7 @@ final class Formatter
         $this->array->walk_recursive(
             function($item) {
                 
-                $negative = $item < 0;
+                $negative = \is_numeric($item) && $item < 0;
                 $length = strlen($item);
 
                 if ($negative) {
@@ -146,10 +146,10 @@ final class Formatter
 
         $representation = $number;
 
-        // Format opsitive numbers
+        // Format positive numbers
         if (is_numeric($number)) {
             // Number is not negative, but there are some
-            if ($number > 0 && $this->negative) {
+            if ($this->negative && $number >= 0) {
                 $representation = ' ' . $representation;
             }
         }
