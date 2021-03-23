@@ -1,0 +1,8 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 0; $i < 50; $i++)
+    $r = np::random()->rand(5, 5, $i + 1);

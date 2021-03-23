@@ -52,7 +52,7 @@ final class Formatter
             $data = $array->data;
             array_splice(
                 $data,
-                ceil($this->maxRows/2),
+                intval(ceil($this->maxRows/2)),
                 count($data) - $this->maxRows,
                 [ array_pad([], count($data[0]), '...') ]
             );
