@@ -2,7 +2,9 @@
 
 namespace SciPhp\Random;
 
+use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
+use Webmozart\Assert\Assert;
 
 /**
  * Random generator methods.
@@ -13,7 +15,7 @@ trait RandomStateTrait
 {
     /**
      * Return a sample (or samples) from the “standard normal”
-     * distribution..
+     * distribution.
      * 
      * @param  array<int> $args Shape of the destination matrix
      *              if nothing is passed, return a random float
@@ -35,6 +37,35 @@ trait RandomStateTrait
 
         $func = function(&$element) {
             $element = $this->nrand(0, 1);
+        };
+
+        return np::nulls($args)->walk_recursive($func);
+    }
+
+    /**
+     * Random values in a given shape.
+     * 
+     * @param  array<int> $args Shape of the destination matrix
+     * @return \SciPhp\NdArray
+     * 
+     * @link http://sciphp.org/random.rand
+     * Documentation for rand()
+     * 
+     * @since 0.5.0
+     * @api
+     */
+    final public function rand(): NdArray
+    {
+        Assert::greaterThan(
+            func_num_args(),
+            0,
+            'Method rand() must have at least one parameter. Got: %s'
+        );
+
+        $args = np::parseArgs(func_get_args());
+
+        $func = function(&$element) {
+            $element = $this->randomFloat();
         };
 
         return np::nulls($args)->walk_recursive($func);
