@@ -26,8 +26,7 @@ trait ArithmeticTrait
      */
     final public function divide($input): NdArray
     {
-        if (is_numeric($input))
-        {
+        if (is_numeric($input)) {
             Assert::notEq(0, $input);
 
             return $this->copy()->walk_recursive(
@@ -52,8 +51,7 @@ trait ArithmeticTrait
      */
     final public function dot($input): NdArray
     {
-        if (is_numeric($input))
-        {
+        if (is_numeric($input)) {
             return $this->copy()->walk_recursive(
                 function(&$item) use ($input) {
                     $item *= $input;
@@ -76,8 +74,7 @@ trait ArithmeticTrait
      */
     final public function add($input): NdArray
     {
-        if (is_numeric($input))
-        {
+        if (is_numeric($input)) {
             return $this->walk_recursive(
                 function(&$item) use ($input) {
                     $item += $input;

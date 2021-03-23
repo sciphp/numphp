@@ -4,7 +4,6 @@ namespace SciPhp;
 
 use SciPhp\NdArray\Formatter;
 use SciPhp\NdArray\Decorator;
-use SciPhp\NumPhp as np;
 
 /**
  * Base array
