@@ -1,0 +1,12 @@
+<?php
+
+include __DIR__ . '/../../../vendor/autoload.php';
+
+use SciPhp\NumPhp as np;
+
+for ($i = 0; $i < 10; $i++) {
+    $r = np::random()->randint($i + 1);
+    $r = np::random()->randint($i, $i + 5);
+    $r = np::random()->randint($i, $i + 5, $i + 5);
+    $r = np::random()->randint($i, $i + 5, [$i + 5, $i + 10]);
+}

@@ -71,6 +71,44 @@ trait RandomStateTrait
         return np::nulls($args)->walk_recursive($func);
     }
 
+    /**
+     * Return random integers from low (inclusive) to high (exclusive).
+     * 
+     * @param  int|int[] $size Shape of the output matrix
+     * @return \SciPhp\NdArray|int
+     * 
+     * @link http://sciphp.org/random.randint
+     * Documentation for randint()
+     * 
+     * @since 0.5.0
+     * @api
+     */
+    final public function randint(int $low, int $high = null, $size = null)
+    {
+        $min = is_null($high) ? 0 : $low;
+        $max = is_null($high) ? $low : $high;
+        
+        Assert::greaterThan(
+            $max,
+            $min
+        );
+
+        // @todo traiter le cas avec size=null, retourne une entier au
+        // hasard
+
+        $range  = np::arange($min, $max)->data;
+
+        if (is_null($size)) {
+            return $range[ array_rand($range) ];
+        }
+
+        $func = function(&$element) use ($range) {
+            $element = $range[ array_rand($range) ];
+        };
+
+        return np::nulls($size)->walk_recursive($func);
+    }
+
     private function randomFloat(): float
     {
         return mt_rand() / mt_getrandmax();

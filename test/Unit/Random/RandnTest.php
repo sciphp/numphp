@@ -1,6 +1,6 @@
 <?php
 
-namespace SciPhpTest\Unit\NumPhp\LinAlg;
+namespace SciPhpTest\Unit\Random;
 
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
