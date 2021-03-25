@@ -47,7 +47,7 @@ do
   if [ -f "$SCRIPT" ]
   then
     d0=$(date +%s%6N)
-    python "$SCRIPT" > "/dev/null"
+    python3 "$SCRIPT" > "/dev/null"
     d1=$(date +%s%6N)
     printf "%s %'d ns\n" "$SCRIPT" "$(((d1-d0)))" >> "output.txt"
     printf "."
