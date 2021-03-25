@@ -1,6 +1,6 @@
 language: php
 
-dist: xenial
+dist: bionic
 
 cache:
   directories:
@@ -18,8 +18,9 @@ matrix:
     - php: nightly
 
 before_install:
- - sudo apt-get install -qq python-numpy python-scipy
- - pip install numpy
+ - sudo apt-get install -qq python3-pip python3-scipy
+ - pip3 install numpy
+ - python3 -c "import numpy; print(numpy.__version__)"
 
 install:
   - composer install --prefer-source --no-interaction

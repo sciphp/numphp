@@ -85,16 +85,13 @@ trait RandomStateTrait
      */
     final public function randint(int $low, int $high = null, $size = null)
     {
-        $min = is_null($high) ? 0 : $low;
+        $min = is_null($high) ? 0    : $low;
         $max = is_null($high) ? $low : $high;
         
         Assert::greaterThan(
             $max,
             $min
         );
-
-        // @todo traiter le cas avec size=null, retourne une entier au
-        // hasard
 
         $range  = np::arange($min, $max)->data;
 
