@@ -48,7 +48,7 @@ trait AttributeTrait
             case 'data':
                 return $this->data;
             case 'ndim':
-                return (int)$this->getNdim($this->data);
+                return count($this->shape);
             case 'size':
                 return $this->getSize();
             case 'shape':
@@ -61,31 +61,15 @@ trait AttributeTrait
     }
 
     /**
-     * Gets NdArray rank
+     * Get the total number of elements of the array
      */
-    final protected function getNdim(array $data): int
+    final protected function getSize(): int
     {
-        if (isset($data[0])) {
-            return is_array($data[0])
-                ? 1 + $this->getNdim($data[0])
-                : 1;
+        if (count($this->data)) {
+            return array_product($this->shape);
         }
+
         return 0;
-    }
-
-    /**
-     * Gets the total number of elements of the array
-     */
-    final protected function getSize(int $count = 0): int
-    {
-        array_walk_recursive(
-            $this->data,
-            function () use (&$count) {
-                $count++;
-            }
-        );
-
-        return $count;
     }
 
     protected abstract function getShape($data, array $shape): array;
