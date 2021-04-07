@@ -23,8 +23,7 @@ trait AttributeTrait
      */
     final public function __set(string $name, $value)
     {
-        switch ($name)
-        {
+        switch ($name) {
             case 'shape':
                 return $this->__construct(
                     $this->reshape($value)->data
@@ -43,8 +42,7 @@ trait AttributeTrait
      */
     final public function __get(string $name)
     {
-        switch ($name)
-        {
+        switch ($name) {
             case 'data':
                 return $this->data;
             case 'ndim':
