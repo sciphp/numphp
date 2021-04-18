@@ -240,7 +240,6 @@ trait IndexTrait
      */
     final public function offsetExists($offset): bool
     {
-        return isset($this->data[$offset])
-                || array_key_exists($offset, $this->data);
+        return \array_key_exists($offset, $this->data);
     }
 }
