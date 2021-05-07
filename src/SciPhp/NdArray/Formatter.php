@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use SciPhp\NdArray;
@@ -63,10 +65,9 @@ final class Formatter
 
         // Estimate max column size
         $this->array->walk_recursive(
-            function($item) {
-                
+            function ($item): void {
                 $negative = \is_numeric($item) && $item < 0;
-                $length = strlen($item);
+                $length = strlen("{$item}");
 
                 if ($negative) {
                     $length++;
@@ -102,7 +103,7 @@ final class Formatter
 
         array_walk(
             $array,
-            function($item, $key) use ($count) {
+            function ($item, $key) use ($count): void {
                 if (\is_array($item)) {
                     if ($key > 0) {
                         $this->string .= PHP_EOL . $this->indent();
@@ -132,13 +133,13 @@ final class Formatter
     private function formatNumber($number, bool $last): string
     {
         switch (true) {
-            case null === $number:
+            case $number === null:
                 $number = 'null';
                 break;
-            case true === $number:
+            case $number === true:
                 $number = 'true';
                 break;
-            case false === $number:
+            case $number === false:
                 $number = 'false';
                 break;
             default: # Workaround for code coverage

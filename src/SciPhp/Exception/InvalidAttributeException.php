@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\Exception;
 
 use Exception;
 
-class InvalidAttributeException extends Exception
+final class InvalidAttributeException extends Exception
 {
-    public function __construct($class, $attribute)
+    public function __construct(string $class, string $attribute)
     {
         $message = sprintf(
             Message::ATTR_NOT_DEFINED,

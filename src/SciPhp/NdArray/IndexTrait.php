@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use SciPhp\Exception\Message;
@@ -14,15 +16,15 @@ trait IndexTrait
     /**
      * Get a view by index
      *
-     * @param mixed $index
+     * @param string|int $index
      * @return mixed
      */
     final public function offsetGet($index)
     {
         // @todo slicing or indexing switch here
         if ((is_string($index) || is_int($index))
-             && preg_match(static::IDX_PAT_FILTER, $index)
-             && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
+             && preg_match(IndexInterface::IDX_PAT_FILTER, (string) $index)
+             && preg_match_all(IndexInterface::IDX_PAT_PARSE, (string) $index, $matches)
         ) {
             $params = $this->indexFilter($matches);
 
@@ -47,8 +49,8 @@ trait IndexTrait
     final public function offsetSet($index, $value): NdArray
     {
         if ((is_string($index) || is_int($index))
-                 && preg_match(static::IDX_PAT_FILTER, $index)
-                 && preg_match_all(static::IDX_PAT_PARSE, $index, $matches)
+                 && preg_match(IndexInterface::IDX_PAT_FILTER, (string) $index)
+                 && preg_match_all(IndexInterface::IDX_PAT_PARSE, (string) $index, $matches)
         ) {
             $params = $this->indexFilter($matches);
 
@@ -68,16 +70,16 @@ trait IndexTrait
      * @param array $data
      * @return int|float|array $value
      */
-    final protected function filterGet(array $filter, int $index, array &$data = null)
+    final protected function filterGet(array $filter, int $index, ?array &$data = null)
     {
         if (!isset($filter['start'][$index])) {
             return $data;
         }
 
-        list($start, $stop) = $this->filterRange($filter, $index, count($data));
+        [$start, $stop] = $this->filterRange($filter, $index, count($data));
 
         $stack = array_map(
-            function($value) use ($filter, $index) {
+            function ($value) use ($filter, $index) {
                 return \is_array($value)
                          ? $this->filterGet($filter, $index + 1, $value)
                          : $value;
@@ -85,7 +87,9 @@ trait IndexTrait
             array_slice($data, $start, $stop - $start + 1)
         );
 
-        return $start === $stop ? $stack[0] : $stack;
+        return $start === $stop
+            ? $stack[0]
+            : $stack;
     }
 
     /**
@@ -96,19 +100,22 @@ trait IndexTrait
      * @param array $data
      * @param int|float $value
      */
-    final protected function filterSet(array $filter, int $index, array &$data = null, $value)
+    final protected function filterSet(array $filter, int $index, ?array &$data = null, $value = null)
     {
         if (!isset($filter['start'][$index])) {
-            return array_walk_recursive($data, function(&$item) use ($value) {
-                $item = $value;
-            });
+            return array_walk_recursive(
+                $data,
+                static function (&$item) use ($value): void {
+                    $item = $value;
+                }
+            );
         }
 
-        list($start, $stop) = $this->filterRange($filter, $index, count($data));
+        [$start, $stop] = $this->filterRange($filter, $index, count($data));
 
         array_walk(
             $data,
-            function(&$item, $key) use ($filter, $index, $value, $start, $stop) {
+            function (&$item, $key) use ($filter, $index, $value, $start, $stop) {
                 if ($key >= $start && $key <= $stop) {
                     if (\is_array($item)) {
                         $this->filterSet($filter, $index+1, $item, $value);
@@ -130,7 +137,7 @@ trait IndexTrait
 
         array_walk(
             $matches,
-            function($item, $key) use (&$filter) {
+            static function ($item, $key) use (&$filter): void {
                 if (!is_int($key)) {
                     $filter[$key] = $item;
                 }
@@ -141,8 +148,8 @@ trait IndexTrait
 
         array_walk(
             $filter['start'],
-            function($value, $key) use (&$params, $filter) {
-                if ($key == 0) {
+            static function ($value, $key) use (&$params, $filter): void {
+                if ($key === 0) {
                     $index = sprintf(
                             '%s%s%s%s',
                             $value,
@@ -153,7 +160,7 @@ trait IndexTrait
                     Assert::notEq(
                         $index,
                         ',',
-                        "Invalid index syntax. Index=$index"
+                        "Invalid index syntax. Index={$index}"
                     );
                 }
 
@@ -166,8 +173,9 @@ trait IndexTrait
                     $params['col']  [] = $filter['col'][$key];
 
                     if ($filter['col'][$key] === ':') {
-                        $stop = $filter['stop'][$key] != ''
-                            ? intval($filter['stop'][$key]) : 'max';
+                        $stop = $filter['stop'][$key] !== ''
+                            ? intval($filter['stop'][$key])
+                            : 'max';
                     } else {
                         $stop = intval($value);
                     }

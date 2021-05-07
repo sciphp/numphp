@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\LinAlg;
 
 use SciPhp\NumPhp as np;
@@ -11,13 +13,13 @@ trait NormsTrait
 {
     /**
      * Matrix or vector norm.
-     * 
+     *
      * @param  \SciPhp\NdArray|array $matrix
      * @return float|int
-     * 
+     *
      * @link http://sciphp.org/linalg.norm
      * Documentation for norm()
-     * 
+     *
      * @since 0.3.0
      * @api
      */
@@ -25,7 +27,7 @@ trait NormsTrait
     {
         np::transform($matrix, true);
 
-        if ($matrix->ndim == 0) {
+        if ($matrix->ndim === 0) {
             return 0;
         }
 

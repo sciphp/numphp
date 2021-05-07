@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\LinAlg;
 
 use SciPhp\Exception\Message;
@@ -34,41 +36,39 @@ trait CholeskyTrait
             $matrix->is_square(),
             sprintf(
                 Message::MAT_NOT_SQUARE,
-                trim(np::ar($shape))
+                trim((string) np::ar($shape))
             )
         );
 
         $size = $shape[0];
-        $w =  $matrix->copy();
+        $w = $matrix->copy();
 
         $l = np::zeros($shape);
 
         for ($a = 0; $a < $size; $a++) {
-
             Assert::greaterThan(
                 $w[$a][$a],
                 0,
-                "Not a positive-definite matrix"
+                'Not a positive-definite matrix'
             );
 
-            $l["$a, $a"] = sqrt($w[$a][$a]);
+            $l["{$a}, {$a}"] = sqrt($w[$a][$a]);
 
             for ($b = $a + 1; $b < $size; $b++) {
                 Assert::eq(
-                    $matrix["$b, $a"],
-                    $matrix["$a, $b"],
-                    "Not a symetric matrix"
+                    $matrix["{$b}, {$a}"],
+                    $matrix["{$a}, {$b}"],
+                    'Not a symetric matrix'
                 );
 
-                $l["$b, $a"] = $w["$b, $a"] / $l["$a, $a"];
+                $l["{$b}, {$a}"] = $w["{$b}, {$a}"] / $l["{$a}, {$a}"];
 
                 for ($c = $a + 1; $c <= $b; $c++) {
-                    $w["$b, $c"] = $w["$b, $c"]
-                                 - $l["$b, $a"]
-                                 * $l["$c, $a"];
+                    $w["${b}, ${c}"] = $w["{$b}, {$c}"]
+                                     - $l["{$b}, {$a}"]
+                                     * $l["{$c}, {$a}"];
                 }
             }
-
         }
 
         return $l;

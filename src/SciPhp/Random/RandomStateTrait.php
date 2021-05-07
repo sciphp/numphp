@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\Random;
 
 use SciPhp\NdArray;
@@ -16,14 +18,14 @@ trait RandomStateTrait
     /**
      * Return a sample (or samples) from the “standard normal”
      * distribution.
-     * 
+     *
      * @param  array<int> $args Shape of the destination matrix
      *              if nothing is passed, return a random float
      * @return \SciPhp\NdArray|float
-     * 
+     *
      * @link http://sciphp.org/random.randn
      * Documentation for randn()
-     * 
+     *
      * @since 0.5.0
      * @api
      */
@@ -35,7 +37,7 @@ trait RandomStateTrait
 
         $args = np::parseArgs(func_get_args());
 
-        $func = function(&$element) {
+        $func = function (&$element): void {
             $element = $this->nrand(0, 1);
         };
 
@@ -44,13 +46,12 @@ trait RandomStateTrait
 
     /**
      * Random values in a given shape.
-     * 
+     *
      * @param  array<int> $args Shape of the destination matrix
-     * @return \SciPhp\NdArray
-     * 
+     *
      * @link http://sciphp.org/random.rand
      * Documentation for rand()
-     * 
+     *
      * @since 0.5.0
      * @api
      */
@@ -64,7 +65,7 @@ trait RandomStateTrait
 
         $args = np::parseArgs(func_get_args());
 
-        $func = function(&$element) {
+        $func = function (&$element): void {
             $element = $this->randomFloat();
         };
 
@@ -73,33 +74,33 @@ trait RandomStateTrait
 
     /**
      * Return random integers from low (inclusive) to high (exclusive).
-     * 
-     * @param  int|int[] $size Shape of the output matrix
+     *
+     * @param  int|array<int> $size Shape of the output matrix
      * @return \SciPhp\NdArray|int
-     * 
+     *
      * @link http://sciphp.org/random.randint
      * Documentation for randint()
-     * 
+     *
      * @since 0.5.0
      * @api
      */
-    final public function randint(int $low, int $high = null, $size = null)
+    final public function randint(int $low, ?int $high = null, $size = null)
     {
-        $min = is_null($high) ? 0    : $low;
+        $min = is_null($high) ? 0 : $low;
         $max = is_null($high) ? $low : $high;
-        
+
         Assert::greaterThan(
             $max,
             $min
         );
 
-        $range  = np::arange($min, $max)->data;
+        $range = np::arange($min, $max)->data;
 
         if (is_null($size)) {
             return $range[ array_rand($range) ];
         }
 
-        $func = function(&$element) use ($range) {
+        $func = static function (&$element) use ($range): void {
             $element = $range[ array_rand($range) ];
         };
 
@@ -111,7 +112,10 @@ trait RandomStateTrait
         return mt_rand() / mt_getrandmax();
     }
 
-    
+    /**
+     * @param float|int $mean
+     * @param float|int $sd
+     */
     private function nrand($mean, $sd): float
     {
         $x = $this->randomFloat();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp;
 
 use SciPhp\Exception\Message;
@@ -17,12 +19,10 @@ final class NumPhp extends Decorator
      * Construct a n-dimensional array
      *
      * @param  array $data
-     * @param  string $identifier
-     * @return \SciPhp\NdArray
      * @link http://sciphp.org/numphp.ar Documentation
      * @api
      */
-    final public static function ar(array $data, $identifier = null): NdArray
+    public static function ar(array $data, ?string $identifier = null): NdArray
     {
         return new NdArray($data, $identifier);
     }
@@ -30,11 +30,10 @@ final class NumPhp extends Decorator
     /**
      * Parse args as a tuple or an array
      *
-     * @param  array|array[] $args
-     * @return array
+     * @param  array|array<array> $args
      * @api
      */
-    final public static function parseArgs(array $args): array
+    public static function parseArgs(array $args): array
     {
         if (isset($args[0]) && \is_array($args[0])) {
             Assert::oneOf(
@@ -56,17 +55,16 @@ final class NumPhp extends Decorator
     /**
      * Transform a PHP array in a NdArray
      *
-     * @param mixed $m
-     * @param bool  $required
+     * @param array|NdArray $m
      */
-    final public static function transform(&$m, bool $required = false): void
+    public static function transform(&$m, bool $required = false): void
     {
         if (\is_array($m)) {
-            $m = static::ar($m);
+            $m = self::ar($m);
         }
 
         if ($required) {
-            Assert::isInstanceof($m, 'SciPhp\NdArray');
+            Assert::isInstanceof($m, NdArray::class);
         }
     }
 
@@ -75,13 +73,13 @@ final class NumPhp extends Decorator
      *
      * @api
      */
-    final public static function allNumeric(): bool
+    public static function allNumeric(): bool
     {
-        return !count(
+        return ! count(
             array_filter(
                 func_get_args(),
-                function ($value) {
-                    return !is_numeric($value);
+                static function ($value): bool {
+                    return ! is_numeric($value);
                 }
             )
         );

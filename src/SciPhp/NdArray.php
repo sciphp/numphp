@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp;
 
-use SciPhp\NdArray\Formatter;
 use SciPhp\NdArray\Decorator;
+use SciPhp\NdArray\Formatter;
 
 /**
  * Base array
@@ -24,17 +26,15 @@ final class NdArray extends Decorator
      * @param  array $data
      * @param  string $identifier A NdArray identifier
      */
-    final public function __construct(array $data, string $identifier = null)
+    public function __construct(array $data, ?string $identifier = null)
     {
         $this->data = $data;
     }
 
     /**
      * Pretty printer
-     *
-     * @return string
      */
-    final public function __toString()
+    public function __toString(): string
     {
         return (new Formatter($this))->toString();
     }

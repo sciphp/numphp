@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 /**
@@ -10,12 +12,12 @@ interface IndexInterface
     /**
      * Index must contain only these characters
      */
-    const IDX_PAT_FILTER = '/^[,-:\d\s]+$/i';
+    public const IDX_PAT_FILTER = '/^[,-:\d\s]+$/i';
 
     /**
      * Index pattern for parsing
      */
-    const IDX_PAT_PARSE  = '/\s*
+    public const IDX_PAT_PARSE  = '/\s*
           (?P<start>-?\d+)?\s*
           (?P<col>:)      ?\s*
           (?P<stop>-?\d+) ?\s*

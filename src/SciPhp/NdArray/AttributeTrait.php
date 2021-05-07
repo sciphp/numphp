@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use SciPhp\Exception\InvalidAttributeException;
@@ -18,7 +20,6 @@ trait AttributeTrait
     /**
      * Attribute setter
      *
-     * @param string $name
      * @param mixed $value
      */
     final public function __set(string $name, $value)
@@ -29,15 +30,14 @@ trait AttributeTrait
                     $this->reshape($value)->data
                 );
             default:
-                throw new InvalidAttributeException(__CLASS__, $name);
+                throw new InvalidAttributeException(static::class, $name);
         }
     }
 
     /**
      * Generic getter
      *
-     * @param  string $name
-     * @return mixed
+     * @return int|array|NdArray
      * @throws \SciPhp\Exception\InvalidAttributeException
      */
     final public function __get(string $name)
@@ -55,7 +55,7 @@ trait AttributeTrait
                 return np::transpose($this);
         }
 
-        throw new InvalidAttributeException(__CLASS__, $name);
+        throw new InvalidAttributeException(static::class, $name);
     }
 
     /**
@@ -70,5 +70,5 @@ trait AttributeTrait
         return 0;
     }
 
-    protected abstract function getShape($data, array $shape): array;
+    abstract protected function getShape($data, array $shape): array;
 }

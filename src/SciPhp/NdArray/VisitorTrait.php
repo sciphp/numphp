@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use RecursiveIteratorIterator;
@@ -15,7 +17,7 @@ trait VisitorTrait
     /**
      * Walk on first dimension
      */
-    final public function walk(callable $func, array &$data = null): NdArray
+    final public function walk(callable $func): NdArray
     {
         array_walk($this->data, $func);
 
@@ -48,14 +50,14 @@ trait VisitorTrait
                 $iterator->next();
                 // At first iteration on 1 dim array,
                 // key is not incremented
-                if ($key == $iterator->key()) {
+                if ($key === $iterator->key()) {
                     $iterator->next();
                 }
 
                 return $value;
-            } else {
-                $iterator->next();
             }
+
+            $iterator->next();
         }
 
         $iterator->rewind();
@@ -73,19 +75,19 @@ trait VisitorTrait
         if (!\is_null($number)) {
             Assert::integer(
                 $number,
-                "Axis number must be an integer. Given: %s"
+                'Axis number must be an integer. Given: %s'
             );
 
             Assert::greaterThanEq(
                 $number,
                 0,
-                "Axis number must be greater than 0. Given: %s"
+                'Axis number must be greater than 0. Given: %s'
             );
 
             Assert::lessThan(
                 $number,
                 $this->ndim,
-                "Axis number must be lower than "
+                'Axis number must be lower than '
                 . ($this->ndim - 1)
                 . 'Given: %s'
             );
@@ -98,10 +100,10 @@ trait VisitorTrait
             );
         }
 
-        $fn = function(&$value, $key) use ($func, $number) {
-            $index = $number == 0
-                ? ": , $key"
-                : "$key, :";
+        $fn = function(&$value, $key) use ($func, $number): void {
+            $index = $number === 0
+                ? ": , {$key}"
+                : "{$key}, :";
 
             $value = $func($this->offsetGet($index)->data);
         };
@@ -119,9 +121,9 @@ trait VisitorTrait
             if ($keepdims) {
                 $targetShape = array_fill(0, $this->ndim, 1);
                 return np::full($targetShape, $func($this->data));
-            } else {
-                return $func($this->data);
             }
+
+            return $func($this->data);
         }
 
         return np::zeros($this->shape[$this->ndim - 1 - $number])

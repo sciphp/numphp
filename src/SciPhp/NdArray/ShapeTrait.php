@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
-use SciPhp\Exception\InvalidArgumentException;
 use SciPhp\NdArray;
 use SciPhp\NumPhp as np;
 use Webmozart\Assert\Assert;
@@ -24,9 +25,10 @@ trait ShapeTrait
     {
         array_walk_recursive(
             $this->data,
-            function($item) use (&$stack) {
-            $stack[] = $item;
-        });
+            static function($item) use (&$stack): void {
+                $stack[] = $item;
+            }
+        );
 
         return np::ar($stack);
     }
@@ -44,7 +46,7 @@ trait ShapeTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator) {
+        $func = function(&$item) use (&$iterator): void {
             $item = $this->iterate($iterator);
         };
 

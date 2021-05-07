@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NdArray;
 
 use ArrayAccess;
@@ -25,7 +27,7 @@ use SciPhp\NumPhp as np;
  * @method \SciPhp\NdArray square() The element-wise square of the input. {@link http://sciphp.org/ndarray.square}
  * @method \SciPhp\NdArray sqrt() The non-negative square-root of an array, element-wise. {@link http://sciphp.org/ndarray.sqrt}
  * @method int|float|array trapz() Integrate along the given axis using the composite trapezoidal rule. {@link http://sciphp.org/ndarray.trapz}
- * @method int|float|\SciPhp\NdArray sum(null|int $axis, bool $keepdims) Sum all elements. {@link http://sciphp.org/ndarray.sum}
+ * @method int|float|\SciPhp\NdArray sum(int|null $axis, bool $keepdims) Sum all elements. {@link http://sciphp.org/ndarray.sum}
  * @method \SciPhp\NdArray subtract(\SciPhp\NdArray|array|float|int $input) Subtract input from matrix. {@link http://sciphp.org/ndarray.subtract}
  * @method \SciPhp\NdArray multiply(\SciPhp\NdArray|array|float|int $input) Multiply matrix by a given input, element-wise. {@link http://sciphp.org/ndarray.multiply}
  * @method \SciPhp\NdArray copysign(\SciPhp\NdArray|array|float|int $m) Change the sign to that of given matrix, element-wise. {@link http://sciphp.org/ndarray.copysign}
@@ -48,7 +50,7 @@ abstract class Decorator implements ArrayAccess, IndexInterface
      *
      * @return mixed
      */
-    final public function __call(string $name, array $arguments = null)
+    final public function __call(string $name, ?array $arguments = null)
     {
         return np::$name($this, ...$arguments);
     }
