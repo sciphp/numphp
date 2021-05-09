@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp\Mathematical;
 
 /**
@@ -24,7 +26,7 @@ trait TrigonometricTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function (&$element): void {
             $element = cos($element);
         };
 
@@ -48,7 +50,7 @@ trait TrigonometricTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function (&$element): void {
             $element = sin($element);
         };
 
@@ -57,7 +59,7 @@ trait TrigonometricTrait
 
     /**
      * Compute tangent element-wise.
-     * 
+     *
      * Equivalent to np::sin(x)->divide(np::cos(x)) element-wise.
      *
      * @param  \SciPhp\NdArray|array|int|float $m
@@ -74,7 +76,7 @@ trait TrigonometricTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function (&$element): void {
             $element = tan($element);
         };
 

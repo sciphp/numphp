@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use RecursiveArrayIterator;
@@ -16,7 +18,7 @@ trait FloatTrait
 {
     /**
      * Returns element-wise true where signbit is set (less than zero).
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @return \SciPhp\NdArray|bool
      * @link http://sciphp.org/numphp.signbit Documentation
@@ -30,7 +32,7 @@ trait FloatTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function (&$element): void {
             $element = $element < 0;
         };
 
@@ -39,7 +41,7 @@ trait FloatTrait
 
     /**
      * Change the sign of m-element to that of n-element, element-wise.
-     * 
+     *
      * @param  \SciPhp\NdArray|array|int|float $m
      * @param  \SciPhp\NdArray|array|int|float $n
      * @return \SciPhp\NdArray|int|float
@@ -49,7 +51,7 @@ trait FloatTrait
     final public static function copysign($m, $n)
     {
         if (static::allNumeric($m, $n)) {
-            return np::signbit($m) == np::signbit($n)
+            return np::signbit($m) === np::signbit($n)
                 ? $m : -$m;
         }
 
@@ -71,8 +73,8 @@ trait FloatTrait
         Assert::isInstanceof($m, NdArray::class);
         Assert::isInstanceof($n, NdArray::class);
 
-        // n & m are vectors: 
-        if (count($m->shape) == 1 && $m->ndim == $n->ndim) {
+        // n & m are vectors:
+        if (count($m->shape) === 1 && $m->ndim === $n->ndim) {
             Assert::eq($m->shape, $n->shape, Message::MAT_NOT_ALIGNED);
         }
 
@@ -98,7 +100,7 @@ trait FloatTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator, $n) {
+        $func = static function(&$item) use (&$iterator, $n): void {
             if (np::signbit($item) !== np::signbit($n->iterate($iterator))) {
                 $item = -$item;
             }

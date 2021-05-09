@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use Webmozart\Assert\Assert;
@@ -26,7 +28,7 @@ trait LogarithmTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) use ($base) {
+        $func = static function(&$element) use ($base): void {
             Assert::greaterThan($element, 0);
 
             $element = log($element, $base);

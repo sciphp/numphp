@@ -22,7 +22,7 @@ trait AttributeTrait
      *
      * @param mixed $value
      */
-    final public function __set(string $name, $value)
+    final public function __set(string $name, $value): ?self
     {
         switch ($name) {
             case 'shape':
@@ -70,5 +70,8 @@ trait AttributeTrait
         return 0;
     }
 
+    /**
+     * @param array|int|float $data
+     */
     abstract protected function getShape($data, array $shape): array;
 }

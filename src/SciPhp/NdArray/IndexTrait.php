@@ -43,8 +43,6 @@ trait IndexTrait
      * @param int|string $index
      *
      * @param int|string $value
-     *
-     * @return \SciPhp\NdArray
      */
     final public function offsetSet($index, $value): NdArray
     {
@@ -66,13 +64,12 @@ trait IndexTrait
      * Get values from an element or a range
      *
      * @param array $filter
-     * @param int $index
      * @param array $data
      * @return int|float|array $value
      */
     final protected function filterGet(array $filter, int $index, ?array &$data = null)
     {
-        if (!isset($filter['start'][$index])) {
+        if (! isset($filter['start'][$index])) {
             return $data;
         }
 
@@ -96,31 +93,31 @@ trait IndexTrait
      * Assign values to an element or a range
      *
      * @param array $filter
-     * @param int $index
      * @param array $data
      * @param int|float $value
      */
-    final protected function filterSet(array $filter, int $index, ?array &$data = null, $value = null)
+    final protected function filterSet(array $filter, int $index, ?array &$data = null, $value = null): void
     {
-        if (!isset($filter['start'][$index])) {
-            return array_walk_recursive(
+        if (! isset($filter['start'][$index])) {
+            array_walk_recursive(
                 $data,
                 static function (&$item) use ($value): void {
                     $item = $value;
                 }
             );
+
+            return;
         }
 
         [$start, $stop] = $this->filterRange($filter, $index, count($data));
 
         array_walk(
             $data,
-            function (&$item, $key) use ($filter, $index, $value, $start, $stop) {
+            function (&$item, $key) use ($filter, $index, $value, $start, $stop): void {
                 if ($key >= $start && $key <= $stop) {
                     if (\is_array($item)) {
-                        $this->filterSet($filter, $index+1, $item, $value);
-                    }
-                    else {
+                        $this->filterSet($filter, $index + 1, $item, $value);
+                    } else {
                         $item = $value;
                     }
                 }
@@ -138,7 +135,7 @@ trait IndexTrait
         array_walk(
             $matches,
             static function ($item, $key) use (&$filter): void {
-                if (!is_int($key)) {
+                if (! is_int($key)) {
                     $filter[$key] = $item;
                 }
             }
@@ -153,7 +150,7 @@ trait IndexTrait
                     $index = sprintf(
                             '%s%s%s%s',
                             $value,
-                            $filter['col'] [$key],
+                            $filter['col'][$key],
                             $filter['stop'][$key],
                             $filter['comma'][$key]
                     );
@@ -165,12 +162,12 @@ trait IndexTrait
                 }
 
                 if ($value !== ''
-                    || $filter['col'] [$key] !== ''
+                    || $filter['col'][$key] !== ''
                     || $filter['stop'][$key] !== ''
                     || $filter['comma'][$key] !== ''
                 ) {
                     $params['start'][] = intval($value);
-                    $params['col']  [] = $filter['col'][$key];
+                    $params['col'][] = $filter['col'][$key];
 
                     if ($filter['col'][$key] === ':') {
                         $stop = $filter['stop'][$key] !== ''
@@ -180,7 +177,7 @@ trait IndexTrait
                         $stop = intval($value);
                     }
 
-                    $params['stop'] [] = $stop;
+                    $params['stop'][] = $stop;
                     $params['comma'][] = $filter['comma'][$key];
                 }
             }
@@ -198,7 +195,7 @@ trait IndexTrait
     {
         // eq. '-1' '-1,' '-1:-1,' '-2:-1,'
         if ($filter['start'][$index] < 0) {
-            $filter['start'][$index] = $count + $filter['start'][$index] ;
+            $filter['start'][$index] = $count + $filter['start'][$index];
         }
 
         // all, eq. ','    ':,' '0:0,'
@@ -214,7 +211,7 @@ trait IndexTrait
         Assert::range($start, 0, $count - 1);
 
         if ($filter['stop'][$index] === 'max') {
-            $filter['stop'][$index]  = $count - 1;
+            $filter['stop'][$index] = $count - 1;
         }
 
         // eq. ':-1,' '2:-2,'

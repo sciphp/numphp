@@ -54,7 +54,7 @@ final class Formatter
             $data = $array->data;
             array_splice(
                 $data,
-                intval(ceil($this->maxRows/2)),
+                intval(ceil($this->maxRows / 2)),
                 count($data) - $this->maxRows,
                 [ array_pad([], count($data[0]), '...') ]
             );
@@ -71,7 +71,7 @@ final class Formatter
 
                 if ($negative) {
                     $length++;
-                    if (!$this->negative) {
+                    if (! $this->negative) {
                         $this->negative = true;
                     }
                 }
@@ -79,7 +79,8 @@ final class Formatter
                 if ($length > $this->maxColSize) {
                     $this->maxColSize = $length;
                 }
-        });
+            }
+        );
     }
 
     /**
@@ -128,7 +129,6 @@ final class Formatter
      * Format a number with column sizing
      *
      * @param mixed $number
-     * @param bool  $last
      */
     private function formatNumber($number, bool $last): string
     {
@@ -156,7 +156,7 @@ final class Formatter
         }
 
         return $last
-            ? sprintf("%-{$this->maxColSize}s"  , $representation)
+            ? sprintf("%-{$this->maxColSize}s", $representation)
             : sprintf("%-{$this->maxColSize}s  ", $representation);
     }
 

@@ -42,7 +42,7 @@ trait VisitorTrait
     final public function iterate(RecursiveIteratorIterator &$iterator)
     {
         while ($iterator->valid()) {
-            if (!is_array($iterator->current())) {
+            if (! is_array($iterator->current())) {
                 $value = $iterator->current();
 
                 $key = $iterator->key();
@@ -68,11 +68,12 @@ trait VisitorTrait
     /**
      * Execute axis operations and return an aggregate
      *
+     * @param int|float $number
      * @return int|NdArray
      */
     final public function axis(callable $func, $number = null, bool $keepdims = false)
     {
-        if (!\is_null($number)) {
+        if (! \is_null($number)) {
             Assert::integer(
                 $number,
                 'Axis number must be an integer. Given: %s'
@@ -95,12 +96,11 @@ trait VisitorTrait
             Assert::lessThanEq(
                 $this->ndim,
                 2,
-                "Axis implementation does not support dimension > 2"
-                . 'Given: %s'
+                'Axis implementation does not support dimension > 2. Given: %s'
             );
         }
 
-        $fn = function(&$value, $key) use ($func, $number): void {
+        $fn = function (&$value, $key) use ($func, $number): void {
             $index = $number === 0
                 ? ": , {$key}"
                 : "{$key}, :";
@@ -127,7 +127,7 @@ trait VisitorTrait
         }
 
         return np::zeros($this->shape[$this->ndim - 1 - $number])
-                 ->walk($fn)
-                 ->reshape(...$targetShape);
+            ->walk($fn)
+            ->reshape(...$targetShape);
     }
 }

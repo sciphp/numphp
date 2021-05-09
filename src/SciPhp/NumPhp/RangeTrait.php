@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use SciPhp\NdArray;
@@ -23,9 +25,8 @@ trait RangeTrait
     {
         Assert::numeric($start);
 
-        if (null === $end)
-        {
-            $end     = $start > 0 ? $start : 0;
+        if (is_null($end)) {
+            $end = $start > 0 ? $start : 0;
             $start = $start > 0 ? 0 : $start;
         }
 
@@ -33,38 +34,31 @@ trait RangeTrait
         Assert::notEq($step, 0);
         Assert::numeric($step);
 
-        if ($end < $start && $step == 1)
-        {
+        if ($end < $start && $step === 1) {
             $step = -1;
         }
 
-        if ($start == $end)
-        {
+        if ($start === $end) {
             return static::ar([]);
         }
 
-        if ($step < 0)
-        {
+        if ($step < 0) {
             Assert::greaterThan($start, $end);
-            if ($start + $step < $end)
-            {
+            if ($start + $step < $end) {
                 return static::ar([$start]);
             }
-            $end = $end - $step;
-        }
-        else
-        {
+            $end -= $step;
+        } else {
             Assert::greaterThan($end, $start);
 
-            if ($end < $start + $step)
-            {
+            if ($end < $start + $step) {
                 return static::ar([$start]);
             }
-            $end = $end - $step;
+            $end -= $step;
         }
 
         return static::ar(
-                range($start, $end, $step)
+            range($start, $end, $step)
         );
     }
 
@@ -92,18 +86,20 @@ trait RangeTrait
 
         $step = $end - $start;
 
-        if ($num == 0) {
-            return !$retstep
+        if ($num === 0) {
+            return ! $retstep
                 ? static::ar([])
                 : [static::ar([]), null];
-        } elseif ($endpoint && $num == 1) {
+        }
+
+        if ($endpoint && $num === 1) {
             $start = $end;
-        } elseif (!$endpoint && $num == 1) {
+        } elseif (! $endpoint && $num === 1) {
             $end = $start;
         } elseif ($endpoint) {
             $step = ($end - $start) / ($num - 1);
             $end = $start + $num * $step;
-        } elseif (!$endpoint) {
+        } elseif (! $endpoint) {
             $step = ($end - $start) / $num;
 
             // workaround because sometimes when $step is a float
@@ -112,13 +108,13 @@ trait RangeTrait
         }
 
         // range with same number
-        if ($start == $end) {
-            return !$retstep
+        if ($start === $end) {
+            return ! $retstep
                 ? static::ar(array_fill(0, $num, $start))
                 : [static::ar(array_fill(0, $num, $start)), $step];
         }
 
-        return !$retstep
+        return ! $retstep
             ? static::ar(
                     array_slice(
                         range($start, $end, $step), 0, $num
@@ -128,7 +124,9 @@ trait RangeTrait
                         array_slice(
                             range($start, $end, $step), 0, $num
                         )
-                    ), $step];
+                ),
+                $step
+            ];
     }
 
     /**
@@ -147,7 +145,7 @@ trait RangeTrait
      */
     final public static function logspace($start, $end, $num = 50, $endpoint = true, $base = 10): NdArray
     {
-        $func = function(&$item) use ($base) {
+        $func = static function (&$item) use ($base): void {
             $item = pow($base, $item);
         };
 

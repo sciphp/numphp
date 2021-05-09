@@ -32,7 +32,7 @@ trait ArithmeticTrait
             Assert::notEq(0, $input);
 
             return $this->copy()->walk_recursive(
-                function(&$item) use ($input) {
+                static function (&$item) use ($input): void {
                     $item /= $input;
                 }
             );
@@ -55,7 +55,7 @@ trait ArithmeticTrait
     {
         if (is_numeric($input)) {
             return $this->copy()->walk_recursive(
-                function(&$item) use ($input) {
+                static function (&$item) use ($input): void {
                     $item *= $input;
                 }
             );
@@ -67,7 +67,7 @@ trait ArithmeticTrait
     /**
      * Add a matrix or a number
      *
-     * @param  NdArray|array|float|int $value
+     * @param NdArray|array|float|int $input
      *
      * @link http://sciphp.org/ndarray.add
      *    Documentation for add() method
@@ -78,14 +78,13 @@ trait ArithmeticTrait
     {
         if (is_numeric($input)) {
             return $this->walk_recursive(
-                function(&$item) use ($input) {
+                static function (&$item) use ($input): void {
                     $item += $input;
                 }
             );
         }
 
-        if (\is_array($input))
-        {
+        if (\is_array($input)) {
             $input = np::ar($input);
         }
 
@@ -94,23 +93,19 @@ trait ArithmeticTrait
         Assert::oneOf($input->ndim, [1, 2]);
 
         // vector + vector
-        if ($this->ndim === 1 && $this->ndim === $input->ndim)
-        {
+        if ($this->ndim === 1 && $this->ndim === $input->ndim) {
             Assert::eq($this->shape, $input->shape, Message::MAT_NOT_ALIGNED);
         }
         // vector + array
-        elseif ($this->ndim === 1 && $input->ndim === 2)
-        {
+        elseif ($this->ndim === 1 && $input->ndim === 2) {
             Assert::eq($this->shape[0], $input->shape[1], Message::MAT_NOT_ALIGNED);
         }
         // array + vector
-        elseif ($input->ndim === 1 && $this->ndim === 2)
-        {
+        elseif ($input->ndim === 1 && $this->ndim === 2) {
             Assert::eq($this->shape[1], $input->shape[0], Message::MAT_NOT_ALIGNED);
         }
         // array + array
-        else
-        {
+        else {
             Assert::eq($this->shape, $input->shape, Message::MAT_NOT_ALIGNED);
         }
 
@@ -123,7 +118,7 @@ trait ArithmeticTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator) {
+        $func = function (&$item) use (&$iterator): void {
             $item += $this->iterate($iterator);
         };
 

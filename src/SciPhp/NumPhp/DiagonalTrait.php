@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
-use SciPhp\NdArray;
 use SciPhp\Exception\Message;
+use SciPhp\NdArray;
 use Webmozart\Assert\Assert;
 
 /**
@@ -63,7 +65,7 @@ trait DiagonalTrait
         Assert::greaterThan($rows, 0);
         Assert::greaterThanEq($cols, 0);
 
-        if (0 === $cols) {
+        if ($cols === 0) {
             $cols = $rows;
         }
 
@@ -71,7 +73,7 @@ trait DiagonalTrait
             ? array_fill(0, $cols, 1)
             : array_fill(0, $rows, 1);
 
-        $col  = $k > 0 ?  $k : 0;
+        $col = $k > 0 ? $k : 0;
 
         return static::ar(
             array_map(
@@ -96,7 +98,7 @@ trait DiagonalTrait
 
         Assert::oneOf($m->ndim, [1, 2], 'Dimension must be 1 or 2. Given %s');
 
-        if ($m->ndim == 1) {
+        if ($m->ndim === 1) {
             return self::fromDiagonal($m->data, $k);
         }
 
@@ -119,13 +121,13 @@ trait DiagonalTrait
 
         Assert::oneOf($m->ndim, [1, 2]);
 
-        $col  = $k > 0 ?  $k : 0;
+        $col = $k > 0 ? $k : 0;
         $line = $k < 0 ? -$k : 0;
 
         return static::ar(
             array_reduce(
                 $m->data,
-                function($diag) use (&$line, &$col, $m) {
+                static function($diag) use (&$line, &$col, $m): array {
                     if (isset($m->data[$line], $m->data[$line][$col])) {
                         $diag[] = $m->data[$line++][$col++];
                     }
@@ -162,10 +164,10 @@ trait DiagonalTrait
      */
     final protected static function fromDiagonal(array $diagonal, $k): NdArray
     {
-        $col    = $k > 0 ?  $k : 0;
+        $col = $k > 0 ? $k : 0;
 
         $height = $width = count($diagonal);
-        $height+= $k < 0 ? -$k : 0;
+        $height += $k < 0 ? -$k : 0;
         $width += $col;
 
         return static::ar(
@@ -185,7 +187,7 @@ trait DiagonalTrait
      */
     final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1): callable
     {
-        return function($item) use (&$line, &$col, $diagonal, $k) {
+        return static function($item) use (&$line, &$col, $diagonal, $k) {
             if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {
                 $item[$col] = $diagonal[$col - $k];
                 $col++;

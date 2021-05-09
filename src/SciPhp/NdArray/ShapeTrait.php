@@ -25,7 +25,7 @@ trait ShapeTrait
     {
         array_walk_recursive(
             $this->data,
-            static function($item) use (&$stack): void {
+            static function ($item) use (&$stack): void {
                 $stack[] = $item;
             }
         );
@@ -46,7 +46,7 @@ trait ShapeTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator): void {
+        $func = function (&$item) use (&$iterator): void {
             $item = $this->iterate($iterator);
         };
 
@@ -85,7 +85,7 @@ trait ShapeTrait
      */
     final protected function getShape($data, array $shape): array
     {
-        if (!\is_array($data) || !count($data)) {
+        if (! \is_array($data) || ! count($data)) {
             return $shape;
         }
 

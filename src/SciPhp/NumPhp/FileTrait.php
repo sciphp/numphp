@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use SciPhp\NdArray;
@@ -37,18 +39,19 @@ trait FileTrait
             $options
         );
 
-        if (($handle = fopen($file, "r")) !== false) {
+        $handle = fopen($file, "r");
+        if ($handle !== false) {
             $row = 0;
             $num = 0;
 
-            while (false !== ($data = fgetcsv($handle, 2048, $options['delimiter']))) {
-                if ($row == 0) {
+            while (($data = fgetcsv($handle, 2048, $options['delimiter'])) !== false) {
+                if ($row === 0) {
                     $num = count($data);
                 }
 
                 Assert::eq($num, count($data));
 
-                if ($options['headers'] && $row == 0) {
+                if ($options['headers'] && $row === 0) {
                     // skip headers
                     $options['headers'] = false;
                 } else {

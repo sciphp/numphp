@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use RecursiveArrayIterator;
@@ -128,24 +130,24 @@ trait ArithmeticTrait
         $shape_n = $n->shape;
 
         // n & m are vectors:
-        if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
+        if (count($shape_m) === 1 && $m->ndim === $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         // n is a vector
-        elseif (!isset($shape_n[1])) {
+        elseif (! isset($shape_n[1])) {
             Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
         }
 
         // m is a vector
-        elseif (!isset($shape_m[1])) {
+        elseif (! isset($shape_m[1])) {
             Assert::eq($shape_m[0], $shape_n[1], Message::MAT_NOT_ALIGNED);
 
             $m = $m->resize($shape_n);
         }
 
         // array / array -> broadcast
-        elseif ($m->ndim === $n->ndim && $shape_m[0]==$shape_n[0] && $shape_m[1] > $shape_n[1]) {
+        elseif ($m->ndim === $n->ndim && $shape_m[0] === $shape_n[0] && $shape_m[1] > $shape_n[1]) {
             $n = static::broadcast_to($n, $shape_m);
         }
 
@@ -159,7 +161,7 @@ trait ArithmeticTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator, $n) {
+        $func = static function (&$item) use (&$iterator, $n): void {
             Assert::notEq(0, $value = $n->iterate($iterator));
             $item /= $value;
         };
@@ -204,17 +206,17 @@ trait ArithmeticTrait
         $shape_n = $n->shape;
 
         // n & m are vectors:
-        if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
+        if (count($shape_m) === 1 && $m->ndim === $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
         }
 
         // n is a vector
-        elseif (!isset($shape_n[1])) {
+        elseif (! isset($shape_n[1])) {
             Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
         }
 
         // m is a vector
-        elseif (!isset($shape_m[1])) {
+        elseif (! isset($shape_m[1])) {
             Assert::eq($shape_m[0], $shape_n[1], Message::MAT_NOT_ALIGNED);
 
             $m = $m->resize($shape_n);
@@ -230,7 +232,7 @@ trait ArithmeticTrait
             RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        $func = function(&$item) use (&$iterator, $n) {
+        $func = static function (&$item) use (&$iterator, $n): void {
             $item *= $n->iterate($iterator);
         };
 
@@ -267,19 +269,19 @@ trait ArithmeticTrait
         }
 
         // array.array
-        Assert::isInstanceof($m, 'SciPhp\NdArray');
-        Assert::isInstanceof($n, 'SciPhp\NdArray');
+        Assert::isInstanceof($m, NdArray::class);
+        Assert::isInstanceof($n, NdArray::class);
 
         $shape_m = $m->shape;
         $shape_n = $n->shape;
 
         // n & m are vectors:
-        if (count($shape_m) == 1 && $m->ndim == $n->ndim) {
+        if (count($shape_m) === 1 && $m->ndim === $n->ndim) {
             Assert::eq($shape_m, $shape_n, Message::MAT_NOT_ALIGNED);
 
             return array_sum(
                 array_map(
-                    function($el_m, $el_n) {
+                    static function ($el_m, $el_n) {
                         return $el_m * $el_n;
                     },
                     $m->data,
@@ -289,7 +291,7 @@ trait ArithmeticTrait
         }
 
         // n is a vector
-        if (!isset($shape_n[1])) {
+        if (! isset($shape_n[1])) {
             Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
             return static::zeros($shape_m[0], 1)
@@ -298,17 +300,17 @@ trait ArithmeticTrait
                         $m,
                         $n->reshape($shape_n[0], 1)
                     )
-                ) ->reshape($shape_m[0]);
+                )->reshape($shape_m[0]);
         }
 
         // m is a vector
-        if (!isset($shape_m[1])) {
+        if (! isset($shape_m[1])) {
             Assert::eq($shape_m[0], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
-            $callback = function(&$item, $k_m) use ($m, $n) {
+            $callback = static function (&$item, $k_m) use ($m, $n): void {
                 $item = array_sum(
                     array_map(
-                        function($el_n, $el_m) {
+                        static function($el_n, $el_m) {
                             return $el_n * $el_m;
                         },
                         $m->data,
@@ -323,37 +325,33 @@ trait ArithmeticTrait
         Assert::eq($shape_m[1], $shape_n[0], Message::MAT_NOT_ALIGNED);
 
         return static::zeros($shape_m[0], $shape_n[1])->walk(
-                         self::rowDot($m, $n)
+            self::rowDot($m, $n)
         );
     }
 
     /**
      * Browse p rows
-     *
-     * @param  \SciPhp\NdArray $m
-     * @param  \SciPhp\NdArray $n
      */
     final protected static function rowDot(NdArray $m, NdArray $n): callable
     {
-        return function(&$row, $row_m) use ($m, $n) {
-            array_walk($row, self::colDot($row_m, $m, $n));
+        return static function (&$row, $row_m) use ($m, $n): void {
+            array_walk(
+                $row,
+                self::colDot($row_m, $m, $n)
+            );
         };
     }
 
     /**
      * Browse p cols and sum products
-     *
-     * @param  \SciPhp\NdArray $m
-     * @param  \SciPhp\NdArray $n
-     * @return \Closure
      */
-    final protected static function colDot($row_m, NdArray $m, NdArray $n)
+    final protected static function colDot($row_m, NdArray $m, NdArray $n): callable
     {
         // row_m * col_n
-        return function(&$item, $col_m) use ($row_m, $m, $n) {
+        return static function (&$item, $col_m) use ($row_m, $m, $n): void {
             $item = array_sum(
                 array_map(
-                    function($el_m, $row_n) use ($col_m) {
+                    static function ($el_m, $row_n) use ($col_m) {
                         return $el_m * $row_n[$col_m];
                     },
                     $m->data[$row_m],

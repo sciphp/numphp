@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
-use Webmozart\Assert\Assert;
 use SciPhp\Exception\Message;
+use Webmozart\Assert\Assert;
 
 /**
  * Exponent methods
@@ -26,7 +28,7 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function(&$element): void {
             $element = exp($element);
         };
 
@@ -49,7 +51,7 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function(&$element): void {
             $element = expm1($element);
         };
 
@@ -72,7 +74,7 @@ trait ExponentTrait
 
         static::transform($m, true);
 
-        $func = function(&$element) {
+        $func = static function(&$element): void {
             $element = 2 ** $element;
         };
 
@@ -98,8 +100,8 @@ trait ExponentTrait
 
         static::transform($matrix, true);
 
-        $func = function(&$element) use ($exponent) {
-            $element = $element ** $exponent;
+        $func = static function(&$element) use ($exponent): void {
+            $element **= $exponent;
         };
 
         return $matrix->copy()->walk_recursive($func);
@@ -147,7 +149,7 @@ trait ExponentTrait
 
         static::transform($matrix, true);
 
-        $func = function(&$element) {
+        $func = static function(&$element): void {
             Assert::greaterThanEq(
                 $element,
                 0,

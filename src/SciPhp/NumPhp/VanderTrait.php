@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use SciPhp\NdArray;
@@ -21,7 +23,9 @@ trait VanderTrait
     {
         static::transform($matrix, true);
 
-        $num = null === $num ? count($matrix->data) : $num;
+        $num = is_null($num)
+            ? count($matrix->data)
+            : $num;
 
         Assert::integer($num);
         Assert::greaterThan($num, 0);
@@ -43,9 +47,9 @@ trait VanderTrait
      */
     final protected static function itemVander(int $num): callable
     {
-        return function($row, $value) use ($num) {
+        return static function ($row, $value) use ($num): array {
             return array_map(
-                function($key) use ($value, $num) {
+                static function($key) use ($value, $num) {
                     return pow($value, $num - $key - 1);
                 },
                 array_keys($row)

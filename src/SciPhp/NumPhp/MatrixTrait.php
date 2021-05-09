@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use SciPhp\NdArray;
@@ -19,8 +21,8 @@ trait MatrixTrait
     {
         static::transform($m, true);
 
-        return $m->ndim == 2
-            && $m->shape[0] == $m->shape[1];
+        return $m->ndim === 2
+            && $m->shape[0] === $m->shape[1];
     }
 
     /**
@@ -65,7 +67,7 @@ trait MatrixTrait
 
         return static::ar(
             array_map(
-                function() use ($m, &$row) {
+                static function() use ($m, &$row): array {
                     return array_column($m->data, $row++);
                 },
                 $m->data[$row = 0]

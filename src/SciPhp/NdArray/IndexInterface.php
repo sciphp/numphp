@@ -17,7 +17,7 @@ interface IndexInterface
     /**
      * Index pattern for parsing
      */
-    public const IDX_PAT_PARSE  = '/\s*
+    public const IDX_PAT_PARSE = '/\s*
           (?P<start>-?\d+)?\s*
           (?P<col>:)      ?\s*
           (?P<stop>-?\d+) ?\s*

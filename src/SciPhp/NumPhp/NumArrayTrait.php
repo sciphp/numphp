@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhp\NumPhp;
 
 use SciPhp\Exception\Message;
-use Webmozart\Assert\Assert;
 use SciPhp\NdArray;
+use Webmozart\Assert\Assert;
 
 trait NumArrayTrait
 {
@@ -182,15 +184,15 @@ trait NumArrayTrait
         self::can_broadcast_to($matrix, $shape);
 
         // 1 dim -> 2 dim
-        if ($matrix->ndim == 1) {
+        if ($matrix->ndim === 1) {
             return $matrix->resize($shape);
         }
 
         $m = self::zeros($shape);
 
         $row = 0;
-        $func = function ($value) use (&$m, &$row) {
-            $m["$row, :"] = $value;
+        $func = static function ($value) use (&$m, &$row): void {
+            $m["{$row}, :"] = $value;
             $row++;
         };
 
@@ -223,20 +225,23 @@ trait NumArrayTrait
         $shape_m = $m->shape;
         $m_index = $m->ndim;
 
-        for ($i = count($shape) - 1; $i >= 0; $i--) {
+        $countShape = count($shape) - 1;
+        for ($i = $countShape; $i >= 0; $i--) {
             $m_index--;
-            if (!isset($shape_m[$m_index])) {
+            if (! isset($shape_m[$m_index])) {
                 continue;
-            } elseif ($shape[$i] == $shape_m[$m_index]) {
+            }
+            if ($shape[$i] === $shape_m[$m_index]) {
                 continue;
-            } elseif ($shape_m[$m_index] == 1) {
+            }
+            if ($shape_m[$m_index] === 1) {
                 continue;
             }
 
             $message = sprintf(
                 Message::ARRAYS_BROADCAST_IMPOSSIBLE,
-                trim(static::ar($m->shape)),
-                trim(static::ar($shape))
+                trim(strval(static::ar($m->shape))),
+                trim(strval(static::ar($shape)))
             );
 
             throw new \InvalidArgumentException($message);
