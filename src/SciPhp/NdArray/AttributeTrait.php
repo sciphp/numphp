@@ -22,13 +22,14 @@ trait AttributeTrait
      *
      * @param mixed $value
      */
-    final public function __set(string $name, $value): ?self
+    final public function __set(string $name, $value): void
     {
         switch ($name) {
             case 'shape':
-                return $this->__construct(
+                $this->__construct(
                     $this->reshape($value)->data
                 );
+                break;
             default:
                 throw new InvalidAttributeException(static::class, $name);
         }

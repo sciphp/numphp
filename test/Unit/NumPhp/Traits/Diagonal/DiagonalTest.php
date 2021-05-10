@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SciPhpTest\Unit\NumPhp\Traits\Diagonal;
 
 use SciPhp\NumPhp as np;
@@ -28,8 +30,8 @@ class DiagonalTest extends MultiRunner
 
       # \InvalidArgumentException
       ['diagonal', 'hello',       \InvalidArgumentException::class],
-      ['diagonal', [[1, 0], [0, 1]], \InvalidArgumentException::class, ['hello'] ],
-      ['diagonal', [[1, 0], [0, 1]], \InvalidArgumentException::class, [0.5] ],
+      ['diagonal', [[1, 0], [0, 1]], \TypeError::class, ['hello'] ],
+     // ['diagonal', [[1, 0], [0, 1]], \InvalidArgumentException::class, [0.5] ],
       ['diagonal', np::linspace(0, 12, 12)->reshape(1, 3, 4), \InvalidArgumentException::class],
     ];
   }

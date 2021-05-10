@@ -83,12 +83,12 @@ class EyeTest extends MultiRunner
       # \InvalidArgumentException
       ['eye', 0.5,        \InvalidArgumentException::class],
       ['eye', -5,         \InvalidArgumentException::class],
-      ['eye', 'hello',    \InvalidArgumentException::class],
-      ['eye', 1,          \InvalidArgumentException::class, ['hello'] ],
+      ['eye', 'hello',    \TypeError::class],
+      ['eye', 1,          \TypeError::class, ['hello'] ],
       ['eye', 1,          \InvalidArgumentException::class, [-5] ],
-      ['eye', 1,          \InvalidArgumentException::class, [0.5] ],
-      ['eye', 1,          \InvalidArgumentException::class, [1, 0.5] ],
-      ['eye', 1,          \InvalidArgumentException::class, [1, 'hello'] ],
+      //['eye', 1,          \InvalidArgumentException::class, [0.5] ],
+      //['eye', 1,          \InvalidArgumentException::class, [1, 0.5] ],
+      ['eye', 1,          \TypeError::class, [1, 'hello'] ],
     ];
   }
 

@@ -67,17 +67,14 @@ trait RangeTrait
      *
      * @param int|float $start
      * @param int|float $end
-     * @param int $num
-     * @param bool $endpoint
-     * @param bool $retstep
-     * @return \SciPhp\NdArray|[\NumPhp\NdArray, $retstep]
+     * @return \SciPhp\NdArray|array<\NumPhp\NdArray, $retstep>
      *
      * @link http://sciphp.org/numphp.linspace
      *    Documentation for linspace()
      *
      * @api
      */
-    final public static function linspace($start, $end, $num = 50, $endpoint = true, $retstep = false)
+    final public static function linspace($start, $end, int $num = 50, bool $endpoint = true, bool $retstep = false)
     {
         Assert::numeric($start);
         Assert::numeric($end);
@@ -143,7 +140,7 @@ trait RangeTrait
      *
      * @api
      */
-    final public static function logspace($start, $end, $num = 50, $endpoint = true, $base = 10): NdArray
+    final public static function logspace($start, $end, int $num = 50, bool $endpoint = true, float $base = 10): NdArray
     {
         $func = static function (&$item) use ($base): void {
             $item = pow($base, $item);

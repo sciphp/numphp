@@ -24,17 +24,18 @@ trait DiagonalTrait
      * @todo Implement axis supports
      * @api
      */
-    final public static function trace($m, $k = 0)
+    final public static function trace($m, int $k = 0)
     {
         static::transform($m, true);
 
-        return array_sum( static::diagonal($m, $k)->data );
+        return array_sum(
+            static::diagonal($m, $k)->data
+        );
     }
 
     /**
      * Construct an identity array
      *
-     * @param  int $n
      * @throws \InvalidArgumentException
      * @link http://sciphp.org/numphp.identity Documentation
      * @todo implement Assert::natural()
@@ -57,7 +58,7 @@ trait DiagonalTrait
      * @link http://sciphp.org/numphp.eye Documentation
      * @api
      */
-    final public static function eye($rows, $cols = 0, $k = 0): NdArray
+    final public static function eye(int $rows, int $cols = 0, int $k = 0): NdArray
     {
         Assert::integer($rows);
         Assert::integer($cols);
@@ -113,7 +114,7 @@ trait DiagonalTrait
      * @link http://sciphp.org/numphp.diagonal Documentation
      * @api
      */
-    final public static function diagonal($m, $k = 0): NdArray
+    final public static function diagonal($m, int $k = 0): NdArray
     {
         Assert::integer($k, 'Offset must be an integer. Given %s.');
 
@@ -143,11 +144,10 @@ trait DiagonalTrait
      * as a diagonal.
      *
      * @param  mixed $m An array to flatten
-     * @param  int $k
      * @link http://sciphp.org/numphp.diagflat Documentation
      * @api
      */
-    final public static function diagflat($m, $k = 0): NdArray
+    final public static function diagflat($m, int $k = 0): NdArray
     {
         Assert::integer($k);
 
@@ -160,9 +160,8 @@ trait DiagonalTrait
      * Construct a diagonal array
      *
      * @param  array $diagonal
-     * @param  int $k
      */
-    final protected static function fromDiagonal(array $diagonal, $k): NdArray
+    final protected static function fromDiagonal(array $diagonal, int $k): NdArray
     {
         $col = $k > 0 ? $k : 0;
 
@@ -185,7 +184,7 @@ trait DiagonalTrait
      * @param  array $diagonal
      * @param  int   $k    Offset
      */
-    final protected static function itemFromDiagonal($col, array $diagonal, $k, $line = 1): callable
+    final protected static function itemFromDiagonal($col, array $diagonal, int $k, int $line = 1): callable
     {
         return static function($item) use (&$line, &$col, $diagonal, $k) {
             if ($k >= 0 && isset($item[$col], $diagonal[$col - $k])) {

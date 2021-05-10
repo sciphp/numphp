@@ -10,7 +10,7 @@ class MultiRunner extends TestCase
 {
     /**
      * Test equality for a method
-     * 
+     *
      * @param string $type
      * @param string $method
      * @param mixed $input
@@ -34,7 +34,7 @@ class MultiRunner extends TestCase
 
     /**
      * Switch between expected returns
-     * 
+     *
      * @param string|object $type
      * @param string $method
      * @param mixed $input
@@ -48,6 +48,10 @@ class MultiRunner extends TestCase
             $m = new $type($input);
             $m->$method(...$params);
 
+        }elseif (\TypeError::class === $expected) {
+            $this->expectException(\TypeError::class);
+            $m = new $type($input);
+            $m->$method(...$params);
         // Instanciate with $input and pass $params to the tested method
         } elseif (is_string($type)) {
             $m = new $type($input);
@@ -69,7 +73,7 @@ class MultiRunner extends TestCase
 
     /**
      * Test equality for a static method
-     * 
+     *
      * @param string $type
      * @param string $method
      * @param mixed $input
@@ -91,7 +95,7 @@ class MultiRunner extends TestCase
 
     /**
      * Static switch between expected returns
-     * 
+     *
      * @param string $type
      * @param string $method
      * @param array $params
@@ -103,6 +107,10 @@ class MultiRunner extends TestCase
 
         if (InvalidArgumentException::class === $expected) {
             $this->expectException(InvalidArgumentException::class);
+
+            $m = $ref->invokeArgs(null, $params);
+        } elseif (\TypeError::class === $expected) {
+            $this->expectException(\TypeError::class);
 
             $m = $ref->invokeArgs(null, $params);
         } else {

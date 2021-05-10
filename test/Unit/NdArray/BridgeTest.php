@@ -1,6 +1,6 @@
 <?php
 
-namespace SciPhpTest\Unit\NdArray\Traits\Operation;
+namespace SciPhpTest\Unit\NdArray;
 
 use SciPhpTest\Unit\MultiRunner;
 use SciPhp\NdArray;
@@ -54,7 +54,7 @@ class BridgeTest extends MultiRunner
 
             // --- log() ---
             'log:1-dim' => ['log', [1, 2, 4], [0, 0.69314718055995, 1.3862943611199]],
-            'log:2-dim' => ['log', [[1, 2, 4], [4, 2, 1]], [[0, 0.69314718055995, 1.3862943611199], 
+            'log:2-dim' => ['log', [[1, 2, 4], [4, 2, 1]], [[0, 0.69314718055995, 1.3862943611199],
                                                             [1.3862943611199, 0.69314718055995, 0]]],
             'log:1-dim exact values' => ['log', [1, M_E, M_E ** 2, M_E ** 3], [0, 1, 2, 3]],
             'log:2-dim base 100'     => ['log', np::ar([1, 100, 100 ** 2])->vander()->data, [[0, 0, 0],
@@ -81,8 +81,8 @@ class BridgeTest extends MultiRunner
 
             # \InvalidArgumentException
             'trace:3-dim' => ['trace', [[[1, 2], [3, 4]]],\InvalidArgumentException::class],
-            'trace:2-dim float offset' => ['trace', [[1, 2], [3, 4]],  \InvalidArgumentException::class, [0.5] ],
-            'trace:2-dim string offset' => ['trace', [[1, 2], [3, 4]],  \InvalidArgumentException::class, ['hello'] ],
+            'trace:2-dim float offset' => ['trace', [[1, 2], [3, 4]],  \TypeError::class, [0.5] ],
+            'trace:2-dim string offset' => ['trace', [[1, 2], [3, 4]],  \TypeError::class, ['hello'] ],
 
             // --- copysign() ---
             'copysign:vector lambda' => ['copysign', [1, 0, -1], [-1, 0, -1], [ -1 ]],
@@ -160,11 +160,11 @@ class BridgeTest extends MultiRunner
 
             // --- expm1() ---
             'expm1:1-dim'  => ['expm1', [0, 1], [0, 1.718281828459]],
-            'expm1:2-dim'  => ['expm1', [[0, 1], [1, 0]], [[0, 1.718281828459],   [1.718281828459, 0]] ],   
+            'expm1:2-dim'  => ['expm1', [[0, 1], [1, 0]], [[0, 1.718281828459],   [1.718281828459, 0]] ],
 
             // --- exp() ---
             'exp:1-dim'  => ['exp', [0, 1], [1, 2.71828182846]],
-            'exp:2-dim'  => ['exp', [[0, 1], [1, 0]], [[1, 2.71828182846], [2.71828182846, 1]] ], 
+            'exp:2-dim'  => ['exp', [[0, 1], [1, 0]], [[1, 2.71828182846], [2.71828182846, 1]] ],
 
             // --- sqrt() ---
             'sqrt:1-dim'  => ['sqrt', [0, 1], [0, 1]                                    ],

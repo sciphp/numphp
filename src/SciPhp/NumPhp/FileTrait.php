@@ -39,7 +39,7 @@ trait FileTrait
             $options
         );
 
-        $handle = fopen($file, "r");
+        $handle = fopen($file, 'r');
         if ($handle !== false) {
             $row = 0;
             $num = 0;

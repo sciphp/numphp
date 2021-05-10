@@ -21,7 +21,7 @@ class LinspaceTest extends MultiRunner
       ['linspace', 1 , [], [100, 0]       ],
       // endpoint = start
       ['linspace', 10 , [10, 10, 10, 10, 10], [10, 5]       ],
-      
+
       // with return=true scenarios
       // 5 values including endpoint
       ['linspace', 2, [new NdArray([2., 2.25, 2.5, 2.75, 3.]), 0.25], [3, 5, true, true]  ],
@@ -38,8 +38,8 @@ class LinspaceTest extends MultiRunner
 
       # \InvalidArgumentException
       ['linspace', 'hello',   \InvalidArgumentException::class, ['1']         ],
-      ['linspace', 2,         \InvalidArgumentException::class, ['hello']     ], 
-      ['linspace', 5,         \InvalidArgumentException::class, [6, 'hello']  ], 
+      ['linspace', 2,         \InvalidArgumentException::class, ['hello']     ],
+      ['linspace', 5,         \TypeError::class, [6, 'hello']  ],
       ['linspace', 5,         \InvalidArgumentException::class, [6, -5]  ]
     ];
   }
